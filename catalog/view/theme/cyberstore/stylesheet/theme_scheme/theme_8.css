@@ -1,0 +1,112 @@
+.ms-price .ms-price-cont {
+  background: #5E8866;
+}
+.h-type-2 .btn-search-select {
+  background:#2B2D42;
+}
+.h-type-2 .h-type-2-sb #search .categories {
+  background: #333651;
+}
+
+.feedback_widget_button {
+    background-color: #BD9C58 !important;
+}
+#top-fixed-mobile .btn.btn-menu-mobile,
+.btn-menu {
+  background-color: #BD9C58;
+}
+#top-fixed-mobile {
+  background-color: #2B2D42;
+}
+#top-fixed-mobile .btn.btn-menu-info {
+    background: #333651;
+}
+#horizontal-menu .navbar-nav > li:hover > a,
+#additional-menu .nav > li:hover > a, #additional-menu .nav > li.open > a {
+  color: #A88743;
+}
+#menu.open-mob .btn-menu, #menu.open .btn-menu, .btn-menu:hover, .btn-menu:focus, .btn-menu.focus, .btn-menu:active, .btn-menu.active, .btn-menu.disabled, .btn-menu[disabled] {
+  background-color: #A88743;
+}
+.dop-menu-header #additional-menu .nav > li > a:hover {
+  color: #A88743;
+}
+.h-type-2 .h-type-2-sb #search .input-lg::placeholder,
+footer,
+footer a {
+  color:#8F909B;
+}
+.h-type-2 .r-h-box .box-search,
+footer .fdesc_fmap,
+.h-type-2 .h-type-2-sb #search .input-lg
+.menu-header-box.h-type-1, .menu-header-box.h-type-2,
+footer.type-footer-2 .footer-copyright-payment,
+footer.type-footer-1 .footer-copyright-payment,
+footer .footer-top {
+  background: #2B2D42;
+}
+footer.type-footer-2 .newsletter .form-control, footer.type-footer-2 .newsletter .form-control:focus {
+  background: #333651;
+  border-color: #333651;
+}
+footer.type-footer-2 .icon-newsletter i {
+  color: #ffffff;
+}
+
+.btn-search {
+    background-color: #5E8866;
+}
+.btn-search:hover, .btn-search:active {
+  background-color: #4C7854;
+}
+
+.h-type-2 .h-type-2-sb #search .button_search,
+.h-type-2 .h-type-2-sb #search .input-lg {
+  background: #333651;
+}
+.h-type-2 .search-mob-box:hover,
+.h-type-2 .btn-account-menu:hover,.h-type-2 .compare-h:hover, .h-type-2 .wishlist-h:hover,.h-type-2 .shopping-cart:hover {
+  background: #333651;
+}
+.h-type-2 .r-h-box #search .input-lg:focus{background:#fff;}
+.h-type-1 #wishlist-total span, .h-type-1 #compare-total span, .h-type-1 .type_cart #cart > .btn .cart-total .products b,
+.h-type-2 #wishlist-total span, .h-type-2 #compare-total span, .h-type-2 .type_cart #cart > .btn .cart-total .products b {
+  background: #BD9C58;
+}
+
+.btn-general {
+  background-color: #5E8866;
+}
+.btn-general:focus,.btn-general:hover, .btn-general:active{
+  background-color:#4C7854 !important;
+}
+footer .btn-newsletter,
+footer.type-footer-1 .btn-newsletter {
+  background: #5E8866;
+  border-color: #5E8866;
+}
+footer .btn-newsletter:hover, footer .btn-newsletter:active{background:#4C7854;border-color: #4C7854;}
+
+
+.btn-primary:focus, .btn-primary:focus, .btn-primary,
+#popup-found-cheaper .btn-found-cheaper:focus, #popup-found-cheaper .btn-found-cheaper,
+.btn-quickorder, .btn-quickorder-one,
+.btn-checkout,
+#popup-callback .btn-callback:focus, #popup-callback .btn-callback,
+#login-form-popup .btn-login:focus, #login-form-popup .btn-login {
+  background-color: #BD9C58 !important;
+}
+
+.btn-primary:hover, .btn-primary:active, .btn-primary.active, .btn-primary.active:focus, .btn-primary:active:focus, .btn-primary.disabled, .btn-primary[disabled],
+#popup-found-cheaper .btn-found-cheaper:hover, #popup-found-cheaper .btn-found-cheaper:active,
+.btn-quickorder:hover, .btn-quickorder:focus, .btn-quickorder-one:hover, .btn-quickorder-one:focus,
+.btn-checkout:hover, .btn-checkout:active,
+#popup-callback .btn-callback:hover, #popup-callback .btn-callback:active,
+#login-form-popup .btn-login:hover, #login-form-popup .btn-login:active {
+  background-color: #A88743 !important;
+}
+
+.h-type-2 .dflex .box-cart::before,
+footer.type-footer-1 .footer-copyright-payment .dflex-fcp::before {
+  background: #454656;
+}

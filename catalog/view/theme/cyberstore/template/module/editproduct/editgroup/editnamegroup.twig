@@ -1,0 +1,52 @@
+<div id="popup-editor-product">
+	<div class="title-editor">{{ entry_name }}</div>
+	  <form class="form-horizontal" id="form-product-name" enctype="multipart/form-data" method="post">
+		<div class="form-group">
+		    <div class="col-sm-12">
+				{% for language in languages %} 
+				<div class="input-group"><span class="input-group-addon">{% if (VERSION < 2.2) %}<img src="admin/view/image/flags/{{ language['image'] }}" title="{{ language['name'] }}" />{% else %}<img src="admin/language/{{ language['code'] }}/{{ language['code'] }}.png" title="{{ language['name'] }}" />{% endif %}</span>
+					 <input type="text" name="product_description[{{ language['language_id'] }}][name]" value="{{ product_description[language['language_id']] is defined ? product_description[language['language_id']]['name'] : '' }}" id="input-name{{ language['language_id'] }}" class="form-control" />
+				</div>
+             {% endfor %} 
+            </div>
+		</div>
+	  </form>
+<div class="text-right">
+	<button onclick="$('.popup_banner').popup('hide'); groupEditorRefresh();" class="btn-editor btn-cancel-editor" type="button">{{ button_cancel }}</button>
+	<button onclick="saveGroupEditor();" data-loading-text="{{ text_loading_editor }}" class="btn-editor btn-save-editor" type="button">{{ button_save }}</button>
+</div>
+<script type="text/javascript">
+function saveGroupEditor() {	
+	$.ajax({
+		url: 'index.php?route=module/editproduct/editgroup/productGroupNameChange&token={{ token }}',
+		type: 'post',
+		dataType: 'json',
+		data: $('.editor-group-checked-product input.group-editor-checkbox[type=\'checkbox\']:checked, #form-product-name input[type=\'text\']'),
+		beforeSend: function() {
+			$('#popup-editor-product .btn-save-editor').button('loading');
+			$('#form-product-name').prepend('<div id="loading_img_svg"></div>');
+			$('#form-product-name').css('opacity',0.5);
+			loading_img_svg(true);
+		},
+		complete: function() {
+			loading_img_svg(false);
+			$('#popup-editor-product .btn-save-editor').button('reset');
+			$('#form-product-name').css('opacity',1);
+		},
+		success: function(json) {
+		$('#popup-editor-product .alert.alert-danger, #popup-editor-product .alert.alert-success').remove();
+			if (json['warning']) {
+				$('#form-product-name').before('<div class="alert alert-danger"><i class="fa fa-check-circle"></i> ' + json['warning'] + '</div>');	
+			}
+			if (json['success']) {
+				$('#form-product-name').before('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');			
+				
+				setTimeout(function(){
+					location.reload(true);										
+				}, 500)
+			}
+		}
+	});
+}
+</script>
+</div>

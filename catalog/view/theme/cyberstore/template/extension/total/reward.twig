@@ -1,0 +1,51 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="panel-title"><a href="#collapse-reward" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion">{{ heading_title }}
+    	<svg xmlns="http://www.w3.org/2000/svg" width="7" height="5" fill="none" viewBox="0 0 7 5">
+	      <path fill="#000" fill-rule="evenodd" d="M3.174 2.856a.5.5 0 00.707-.004L6.144.562a.5.5 0 01.712.704L4.592 3.555a1.5 1.5 0 01-2.121.012L.148 1.27A.5.5 0 11.852.559l2.322 2.297z" clip-rule="evenodd"></path>
+	    </svg>
+    </a></div>
+  </div>
+  <div id="collapse-reward" class="panel-collapse collapse">
+    <div class="panel-body">
+      <label class="control-label" for="input-reward">{{ entry_reward }}</label>
+      <div class="input-group">
+        <input type="text" name="reward" value="{{ reward }}" placeholder="{{ entry_reward }}" id="input-reward" class="form-control" />
+        <span class="input-group-btn">
+        <input type="submit" value="{{ button_reward }}" id="button-reward" data-loading-text="{{ text_loading }}"  class="btn btn-primary" />
+        </span></div>
+      <script type="text/javascript"><!--
+$('#button-reward').on('click', function() {
+	$.ajax({
+		url: 'index.php?route=extension/total/reward/reward',
+		type: 'post',
+		data: 'reward=' + encodeURIComponent($('input[name=\'reward\']').val()),
+		dataType: 'json',
+		beforeSend: function() {
+			$('#button-reward').button('loading');
+		},
+		complete: function() {
+			$('#button-reward').button('reset');
+		},
+		success: function(json) {
+			$('.alert-dismissible').remove();
+
+			if (json['error']) {
+				$('.breadcrumb').after('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+
+				$('html, body').animate({ scrollTop: 0 }, 'slow');
+			}
+
+			if (json['redirect']) {
+				location = json['redirect'];
+			}
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+	});
+});
+//--></script>
+    </div>
+  </div>
+</div>

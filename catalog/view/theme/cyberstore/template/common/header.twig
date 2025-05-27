@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html dir="{{ direction }}" lang="{{ lang }}">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>{{ title }}</title>
+<base href="{{ base }}" />
+{% if (description) %}
+<meta name="description" content="{{ description }}" />
+{% endif %}
+{% if (keywords) %}
+<meta name="keywords" content= "{{ keywords }}" />
+{% endif %}
+<meta property="og:title" content="{{ title }}" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="{{ home_page }}" />
+<meta property="og:image" content="{{ og_image is not empty ? og_image : logo }}" />
+<meta property="og:site_name" content="{{ name }}" />
+{% for link in links %}
+<link href="{{ link['href'] }}" rel="{{ link['rel'] }}" />
+{% endfor %}
+{% if (theme_fonts == 'open-sans') %}
+<link rel="preload" href="catalog/view/theme/cyberstore/stylesheet/fonts/open-sans-regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="catalog/view/theme/cyberstore/stylesheet/fonts/open-sans-medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+{% else %}
+<link rel="preload" href="catalog/view/theme/cyberstore/stylesheet/fonts/Montserrat-Regular.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="catalog/view/theme/cyberstore/stylesheet/fonts/Montserrat-Medium.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+<link rel="preload" href="catalog/view/theme/cyberstore/stylesheet/fonts/Montserrat-Bold.woff2" as="font" type="font/woff2" crossorigin="anonymous">
+{% endif %}
+<link rel="preload" href="catalog/view/theme/cyberstore/font-awesome/fonts/fontawesome-webfont.woff2?v=4.7.0" as="font" type="font/woff2" crossorigin="anonymous">
+{% if (cs_type_btn is defined and (cs_type_btn == 3) or (cs_type_btn == 4)) %}
+{% if (bg_product_image is defined and (bg_product_image == '1')) %}
+<style>
+@media (min-width: 992px) {
+.container-module .product-thumb .btn-quickview,
+.container-module .product-thumb .btn-fastorder,
+.container-module .product-thumb .btn-compare,
+.container-module .product-thumb .btn-wishlist,
+.product-grid .product-thumb .btn-quickview,
+.product-grid .product-thumb .btn-fastorder,
+.product-grid .product-thumb .btn-compare,
+.product-grid .product-thumb .btn-wishlist {
+	box-shadow: 1px 1px 16px -3px rgba(0, 0, 0, 0.16);
+	background: #ffffff;
+}
+}
+</style>
+{% endif %}
+{% endif %}
+{{ csscyberstore }}
+{% if (minifycss) %}
+{% for style in styles %}
+<link href="{{ style['href'] }}" rel="{{ style['rel'] }}" media="{{ style['media'] }}" />
+{% endfor %}
+{% endif %}
+{% if (config_ns_themes_custom_bg_mode != 'off') %}
+	{% if (config_themes_custom_bg_img_preview) %}
+		<style>.content-box-cs {background: #fff;-webkit-box-shadow: 0px 0px 2px rgba(0,0,0,0.15);box-shadow: 0px 0px 2px rgba(0,0,0,0.15);padding-top:10px;padding-bottom:10px;margin-top:7px;border-radius:2px;}.mtopm10 {margin-top:-10px;}
+		body {background:url('image/{{ config_themes_custom_bg_img_preview }}'){% if (config_themes_custom_bg_repeat) %} {{ config_themes_custom_bg_repeat }} {% endif %} {% if (config_themes_custom_bg_attachment) %} {{ config_themes_custom_bg_attachment }} {% endif %} {% if (config_themes_custom_bg_position) %} {{ config_themes_custom_bg_position }} {% endif %};}</style>
+	{% endif %}
+	{% if (config_ns_themes_custom_bg_mode_color != '') %}
+		<style>.content-box-cs {background: #fff;-webkit-box-shadow: 0px 0px 2px rgba(0,0,0,0.15);box-shadow: 0px 0px 2px rgba(0,0,0,0.15);padding-top:10px;padding-bottom:10px;margin-top:7px;border-radius:2px;}.mtopm10 {margin-top:-10px;}
+		body {background-color: {{ config_ns_themes_custom_bg_mode_color }};}</style>
+	{% endif %}
+{% else %}
+<style>.content-box-cs {padding-left:0px;padding-right:0px;}</style>
+{% endif %}
+{% if (config_on_off_shopping_cart_hover == '1') %}
+<style>
+#cart:hover .dropdown-menu{display:block; }
+</style>
+{% endif %}
+{% if (nst_data['header_bg_mode'] is defined and (nst_data['header_bg_mode'] == '1')) %}
+	{% if (nst_data['header_bg_img']) %}
+		<style>header {background:url('image/{{ nst_data['header_bg_img'] }}'){% if (nst_data['header_bg_repeat']) %} {{ nst_data['header_bg_repeat'] }} {% endif %} {% if (nst_data['header_bg_position']) %} {{ nst_data['header_bg_position'] }} {% endif %};}</style>
+	{% endif %}
+{% elseif (nst_data['header_bg_mode'] is defined and (nst_data['header_bg_mode'] == '0')) %}
+	{% if (nst_data['header_bg_mode_color'] != '') %}
+		<style>header {background-color: {{ nst_data['header_bg_mode_color'] }};}</style>
+	{% endif %}
+{% endif %}
+{% if (nst_data['defaut_display_view'] is defined) %}
+<script>
+if (localStorage.getItem('display') === null) {
+localStorage.setItem('display', '{{ nst_data['defaut_display_view'] }}');
+}
+</script>
+{% endif %}
+{% if (site_screen_width is defined and (site_screen_width == 2)) %}
+<style>
+@media (min-width: 1330px){
+	.container{width:1300px;}
+	{% if (type_header == 2) %}
+	.h-type-2 #menu {width:calc(100% - 105px);}
+	.h-type-2 .h-type-2-sb .box-search {margin-left: -97px;z-index:999;}
+	.h-type-2 .menu-list-dropdown {width:calc(100% + 105px);}
+	.cont-mw.h-type-2 .dflex .box-search {margin-left: -87px;z-index:999;}
+	.cont-mw.h-type-2 .menu-list-dropdown {width:calc(100% + 105px);}
+	{% endif %}
+}
+</style>
+{% endif %}
+{% if (type_header == 2) %}
+<style>
+@media (min-width: 992px) {
+	.h-type-2 .r-h-box.w-auto {width: auto;}
+	.h-type-2 #menu {width:calc(100% - 26px);}
+	.h-type-2 .h-type-2-sb .box-search {margin-left: -15px;z-index:6;}
+	.h-type-2 .h-type-2-st .dop-menu-box {margin-left: -10px;z-index:999; padding-left: 0px;padding-right: 0px;}
+	.h-type-2 .menu-list-dropdown {width:calc(100% + 42px);}
+	.cont-mw.h-type-2 #menu {width:calc(100% - 32px);}
+	.cont-mw.h-type-2 .dflex .box-search {margin-left: -15px;z-index:6;}
+	.cont-mw.h-type-2 .menu-list-dropdown {width:calc(100% + 32px);}
+}
+@media (min-width: 1200px) {
+	.h-type-2 #menu {width:calc(100% - 75px);}
+	.cont-mw.h-type-2 #menu {width:calc(100% - 75px);}
+	.h-type-2 .h-type-2-sb .box-search {margin-left: -65px;z-index:999;}
+	.h-type-2 .h-type-2-st .dop-menu-box {margin-left: -65px;z-index:999;}
+	.h-type-2 #menu .menu-list-dropdown {width:calc(100% + 75px);}
+	.cont-mw.h-type-2 .dflex .box-search {margin-left: -55px;z-index:999;}
+}
+</style>
+{% endif %}
+{% if (site_screen_width is defined and (site_screen_width == 3)) %}
+<style>
+@media (min-width: 1500px){
+	#grid-view4.btn-view {display: block;}
+	.container{width:1470px;}
+	header .col-md-3.logo-top {width:20%;}
+	.h-type-1 .phone-box.col-lg-2 {width: 20.66666667%;}
+	.h-type-1 .dop-menu-box {width: 80%;}
+	.phone-box.col-lg-push-5 {left: 42.66666667%;}
+	.col-md-3.menu-box {width:20%;}
+	.breadcrumb.col-lg-offset-3, .breadcrumb.col-md-offset-3 {margin-left: 20.4%;}
+	.container .sw-80 {width: 80%;}
+	.container .sw-20 {width: 20%;}
+	#content.col-md-9 {width: 80%;}
+	#column-left.col-md-3,#column-right.col-md-3{ width:20%;}
+	.box-search.col-lg-pull-2 {right: 24.66666667%;}
+	#menu #menu-list .box-col-3 {width: calc(1450px - 100%);}
+	{% if (type_header == 2) %}
+	.h-type-2 .phone-box.col-lg-push-6 {left: 60%;}
+	.h-type-2 .dop-menu-header.col-lg-pull-3 {right: 20%;}
+	.cont-mw.h-type-2 #menu {width:calc(100% - 80px);}
+	.cont-mw.h-type-2 .dflex .box-search {margin-left: -60px;z-index:999;}
+	.cont-mw.h-type-2 .menu-list-dropdown {width:calc(100% + 80px);}
+	.h-type-2 .r-h-box {width: 80%;}
+	{% endif %}
+}
+</style>
+{% endif %}
+<style>
+{% if (status_border_radius is not defined or (status_border_radius == '0')) %}
+* {border-radius:0px !important;}
+{% endif %}
+{% if (setting_module['mobile_qrp'] is defined and (setting_module['mobile_qrp'] == '1')) %}
+@media (max-width: 768px) {
+.product-thumb .actions div.cart .btn span.text-cart-add {display:none;}
+.product-thumb .actions div.cart .btn i.fa-lock {width:18px;}
+}
+{% endif %}
+{% if (config_change_color_icon_sticker_popular is not empty) %}.sticker-ns.popular .fa{ color:{{ config_change_color_icon_sticker_popular }} }{% endif %}
+{% if (config_change_background_sticker_popular is not empty) %}.sticker-ns.popular{background: {{ config_change_background_sticker_popular }};}	{% endif %}
+{% if (config_change_color_text_sticker_popular is not empty) %}.sticker-ns.popular{color:{{ config_change_color_text_sticker_popular }}; }{% endif %}
+{% if (config_change_color_icon_sticker_special is not empty) %}.sticker-ns.special .fa{ color:{{ config_change_color_icon_sticker_special }} }{% endif %}
+{% if (config_change_color_text_sticker_special is not empty) %}.sticker-ns.special { color:{{ config_change_color_text_sticker_special }}; }{% endif %}
+{% if (config_change_background_sticker_special is not empty) %}.sticker-ns.special { background: {{ config_change_background_sticker_special }};}{% endif %}
+{% if (config_change_color_icon_sticker_topbestseller is not empty) %}.sticker-ns.bestseller .fa{ color:{{ config_change_color_icon_sticker_topbestseller }} }{% endif %}
+{% if (config_change_color_text_sticker_topbestseller is not empty) %}.sticker-ns.bestseller { color:{{ config_change_color_text_sticker_topbestseller }}; }{% endif %}
+{% if (config_change_background_sticker_topbestseller is not empty) %}.sticker-ns.bestseller { background: {{ config_change_background_sticker_topbestseller }};}{% endif %}
+{% if (config_change_color_icon_sticker_newproduct is not empty) %}.sticker-ns.newproduct .fa{ color:{{ config_change_color_icon_sticker_newproduct }} }{% endif %}
+{% if (config_change_color_text_sticker_newproduct is not empty) %}.sticker-ns.newproduct{ color:{{ config_change_color_text_sticker_newproduct }}; }{% endif %}
+{% if (config_change_background_sticker_newproduct is not empty) %}.sticker-ns.newproduct{ background: {{ config_change_background_sticker_newproduct }};}{% endif %}
+{% if (cs_type_btn is defined and (cs_type_btn == 2)) %}
+@media (min-width: 992px) {
+.product-thumb .caption .pq-box {
+	margin-bottom: 15px;
+}
+.product-thumb .caption {
+	transform: translateY(55px);
+	margin-top: -55px;
+	transition:all ease-in-out 0.2s;
+}
+.product-thumb:hover > .caption {
+	background:rgba(255,255,255,0.85);
+	transform: translateY(0px);
+}
+.row_items .product-thumb .caption {
+	margin-top:0px;
+	transform: unset;
+}
+.row_items .product-thumb:hover .caption {
+	transform: unset;
+}
+.product-list .product-thumb .caption {
+	transform: unset;
+	margin-top:0px;
+}
+.row_items .product-thumb .caption .pq-box,
+.product-list .product-thumb .caption .pq-box {
+	margin-bottom: auto;
+}
+.category-page .product-price .product-thumb .caption {
+	transform: unset;
+	margin-top:0px;
+}
+.category-page .product-price .product-thumb:hover .caption {
+	margin-top:0px;
+	padding-bottom:0px !important;
+	transform: unset;
+}
+.product-list .product-thumb:hover .caption {
+	transform: unset;
+	margin-top:0px;
+}
+.product-thumb:hover .quickview{
+	top:-45px;
+}
+}
+{% endif %}
+{% if (cs_type_btn is defined and (cs_type_btn == 3)) %}
+@media (min-width: 992px) {
+.product-thumb .quickview {
+	margin-right: 0px;
+}
+.product-thumb:hover .quickview {
+	top:-42px;
+}
+.category-page .product-list .product-thumb:hover .quickview{
+	top:0px;
+}
+.addit-action{
+	z-index: 15;
+}
+.addit-action > div {
+	margin-right: 10px;
+}
+.btn-general {
+	padding-left: 15px;
+	padding-right: 15px;
+}
+.product-price .btn-general,
+.product-list .btn-general{
+	padding: 7px 8px;
+}
+.btn-general .text-cart-add {
+	display: inherit;
+}
+.addit-action {
+	position: absolute;
+	top: 10px;
+	justify-content: center;
+	left: 0px;
+	right: 0px;
+	opacity: 0;
+	transition: 0.1s linear;
+}
+.product-thumb:hover .addit-action{opacity: 1;top:-29px;}
+.product-price .addit-action{justify-content: start;}
+.product-price .btn-general .text-cart-add,
+.product-list .btn-general .text-cart-add {
+	display: none;
+}
+.product-price .addit-action > div,
+.product-list .addit-action > div {
+	box-shadow: none;
+	margin-right: 4px;
+}
+.product-price .addit-action,
+.product-list .addit-action{opacity:1;top:0px;background-color: transparent;position: relative;}
+
+.product-price .product-thumb:hover .addit-action,
+.product-list .product-thumb:hover .addit-action{opacity:1;top:0px;background-color: transparent;position: relative;}
+
+.row_items .addit-action, .row_items .addit-action{opacity:1;top:0px;background-color: transparent;position: relative;}
+.row_items .product-thumb:hover .addit-action, .row_items .product-thumb:hover .addit-action{opacity:1;top:0px;background-color: transparent;position: relative;}
+}
+{% endif %}
+{% if (cs_type_btn is defined and (cs_type_btn == 4)) %}
+.product-thumb .actions {
+	flex-direction: row-reverse;
+	width: 36px;
+	margin-left: auto;
+}
+.actions div.cart {
+	margin-right: 0px;
+}
+@media (min-width: 992px) {
+.product-thumb .quickview {
+	position: relative;
+	top:0px !important;
+	transition:none;
+	opacity: 1;
+}
+.product-thumb .btn-quickview {
+	width: 34px;
+	padding: 7px 8px;
+}
+.product-thumb .btn-quickview .text-cart-quickview {
+	display: none;
+}
+.addit-action{
+	z-index: 15;
+}
+.addit-action > div {
+	margin-right: 10px;
+}
+.addit-action {
+	position: absolute;
+	top: 10px;
+	justify-content: center;
+	left: 0px;
+	right: 0px;
+	opacity: 0;
+	transition: 0.1s linear;
+}
+.pq-box {
+	width: calc(100% - 44px);
+	margin-bottom: -34px;
+}
+.product-thumb .actions {
+	align-self: flex-end;
+	margin-top: 0px;
+}
+.product-thumb:hover .addit-action{opacity: 1;top:-29px;}
+.product-price .addit-action{justify-content: start;}
+.product-price .addit-action > div,
+.product-list .addit-action > div {
+	box-shadow: none;
+	margin-right: 4px;
+}
+.product-price .addit-action,
+.product-list .addit-action{opacity:1;top:0px;background-color: transparent;position: relative;}
+
+.product-price .product-thumb:hover .addit-action,
+.product-list .product-thumb:hover .addit-action{opacity:1;top:0px;background-color: transparent;position: relative;}
+
+.row_items .addit-action, .row_items .addit-action{opacity:1;top:0px;background-color: transparent;position: relative;}
+.row_items .product-thumb:hover .addit-action, .row_items .product-thumb:hover .addit-action{opacity:1;top:0px;background-color: transparent;position: relative;}
+}
+{% endif %}
+{% if (item_setting['prod_name_align'] is defined and (item_setting['prod_name_align'] == 2)) %}.product-thumb .product-name {text-align:left;}{% endif %}
+{% if (item_setting['prod_name_align'] is defined and (item_setting['prod_name_align'] == 3)) %}.product-thumb .product-name {text-align:right;}{% endif %}
+{% if (item_setting['model_align'] is defined and (item_setting['model_align'] == 2)) %}.product-thumb .product-model {text-align:left;}{% endif %}
+{% if (item_setting['model_align'] is defined and (item_setting['model_align'] == 3)) %}.product-thumb .product-model {text-align:right;}{% endif %}
+{% if (item_setting['rating_align'] is defined and (item_setting['rating_align'] == 1)) %}.product-thumb .rating {text-align:left;} .product-thumb .rating .rating-box{padding-left:0px;justify-content: center;}{% endif %}
+{% if (item_setting['rating_align'] is defined and (item_setting['rating_align'] == 3)) %}.product-thumb .rating {text-align:right;margin-bottom: 10px;} .product-thumb .rating .rating-box{padding-right:0px;justify-content: flex-end;}{% endif %}
+{% if (item_setting['reverse_btn'] is defined and (item_setting['reverse_btn'] == 1)) %}.actions div.cart {margin-right: 0px;} .product-thumb .actions {flex-direction: row-reverse;}{% endif %}
+{% if (item_setting['title_mod'] is defined and (item_setting['title_mod'] == 2)) %}
+.container-module .title-module, .container-module-productany .title-module, .categorywall-container .title-module{text-align:center;}
+.container-module .title-module span, .container-module-productany .title-module span, .categorywall-container .title-module span {padding-right:0px;}
+.container-module .title-module:after, .container-module-productany .title-module:after, .categorywall-container .title-module:after {left: calc(50% - 75px);width: 150px;}
+{% endif %}
+{% if (bg_product_image is defined and (bg_product_image == '1')) %}
+.product-thumb .image a:after {
+	content: '';
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0,26,52,.015);
+}
+#column-right .container-module .product-thumb .image a:after, #column-left .container-module .product-thumb .image a:after, .position-no-owl .container-module .product-thumb .image a:after {
+	background-color: transparent;
+}
+{% endif %}
+</style>
+{% if (nst_data['page_mobile_qrp'] is defined and (nst_data['page_mobile_qrp'] == '1')) %}
+{% if (deviceType == 'phone') %}
+<script>localStorage.setItem('display', 'grid');</script>
+<style>@media (max-width: 768px) {.category-page {margin-left:-5px; margin-right:-5px;}.category-page .product-grid {width:50%;float:left;padding-right:5px;padding-left:5px;{{ '}}' }}</style>
+{% endif %}
+{% endif %}
+<script>
+function init(elem, options){
+elem.addClass('countdownHolder');
+$.each(['Days','Hours','Minutes','Sec'],function(i){
+var clas;
+if (this=='Days') {clas="{{ days }}";}
+if (this=='Hours') {clas="{{ hours }}";}
+if (this=='Minutes') {clas="{{ minutes }}";}
+if (this=='Sec') {clas="{{ sec }}";}
+out_timer = "";
+out_timer += '<span class="count'+this+'">';
+out_timer += '<span class="num-time">';
+out_timer += '<span class="position"><span class="digit static">0</span></span>';
+out_timer += '<span class="position"><span class="digit static">0</span></span>';
+out_timer += '</span>';
+out_timer += '<span class="time_productany">'+clas+'</span>';
+out_timer += '</span>';
+$(out_timer).appendTo(elem);
+});
+}
+var button_shopping = "{{ button_shopping }}";
+var button_checkout = "{{ button_checkout }}";
+var link_checkout = "{{ checkout }}";
+var link_onepcheckout = "{{ onepcheckout }}";
+var text_showmore = '{{ text_showmore}}';
+var color_schem = '{{ color_schem}}';
+var loading_masked_img = '<img src="catalog/view/theme/cyberstore/image/ring-alt-1.svg" />';
+</script>
+{{ jscyberstore }}
+{% if (minifyjs) %}
+{% for script in scripts %}
+<script src="{{ script }}"></script>
+{% endfor %}
+{% else %}
+{% if (script_remote_servers is not empty) %}
+{% for srs in script_remote_servers %}
+<script src="{{ srs }}"></script>
+{% endfor %}
+{% endif %}
+{% endif %}
+{% for analytic in analytics %}
+{{ analytic }}
+{% endfor %}
+{% if (hbannerpc[lang_id]['image'] is defined) %}<style>.htop-b-pc img {margin:0 auto;}</style>{% endif %}
+{% if (hbannermob[lang_id]['image'] is defined and (hbannermob[lang_id]['image'] != '')) %}<style>.htop-b-mob img {margin:0 auto;}
+{% if (main_menu_fix_mobile is defined and (main_menu_fix_mobile == 1)) %}.htop-b-mob{padding-top:46px;}{% endif %}
+{% if (main_menu_fix_mobile is defined and (main_menu_fix_mobile == 1)) %}header.pad-top{padding-top:5px;}{% endif %}</style>{% endif %}
+</head>
+<body class="{{ class }}">
+{% if (hbannerpc[lang_id]['image'] is defined and (hbannerpc[lang_id]['image'] != '')) %}
+<div class="htop-b-pc hidden-xs hidden-sm" {% if (nst_data['hbannerpc'][lang_id]['bg'] is defined and (nst_data['hbannerpc'][lang_id]['bg'] != '')) %}style="background:{{ nst_data['hbannerpc'][lang_id]['bg'] }}"{% endif %}>
+<a href="{{ nst_data['hbannerpc'][lang_id]['link'] is not empty ? nst_data['hbannerpc'][lang_id]['link'] : 'javascript:void(0)' }}">
+	<img {% if (cs_hbannerpc_width) %}width="{{ cs_hbannerpc_width }}"{% endif %}{% if (cs_hbannerpc_height) %} height="{{ cs_hbannerpc_height }}"{% endif %} src="{{ hbannerpc[lang_id]['image'] }}" alt="" class="img-responsive" />
+</a>
+</div>
+{% endif %}
+{% if (hbannermob[lang_id]['image'] is defined and (hbannermob[lang_id]['image'] != '')) %}
+<div class="htop-b-mob visible-xs visible-sm" {% if (nst_data['hbannermob'][lang_id]['bg'] is defined and (nst_data['hbannermob'][lang_id]['bg'] != '')) %}style="background:{{ nst_data['hbannermob'][lang_id]['bg'] }}"{% endif %}>
+<a href="{{ nst_data['hbannermob'][lang_id]['link'] is not empty ? nst_data['hbannermob'][lang_id]['link'] : 'javascript:void(0)' }}">
+	<img {% if (cs_hbannermob_width) %}width="{{ cs_hbannermob_width }}"{% endif %}{% if (cs_hbannermob_height) %} height="{{ cs_hbannermob_height }}"{% endif %} src="{{ hbannermob[lang_id]['image'] }}" class="img-responsive" />
+</a>
+</div>
+{% endif %}
+<p id="back-top"><a rel="nofollow" class="btn btn-scroll-top" href="#top"><svg xmlns="http://www.w3.org/2000/svg" width="17" height="10" fill="none" viewBox="0 0 17 10"><path fill="#000" fill-rule="evenodd" d="M9.016 3.553a1.003 1.003 0 00-1.481.01L2.793 8.668a1.003 1.003 0 01-1.482.009A1.167 1.167 0 011.303 7.1l4.742-5.106c1.22-1.315 3.21-1.327 4.444-.027l4.867 5.124c.411.434.415 1.14.008 1.578a1.003 1.003 0 01-1.482.009L9.016 3.553z" clip-rule="evenodd"></path></svg></a></p>
+<nav id="top" {% if (main_menu_fix_mobile is defined and (main_menu_fix_mobile == 1)) %}class="visible-md visible-lg"{% endif %}>
+  <div class="container">
+  {% if (header_nav_menu_links is not empty) %}
+	<div class="pull-left">
+		<div class="btn-group box-question">
+			<button data-toggle="dropdown" type="button" class="visible-xs visible-sm btn btn-link"><i class="fa fa-bars" aria-hidden="true"></i></button>
+			<ul class="dropdown-menu dropdown-menu-left header-nav-links cs-dropdown">
+				{% for header_nav_menu_link in header_nav_menu_links %}
+					<li><button {% if ((header_nav_menu_link['popup'] == '1') and (header_nav_menu_link['link'] != '')) %} onclick="$('.side-collapse').toggleClass('in'); banner_link_open('{{ header_nav_menu_link['link'] }}')" {% elseif ((header_nav_menu_link['popup'] == '0') and (header_nav_menu_link['link'] != '')) %}onclick="location='{{ header_nav_menu_link['link'] }}'" {% endif %} type="button" class="btn btn-link">{% if (header_nav_menu_link['icon_image'] is not empty) %}<i class="{{ header_nav_menu_link['icon_image'] }}"></i> {% endif %}{{ header_nav_menu_link['title'][lang_id] }}</button></li>
+				 {% endfor %}
+			</ul>
+		</div>
+	</div>
+	{% endif %}
+	<div class="pull-right">
+		{% if (type_header != 2) %}
+		<div class="pull-right btn-group box-account">
+				<button data-toggle="dropdown" type="button" class="dropdown-toggle btn btn-link">
+				{% if (logged) %}
+				{{ '<b>'~first_name~' '~last_name~'</b>' }}
+				{% else %}
+				<span class="hidden-xs hidden-sm">{{ text_account }}</span></span><svg xmlns="http://www.w3.org/2000/svg" width="7" height="4" fill="none" viewBox="0 0 7 4"><path stroke="#000" stroke-linecap="round" d="M6 1.1L4.15 2.597a1 1 0 01-1.25.007L1 1.1"/></svg>
+				{% endif %}
+				</button>
+			<ul class="dropdown-menu dropdown-menu-right cs-dropdown">
+				{% if (logged) %}
+				<li><a rel="nofollow" href="{{ account }}">{{ text_account }}</a></li>
+				<li><a rel="nofollow" href="{{ order }}">{{ text_order }}</a></li>
+				<li><a rel="nofollow" href="{{ transaction }}">{{ text_transaction }}</a></li>
+				<li><a rel="nofollow" href="{{ download }}">{{ text_download }}</a></li>
+				<li><a rel="nofollow" href="{{ logout }}">{{ text_logout }}</a></li>
+				{% else %}
+				<li><a rel="nofollow" href="{{ register }}">{{ text_register }}</a></li>
+				<li><a rel="nofollow" href="javascript:void(0)" id="login-popup" data-load-url="index.php?route=common/login_modal">{{ text_login }}</a></li>
+				{% endif %}
+			</ul>
+		</div>
+		{% endif %}
+		<div class="pull-right box-currency">{{ currency }}</div>
+		<div class="pull-right box-language">{{ language }}</div>
+  </div>
+  </div>
+</nav>
+<header class="h-type-{{ type_header }} {% if (main_menu_fix_mobile is defined and (main_menu_fix_mobile == 1)) %} pad-top{% endif %}">
+  <div class="container h-box">
+    <div class="row-flex vertical-align">
+		<div class="{% if (main_menu_fix_mobile is defined and (main_menu_fix_mobile == 1)) %}{% if (type_header == 1) %}col-xs-6 col-sm-6 col-md-3{% endif %}{% if (type_header == 2) %}col-xs-6 col-sm-4 col-md-2{% endif %}{% else %}{% if (type_header == 2) %} col-xs-12 col-sm-4 col-md-2{% endif %} {% if (type_header == 1) %} col-xs-12 col-sm-4 col-md-3{% endif %}{% endif %} logo-top">
+			<div class="m-fix-btn">
+				<svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path fill-rule="evenodd" clip-rule="evenodd" d="M8 2C8 0.89543 7.10457 0 6 0H2C0.89543 0 0 0.89543 0 2V6C0 7.10457 0.89543 8 2 8H6C7.10457 8 8 7.10457 8 6V2ZM2 1.5H6L6.08988 1.50806C6.32312 1.55039 6.5 1.75454 6.5 2V6L6.49194 6.08988C6.44961 6.32312 6.24546 6.5 6 6.5H2L1.91012 6.49194C1.67688 6.44961 1.5 6.24546 1.5 6V2L1.50806 1.91012C1.55039 1.67688 1.75454 1.5 2 1.5Z" fill="black"/>
+				<path fill-rule="evenodd" clip-rule="evenodd" d="M17 2C17 0.89543 16.1046 0 15 0H11C9.89543 0 9 0.89543 9 2V6C9 7.10457 9.89543 8 11 8H15C16.1046 8 17 7.10457 17 6V2ZM11 1.5H15L15.0899 1.50806C15.3231 1.55039 15.5 1.75454 15.5 2V6L15.4919 6.08988C15.4496 6.32312 15.2455 6.5 15 6.5H11L10.9101 6.49194C10.6769 6.44961 10.5 6.24546 10.5 6V2L10.5081 1.91012C10.5504 1.67688 10.7545 1.5 11 1.5Z" fill="black"/>
+				<path fill-rule="evenodd" clip-rule="evenodd" d="M17 11C17 9.89543 16.1046 9 15 9H11C9.89543 9 9 9.89543 9 11V15C9 16.1046 9.89543 17 11 17H15C16.1046 17 17 16.1046 17 15V11ZM11 10.5H15L15.0899 10.5081C15.3231 10.5504 15.5 10.7545 15.5 11V15L15.4919 15.0899C15.4496 15.3231 15.2455 15.5 15 15.5H11L10.9101 15.4919C10.6769 15.4496 10.5 15.2455 10.5 15V11L10.5081 10.9101C10.5504 10.6769 10.7545 10.5 11 10.5Z" fill="black"/>
+				<path fill-rule="evenodd" clip-rule="evenodd" d="M8 11C8 9.89543 7.10457 9 6 9H2C0.89543 9 0 9.89543 0 11V15C0 16.1046 0.89543 17 2 17H6C7.10457 17 8 16.1046 8 15V11ZM2 10.5H6L6.08988 10.5081C6.32312 10.5504 6.5 10.7545 6.5 11V15L6.49194 15.0899C6.44961 15.3231 6.24546 15.5 6 15.5H2L1.91012 15.4919C1.67688 15.4496 1.5 15.2455 1.5 15V11L1.50806 10.9101C1.55039 10.6769 1.75454 10.5 2 10.5Z" fill="black"/>
+				</svg>
+			</div>
+			<div id="logo">
+			{% if (logo) %}
+				{% if (home == home_page) %}
+				  <img {% if (logo_iwh_status) %}width="{{ logo_w }}" height="{{ logo_h }}"{% endif %} src="{{ logo }}" title="{{ name }}" alt="{{ name }}" class="img-responsive" />
+				{% else %}
+				  <a href="{{ home }}"><img {% if (logo_iwh_status) %}width="{{ logo_w }}" height="{{ logo_h }}"{% endif %} src="{{ logo }}" title="{{ name }}" alt="{{ name }}" class="img-responsive" /></a>
+				{% endif %}
+			  {% else %}
+				<h1><a href="{{ home }}">{{ name }}</a></h1>
+			  {% endif %}
+			</div>
+		</div>
+		{% if (type_header == 2) %}
+			{% if (header_doptext is not empty) %}
+				<div class="header_dopmenu_doptext ml-auto hidden-xs{% if (swap_header_blocks is defined and (swap_header_blocks == '1')) %} f-order-3{% else %} f-order-2{% endif %}">{{ header_doptext }}</div>
+			{% endif %}
+		{% endif %}
+		{% set class_phone = '' %}
+		{% if (type_header == 1) %}
+			{% set class_phone = class_phone ~'col-xs-6 col-sm-8 col-md-6 push-right' %}
+			{% if (swap_header_blocks is defined and (swap_header_blocks == '1')) %}
+				{% set class_phone = class_phone ~' f-order-3' %}
+			{% else %}
+				{% set class_phone = class_phone ~' f-order-2' %}
+			{% endif %}
+		{% endif %}
+		{% if (type_header == 2) %}
+			{% set class_phone = class_phone ~' col-xs-6 col-lg-3 col-lg-auto' %}
+	    	{% if (swap_header_blocks is defined and (swap_header_blocks == '1')) %}
+	    		{% set class_phone = class_phone ~' ml-auto f-order-3 push-right' %}
+	    	{% else %}
+	    		{% set class_phone = class_phone ~' mr-auto f-order-2 push-right' %}
+	    	{% endif %}
+	    {% endif %}
+	    {% if (main_menu_fix_mobile is defined and (main_menu_fix_mobile == 1)) %}
+	     	{% set class_phone = class_phone ~' col-sm-6' %}
+	     	{% if (type_header == 1) %}
+	     	{% set class_phone = class_phone ~' text-xs-right' %}
+	     	{% endif %}
+	     	{% set class_phone = class_phone ~' text-sm-right' %}
+	    {% else %}
+	     	{% if (type_header == 1) %}
+	     	{% set class_phone = class_phone ~' col-xs-6 col-sm-4 text-sm-left' %}
+	     	{% endif %}
+	     	{% if (type_header == 2) %}
+	     	{% set class_phone = class_phone ~' col-sm-6 text-sm-right' %}
+	     	{% endif %}
+	     	{% set class_phone = class_phone ~' text-xs-left text-md-center' %}
+	     {% endif %}
+
+		<div class="phone-box col-md-3 {{ class_phone }}">
+			<div id="phone" {% if (header_phones_dropdown is not empty) %}class="has_drop_list"{% endif %}>
+				<div class="contact-header">
+					<span class="{% if (type_header == 1) %}hidden-xs{% endif %} header-tel-bicon">
+						{% if (header_tel_bicon_image is not empty) %}
+						<img class="img-responsive" src="{{ header_tel_bicon_image }}" alt="" />
+						{% endif %}
+					</span>
+					<div class="dropdown-toggle">
+						{% for result_hp in config_phones_array %}
+							<div class="additional-tel dth">
+							{% if (result_hp['type'] is not empty) %}
+								<a {{ result_hp['type']}}>
+								{% if (result_hp['icon_phone'] != '') %}
+									<div class="icon-image"><img src="{{ result_hp['icon_phone'] }}" alt="{{ result_hp['phone'] }}" /></div>
+									{% elseif (result_hp['icon'] != '') %}
+									<div class="icon-image"><i class="{{ result_hp['icon'] }}"></i></div>
+								{% endif %}
+								{{ result_hp['phone']}}</a>
+							{% else %}
+								{% if (result_hp['icon_phone'] != '') %}
+									<div class="icon-image"><img src="{{ result_hp['icon_phone'] }}" alt="{{ result_hp['phone'] }}" /></div>
+									{% elseif (result_hp['icon'] != '') %}
+									<div class="icon-image"><i class="{{ result_hp['icon'] }}"></i></div>
+								{% endif %}
+								{{ result_hp['phone']}}
+							{% endif %}
+							</div>
+						{% endfor %}
+						{% if (header_phones_dropdown is not empty or arbitrary_text[lang_id]['text']) %}
+							<span class="drop-icon-info">
+							<svg xmlns="http://www.w3.org/2000/svg" width="9" height="4" fill="none" viewBox="0 0 9 4"><path stroke="#000" stroke-linecap="round" d="M8 .8L5.118 2.882a1 1 0 01-1.162.006L1 .8"/></svg>
+						</span>
+						{% endif %}
+					</div>
+					{% if (header_phones_dropdown is not empty or arbitrary_text[lang_id]['text']) %}
+					<ul class="dropdown-menu cs-dropdown drop-contacts">
+						{% if (arbitrary_text is defined and (arbitrary_text is not empty)) %}
+						<li class="info-contact">
+							{{ arbitrary_text }}
+						</li>
+						<li class="line-contact"></li>
+						{% endif %}
+						{% if (header_phones_dropdown is not empty) %}
+							{% for result_ddh in header_phones_dropdown %}
+								<li>
+								{% if (result_ddh['type'] is not empty) %}
+									<a {{ result_ddh['type']}}>
+										{% if (result_ddh['icon_phone'] != '') %}
+										<div class="icon-image"><img src="{{ result_ddh['icon_phone'] }}" alt="{{ result_ddh['phone'] }}" /></div>
+										{% elseif (result_ddh['icon'] != '') %}
+										<div class="icon-image"><i class="{{ result_ddh['icon'] }}"></i></div>
+										{% endif %}
+										{{ result_ddh['phone'] }}
+									</a>
+									{% else %}
+										<div>
+										{% if (result_ddh['icon_phone'] != '') %}
+											<div class="icon-image"><img src="{{ result_ddh['icon_phone'] }}" alt="{{ result_ddh['phone'] }}" /></div>
+											{% elseif (result_ddh['icon'] != '') %}
+											<div class="icon-image"><i class="{{ result_ddh['icon'] }}"></i></div>
+											{% endif %}
+											{{ result_ddh['phone'] }}
+										</div>
+									{% endif %}
+								</li>
+							{% endfor %}
+						{% endif %}
+					</ul>
+					{% endif %}
+					{% if (text_after_phone is not empty) %}
+					<div class="text_after_phone">{{ text_after_phone }}</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+		{% if ((type_header == 2) and (swap_search_dmenu == 0) and (config_main_menu_selection == 1) or ((type_header == 2) and (swap_search_dmenu == 0) or (swap_search_dmenu == 1) and (config_main_menu_selection == 0)) ) %}
+		<div class="dop-menu-header visible-md visible-lg col-xs-12 col-sm-12 col-md-6 col-lg-6 ml-auto {% if (swap_header_blocks is defined and (swap_header_blocks == '1')) %}f-order-2 dopmenu-center{% else %}ml-auto f-order-3{% endif %}">
+			{{ cs_dop_menu }}
+		</div>
+		{% endif %}
+		{% if ((type_header == 1) or (type_header == 2) and (swap_search_dmenu == 1) and (config_main_menu_selection == 1)) %}
+		<div class="box-search swdm-{{ swap_search_dmenu }} {% if ((type_header == 1) or (type_header == 2) and (swap_search_dmenu == 0)) %}hidden-sm hidden-xs{% endif %} col-xs-12 col-sm-12 col-md-4 col-lg-5 flex-1 {% if (swap_header_blocks is defined and (swap_header_blocks == '1')) %} f-order-2{% else %}f-order-3{% endif %} search-top">{{ search }}</div>		{% endif %}
+		{% if (type_header == 1) %}
+		<div class="box-cart {% if (main_menu_fix_mobile is defined and (main_menu_fix_mobile == 1)) %}hidden-xs hidden-sm{% endif %} col-xs-6 col-sm-4 col-md-2 col-lg-2">
+			{% if (show_h_compare is defined and (show_h_compare == 1)) %}
+				<div class="compare-h">
+					<a rel="nofollow" class="btn btn-compare-h" href="{{ compare }}"  id="compare-total" title="{{ text_compare }}">
+					<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 18 18">
+						<path fill="#000" d="M2.864 13.425c-.414 0-.75-.289-.75-.703 0-.38.282-.74.648-.79l.102-.007h13a.75.75 0 01.102 1.493l-.102.007h-13z"/>
+						<path fill="#000" d="M3.857 15.525a.75.75 0 01-.975.083l-.085-.072-1.561-1.528a1.75 1.75 0 01-.23-2.224l.093-.127 1.363-1.685a.75.75 0 011.23.852l-.064.091L2.266 12.6a.25.25 0 00-.02.287l.04.05 1.56 1.527a.75.75 0 01.011 1.06zM15.055 3.44a.75.75 0 01.101 1.493l-.101.007h-13a.75.75 0 01-.102-1.493l.102-.007h13z"/>
+						<path fill="#000" d="M14.062 1.363a.75.75 0 01.975-.083l.085.072 1.561 1.528a1.75 1.75 0 01.23 2.224l-.093.127-1.363 1.684a.75.75 0 01-1.23-.851l.064-.092 1.362-1.685a.25.25 0 00.02-.286l-.039-.05-1.561-1.527a.75.75 0 01-.011-1.06z"/>
+					</svg>
+					{% if (total_compare > 0) %}<span>{{ total_compare }}</span>{% endif %}</a>
+				</div>
+			{% endif %}
+			{% if (show_h_wishlist is defined and (show_h_wishlist == 1)) %}
+			<div class="wishlist-h">
+				<a rel="nofollow" class="btn btn-wishlist-h" href="{{ wishlist }}" id="wishlist-total" title="{{ text_wishlist }}">
+				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="18" fill="none" viewBox="0 0 16 18">
+				  <path fill="#000" fill-rule="evenodd" d="M15 2.955a2 2 0 00-2-2H3a2 2 0 00-2 2v12.182a2 2 0 003.43 1.398l2.855-2.921.111-.099a1 1 0 011.32.099l2.854 2.92A2 2 0 0015 15.138V2.955zm-12-.5h10l.09.008a.5.5 0 01.41.492v12.182l-.008.09a.5.5 0 01-.85.26l-2.854-2.922-.13-.123a2.5 2.5 0 00-3.405.082l-2.895 2.963-.069.058a.5.5 0 01-.789-.408V2.955l.008-.09A.5.5 0 013 2.455z" clip-rule="evenodd"/>
+				</svg>
+				{% if (total_wishlist > 0) %}<span>{{ total_wishlist }}</span>{% endif %}</a>
+			</div>
+			{% endif %}
+		{{ cart }}
+		</div>
+		{% endif %}
+	</div>
+  </div>
+</header>
+{% if (megamenu_status) %}
+	<div class="{% if (config_fixed_panel_top) and (type_header == 2) and (config_main_menu_selection == 0) %}fixed-menu-t2 {% endif %}{% if (hmenu_type == '1') %}menu-header-box full-mw h-type-{{ type_header }}{% else %}container{% endif %} {% if (main_menu_fix_mobile is defined and (main_menu_fix_mobile == 1)) %}hide-box-menu{% endif %}">
+		<div class="{% if (hmenu_type == '1') %}container{% else %}menu-header-box cont-mw h-type-{{ type_header }}{% endif %} {% if (main_menu_fix_mobile is defined and (main_menu_fix_mobile == 1)) %}hide-box-menu{% endif %}">
+			<div class="row{% if (type_header == 2) %} dflex{% endif %}{% if (swap_search_dmenu == 1) %} h-type-2-st{% else %} h-type-2-sb{% endif %}">
+				{{ menuvh }}
+				{% if (type_header == 2) %}
+				<div class="r-h-box dflex pl-0 col-xs-12 {% if (swap_search_dmenu == 1) %}w-auto {% endif %}{% if (config_main_menu_selection == 1) %}col-md-9{% else %}col-md-9{% endif %}">
+					{% if ((swap_search_dmenu == 0) or (config_main_menu_selection == 0) and (swap_search_dmenu == 0) or (config_main_menu_selection == 0) and (swap_search_dmenu == 1)) %}
+					<div class="search-mob-box {% if (config_main_menu_selection == 1) %}visible-xs{% endif %}">
+						<svg width="17" height="18" viewBox="0 0 17 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path fill-rule="evenodd" clip-rule="evenodd" d="M16 8C16 3.58172 12.4183 0 8 0C3.58172 0 0 3.58172 0 8C0 12.4183 3.58172 16 8 16C12.4183 16 16 12.4183 16 8ZM1.5 8C1.5 4.41015 4.41015 1.5 8 1.5C11.5899 1.5 14.5 4.41015 14.5 8C14.5 11.5899 11.5899 14.5 8 14.5C4.41015 14.5 1.5 11.5899 1.5 8Z" fill="white"/>
+						<path d="M12.3329 13.2701C12.6014 13.0061 13.0183 12.9855 13.31 13.2058L13.3935 13.2791L16.5348 16.4741C16.8252 16.7695 16.8212 17.2444 16.5258 17.5348C16.2573 17.7988 15.8405 17.8194 15.5487 17.5991L15.4652 17.5258L12.3239 14.3307C12.0335 14.0354 12.0376 13.5605 12.3329 13.2701Z" fill="white"/>
+						</svg>
+					</div>
+					<script>
+					$('.search-mob-box').on('click', function() {
+						$('.box-search').slideToggle('fast');
+					});
+					</script>
+					<div class="box-search search-top col-sm-8 col-md-9 col-lg-10 {% if (main_menu_fix_mobile is defined and (main_menu_fix_mobile == 1)) %}hidden-xs hidden-sm{% endif %}">{{ search }}</div>
+        			{% endif %}
+        			<div class="box-account">
+              			<a data-toggle="dropdown" class="dropdown-toggle btn-account-menu">
+              				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="18" fill="none" viewBox="0 0 16 18">
+									<path fill="#fff" fill-rule="evenodd" d="M12 4.5a4 4 0 10-8 0 4 4 0 008 0zm-6.5 0a2.5 2.5 0 115 0 2.5 2.5 0 01-5 0zM15.5 13.498a3.218 3.218 0 00-3.87-3.15l-.312.064-.86.17-.51.096-.663.115-.377.06-.325.043-.273.03-.22.014h-.18l-.22-.014a7.43 7.43 0 01-.13-.013l-.299-.037-.35-.051-.404-.066-.964-.177-1.173-.235a3.218 3.218 0 00-3.87 3.15 4 4 0 004 4.001h7a4 4 0 004-4zm-3.566-1.682a1.718 1.718 0 012.03 1.334l.02.115c.01.077.016.155.016.233a2.5 2.5 0 01-2.5 2.5h-7l-.164-.005A2.5 2.5 0 012 13.498a1.718 1.718 0 012.066-1.682l.33.068.91.18.787.145.669.11.554.075.16.017.286.023.238.008.239-.008a6.09 6.09 0 00.136-.01l.309-.03.554-.075.433-.07.485-.084.827-.157.951-.192z" clip-rule="evenodd"></path>
+								</svg>
+              				<div class="info-auth-user {% if (main_menu_fix_mobile is defined and (main_menu_fix_mobile == 0)) %}hidden-xs hidden-sm{% endif %}">
+              					<span class="text-hello">{{ text_hello }}</span>
+                  				<span class="name-auth">
+                  			{% if (logged) %}
+			                	{{ last_name~' '~first_name }}
+			                {% else %}
+			                	{{ text_login_auth }}
+			                {% endif %}
+                  			</span>
+							</div>
+                  		</a>
+                  		<ul class="dropdown-menu dropdown-menu-right cs-dropdown">
+			                {% if (logged) %}
+			                <li><a rel="nofollow" href="{{ account }}">{{ text_account }}</a></li>
+			                <li><a rel="nofollow" href="{{ order }}">{{ text_order }}</a></li>
+			                <li><a rel="nofollow" href="{{ transaction }}">{{ text_transaction }}</a></li>
+			                <li><a rel="nofollow" href="{{ download }}">{{ text_download }}</a></li>
+			                <li><a rel="nofollow" href="{{ logout }}">{{ text_logout }}</a></li>
+			                {% else %}
+			                <li><a rel="nofollow" href="{{ register }}">{{ text_register }}</a></li>
+			                <li><a rel="nofollow" href="javascript:void(0)" id="login-popup" data-load-url="index.php?route=common/login_modal">{{ text_login }}</a></li>
+			                {% endif %}
+			            </ul>
+         		 	</div>
+					<div class="box-cart col-xs-12 col-sm-4 col-md-3 col-lg-2 {% if (main_menu_fix_mobile is defined and (main_menu_fix_mobile == 1)) %}hidden-xs hidden-sm{% endif %}">
+						{% if (show_h_compare is defined and (show_h_compare == 1)) %}
+							<div class="compare-h">
+								<a rel="nofollow" class="btn btn-compare-h" href="{{ compare }}"  id="compare-total" title="{{ text_compare }}">
+								<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 18 18">
+									<path fill="#fff" d="M2.864 13.425c-.414 0-.75-.289-.75-.703 0-.38.282-.74.648-.79l.102-.007h13a.75.75 0 01.102 1.493l-.102.007h-13z"/>
+									<path fill="#fff" d="M3.857 15.525a.75.75 0 01-.975.083l-.085-.072-1.561-1.528a1.75 1.75 0 01-.23-2.224l.093-.127 1.363-1.685a.75.75 0 011.23.852l-.064.091L2.266 12.6a.25.25 0 00-.02.287l.04.05 1.56 1.527a.75.75 0 01.011 1.06zM15.055 3.44a.75.75 0 01.101 1.493l-.101.007h-13a.75.75 0 01-.102-1.493l.102-.007h13z"/>
+									<path fill="#fff" d="M14.062 1.363a.75.75 0 01.975-.083l.085.072 1.561 1.528a1.75 1.75 0 01.23 2.224l-.093.127-1.363 1.684a.75.75 0 01-1.23-.851l.064-.092 1.362-1.685a.25.25 0 00.02-.286l-.039-.05-1.561-1.527a.75.75 0 01-.011-1.06z"/>
+								</svg>
+								{% if (total_compare > 0) %}<span>{{ total_compare }}</span>{% endif %}</a>
+							</div>
+						{% endif %}
+						{% if (show_h_wishlist is defined and (show_h_wishlist == 1)) %}
+						<div class="wishlist-h">
+							<a rel="nofollow" class="btn btn-wishlist-h" href="{{ wishlist }}" id="wishlist-total" title="{{ text_wishlist }}">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="18" fill="none" viewBox="0 0 16 18">
+								<path fill="#fff" fill-rule="evenodd" d="M15 2.955a2 2 0 00-2-2H3a2 2 0 00-2 2v12.182a2 2 0 003.43 1.398l2.855-2.921.111-.099a1 1 0 011.32.099l2.854 2.92A2 2 0 0015 15.138V2.955zm-12-.5h10l.09.008a.5.5 0 01.41.492v12.182l-.008.09a.5.5 0 01-.85.26l-2.854-2.922-.13-.123a2.5 2.5 0 00-3.405.082l-2.895 2.963-.069.058a.5.5 0 01-.789-.408V2.955l.008-.09A.5.5 0 013 2.455z" clip-rule="evenodd"/>
+							</svg>
+							{% if (total_wishlist > 0) %}<span>{{ total_wishlist }}</span>{% endif %}</a>
+						</div>
+						{% endif %}
+						{{ cart }}
+					</div>
+				</div>
+				{% endif %}
+
+			</div>
+		</div>
+	</div>
+{% endif %}

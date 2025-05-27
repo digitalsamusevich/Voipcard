@@ -1,0 +1,97 @@
+#popup-agree .modal-content {
+  border-radius: 8px;
+  box-shadow: none;
+  border: 0px;
+  overflow: hidden;
+}
+#popup-agree .modal-header .close{
+  background-image: url("/catalog/view/theme/cyberstore/image/form-icon/close-h-icon.svg");
+  cursor: pointer !important;
+  font-size: 0px;
+  height: 25px;
+  outline: medium none;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+  width: 25px;
+  z-index: 1060;
+  text-align: center;
+  line-height: 25px;
+  border: 1px solid #ececec;
+  border-radius: 50%;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 1;
+  background-color:#fff;
+}
+#popup-agree .modal-header .close:hover {
+  background-image: url("/catalog/view/theme/cyberstore/image/form-icon/close-h-icon.svg");
+  cursor: pointer !important;
+  font-size: 0px;
+  outline: medium none;
+  position: absolute;
+  line-height: 25px;
+  border: 1px solid #fff;
+  box-shadow:0px 2px 4px rgba(0,0,0,0.067);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-color:#fff;
+}
+#popup-agree .agree-header {
+  padding:30px 30px 10px;
+  background:#fff;
+  border:0px;
+}
+#popup-agree .agree-header h1{color:#333; font-size:18px;margin:0px;}
+#popup-agree .agree-header i{font-size:18px;margin-right: 10px;}
+
+#popup-agree .agree-content {padding:10px 30px; background:#ffffff;}
+
+#popup-agree .agree-footer {border:0px;padding:10px 30px 30px; background:#ffffff;}
+
+#popup-agree .description_agree img {
+  max-width: 100%;
+}
+#popup-agree .btn-agree {
+  color: #fff;
+  background: #00BC52;
+  border-radius: 8px;
+  display: inline-block;
+  font-size: 14px;
+  padding: 10px 25px;
+  box-shadow: none;
+  height: 40px;
+  border: 0px;
+  line-height: 18px;
+  -webkit-transition: background .2s ease;
+  transition: background .2s ease;
+}
+#popup-agree .btn-agree i,
+#popup-agree .btn-disagree i {
+  margin-right: 5px;
+}
+#popup-agree .modal-footer .btn + .btn {
+  margin-left: 20px;
+}
+#popup-agree .btn-agree:hover {
+  background: #04A349;
+}
+#popup-agree .btn-disagree {
+  color: #000;
+  background: #F8F9FA;
+  border-radius: 8px;
+  display: inline-block;
+  font-size: 14px;
+  padding: 10px 25px;
+  box-shadow: none;
+  height: 40px;
+  border: 0px;
+  line-height: 18px;
+  -webkit-transition: background .2s ease;
+  transition: background .2s ease;
+
+}
+#popup-agree .btn-disagree:hover {
+  background: #e9ecef;
+  color: #000;
+}

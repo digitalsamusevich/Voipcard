@@ -1,0 +1,381 @@
+.block-slidedeals-v1 #sync1,
+.block-slidedeals-v1 #sync2 {
+	display:none;
+}
+.block-slidedeals-v1 #sync1.slick-initialized,
+.block-slidedeals-v1 #sync2.slick-initialized {
+	display:block;
+}
+.block-slidedeals-v1.bg-sliderdeals {
+	padding: 25px 15px;
+	background: #f4f4f4;
+	border-radius: 10px;
+}
+.actions button img {
+	display: inherit;
+}
+.bg-sliderdeals .box-title {padding:5px;}
+.block-slidedeals-v1.bg-sliderdeals .ds-title {
+  color: #333;
+  font-size: 22px !important;
+  font-weight: bold;
+  line-height: 26px;
+  margin-bottom: 5px;
+  padding: 0 0 5px;
+  text-align: left;
+  text-transform: uppercase;
+}
+.block-slidedeals-v1.bg-sliderdeals .pre_text {
+	border-bottom: 1px solid #fcfcfc;
+	color: #333;
+	font-size: 13px;
+	font-weight: 400;
+	line-height: 20px;
+	margin-bottom: 20px;
+	opacity: 0.7;
+	padding-bottom: 30px;
+	position:relative;
+}
+.block-slidedeals-v1.bg-sliderdeals .pre_text:after {
+	content: "";
+	border: 1px solid #e7e7e7;
+	position: absolute;
+	width: 100%;
+	bottom: 0px;
+	left: 0;
+}
+.block-slidedeals-v1 .slick-arrow {
+  display: none !important;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+  border: 0px !important;
+}
+.block-slidedeals-v1 .ds-items-detail .dealsslider-info {
+	background: #fff;
+	position: relative;
+	border-radius: 10px;
+	padding:20px 15px;
+	border:0px;
+	overflow:hidden;
+	height:100%;
+}
+.dealsslider-wrappper {
+	padding-left: 25px;
+}
+.block-slidedeals-v1 .sm-dealsslider .ds-items-detail .dealsslider-info .dealsslider-content .product-name {
+	padding-top: 5px;
+	font-size: 28px;
+	font-weight: 600;
+}
+.block-slidedeals-v1 .product-thumb .image a:after {
+	display: none;
+}
+.block-slidedeals-v1 .sm-dealsslider .ds-items-detail .dealsslider-info .dealsslider-content .product-name a {
+	color: #222;
+}
+.block-slidedeals-v1 .sm-dealsslider .ds-items-detail .dealsslider-info .dealsslider-content .product-model {
+	color: #666;
+	padding-top:5px;
+}
+
+.block-slidedeals-v1 .sm-dealsslider .ds-items-detail .dealsslider-info .dealsslider-content .product-description {
+	margin-top:15px;
+}
+.block-slidedeals-v1 .sm-dealsslider .ds-items-detail .dealsslider-info .dealsslider-content .price {
+	text-align:left;
+	font-size:20px;
+	height: auto
+}
+.block-slidedeals-v1 .pq-box {
+	 width: 100%;
+	margin-bottom: 0px;
+}
+.block-slidedeals-v1 .product-thumb .actions {
+	width: auto;
+}
+.block-slidedeals-v1 .addit-action {
+	position: relative;
+	top: 0;
+	opacity: 1;
+}
+.block-slidedeals-v1 .product-thumb:hover .addit-action {
+	top: 0px;
+}
+.block-slidedeals-v1 .sm-dealsslider .ds-items-detail .dealsslider-info .dealsslider-content .price .price-old {
+	font-size:18px;
+}
+.block-slidedeals-v1 .sm-dealsslider .ds-items-detail .dealsslider-info .dealsslider-content .price .price-new {
+	font-size:24px;
+	display:inline-block;
+	margin-top: 10px;
+}
+.block-slidedeals-v1 .product-thumb .actions {
+	flex-direction: unset;
+	margin-top: 10px;
+	justify-content: start;
+}
+.block-slidedeals-v1 .product-thumb .actions .cart{
+	margin-right: 10px;
+}
+.block-slidedeals-v1 .product-thumb .actions .btn-general{
+	min-width: 140px;
+}
+.block-slidedeals-v1 .product-thumb .actions .btn-general span{
+	display: inherit;
+}
+.block-slidedeals-v1 .sm-dealsslider .ds-items-detail .dealsslider-info .dealsslider-content .price .price-tax {
+	margin-top:10px;
+	font-size:16px;
+}
+.block-slidedeals-v1 .sm-dealsslider .ds-items-detail .dealsslider-info .dealsslider-content .quantity_plus_minus {
+	text-align:left;
+}
+.block-slidedeals-v1 .sm-dealsslider .ds-items-detail .dealsslider-info .dealsslider-content .actions{
+	overflow:hidden;
+	position:relative !important;
+}
+.block-slidedeals-v1 .sm-dealsslider .ds-items-detail .dealsslider-info .dealsslider-content .cart,
+.block-slidedeals-v1 .sm-dealsslider .ds-items-detail .dealsslider-info .dealsslider-content .actions-quick-order,
+.block-slidedeals-v1 .sm-dealsslider .ds-items-detail .dealsslider-info .dealsslider-content .wishlist,
+.block-slidedeals-v1 .sm-dealsslider .ds-items-detail .dealsslider-info .dealsslider-content .compare {
+	float:left;
+}
+
+
+
+.block-slidedeals-v1 .sm-dealsslider .ds-items .slick-list {
+  padding: 0px !important;
+}
+.block-slidedeals-v1 .sm-dealsslider {
+    display: flex;
+    align-items: center;
+}
+.block-slidedeals-v1 .ds-items .slick-list .slick-slide {
+	margin: 5px 0 !important;
+}
+.block-slidedeals-v1 .ds-items .slick-list .ds-image-thumb {
+  position: relative;
+  cursor: pointer;
+}
+.block-slidedeals-v1 .ds-items .slick-list .ds-image-thumb img {
+  border-radius: 10px;
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  margin:0 auto;
+   border: 1px solid #ddd;
+   padding:5px;
+   background:#fff;
+}
+.block-slidedeals-v1 .ds-items .slick-list .ds-image-thumb:after {
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid #fff;
+  border-top: 10px solid transparent;
+  content: '';
+  height: 0;
+  left: -1px;
+  margin-top: -10%;
+  -webkit-opacity: 0;
+  -moz-opacity: 0;
+  -ms-opacity: 0;
+  -o-opacity: 0;
+  opacity: 0;
+  position: absolute;
+  top: calc(50% + 10px);
+  width: 0;
+}
+.block-slidedeals-v1 .ds-items .slick-list .slick-slide.slick-current .ds-image-thumb:before,
+.block-slidedeals-v1 .ds-items .slick-list .ds-image-thumb:hover:before {
+	opacity:1;
+}
+.block-slidedeals-v1 .ds-items .slick-list .slick-slide.slick-current .ds-image-thumb:after,
+.block-slidedeals-v1 .ds-items .slick-list .ds-image-thumb:hover:after {
+	opacity:1;
+}
+.block-slidedeals-v1 #sync2 {
+	padding-left:0px;
+}
+.block-slidedeals-v1 #sync1 {
+	padding-right:0px;
+}
+.block-slidedeals-v1 .dealsslider-countdown {
+	position: relative;
+	bottom: 0;
+	justify-content: flex-start;
+}
+.block-slidedeals-v1 .dealsslider-countdown .countdownHolder {
+	border: 0px;
+	height: 100%;
+	display: block;
+	overflow: hidden;
+	min-height:100px;
+}
+.block-slidedeals-v1 .dealsslider-countdown .countdownHolder {
+	display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flex;
+    display: -o-flex;
+    display: flex;
+	align-items:center;
+	justify-content:space-between;
+	background: transparent;
+	box-shadow: none;
+	background: transparent;
+}
+.block-slidedeals-v1 .dealsslider-countdown .countDays,
+.block-slidedeals-v1 .dealsslider-countdown .countHours,
+.block-slidedeals-v1 .dealsslider-countdown .countMinutes,
+.block-slidedeals-v1 .dealsslider-countdown .countSec {
+	border: 0px !important;
+	float: left;
+	margin-right: 6px;
+	background: rgba(0, 0, 0, 0.75);
+	border-radius: 10px;
+	width: 50px;
+	height: 85px;
+	text-align: center;
+	color:#fff;
+	padding:0px;
+}
+.col-md-9 .block-slidedeals-v1 .dealsslider-countdown .countDays,
+.col-md-9 .block-slidedeals-v1 .dealsslider-countdown .countHours,
+.col-md-9 .block-slidedeals-v1 .dealsslider-countdown .countMinutes,
+.col-md-9 .block-slidedeals-v1 .dealsslider-countdown .countSec {
+	width: 43px;
+	height: 90px;
+}
+.block-slidedeals-v1 .dealsslider-countdown .countSec{
+	margin-right: 0px;
+}
+.block-slidedeals-v1 .dealsslider-countdown .num-time {
+	display: block;
+	padding: 0;
+	color: #fff;
+	font-size:26px;
+	font-weight: 500;
+	border-radius: 8px;
+	text-align: center;
+	line-height: 45px;
+	background:#fa381d;
+}
+.block-slidedeals-v1 .dealsslider-countdown .time_productany {
+	margin-top:10px;
+	font-size:12px;
+	opacity: 1;
+	color:#fff;
+}
+
+.block-slidedeals-v1 .image-carousel {
+	position:relative;
+	width:100%;
+	padding:5px;
+	overflow:hidden;
+	margin:0px !important;
+}
+.block-slidedeals-v1 .image-carousel .owl-wrapper-outer {
+	border: 0 none;
+	border-radius: 0;
+	box-shadow: none;
+}
+.block-slidedeals-v1 .image-carousel .owl-wrapper:after {
+	padding-bottom:0px !important;
+}
+.block-slidedeals-v1 .image-carousel .owl-buttons div {
+	top:45% !important;
+}
+.block-slidedeals-v1 .image-carousel .owl-buttons div {
+	top:45% !important;
+}
+.block-slidedeals-v1 .product-thumb .owl-buttons .owl-prev{
+	right:120% !important;
+	-webkit-transition: all 0.15s ease-out 0s;
+	-moz-transition: all 0.15s ease-out 0s;
+	-ms-transition: all 0.15s ease-out 0s;
+	-o-transition: all 0.15s ease-out 0s;
+	transition: all 0.15s ease-out 0s;
+}
+.block-slidedeals-v1 .product-thumb:hover .owl-buttons .owl-prev{
+	right:100.2% !important;
+}
+
+.block-slidedeals-v1 .product-thumb .owl-buttons .owl-next{
+	right:-10% !important;
+    -webkit-transition: all 0.15s ease-out 0s;
+	-moz-transition: all 0.15s ease-out 0s;
+	-ms-transition: all 0.15s ease-out 0s;
+	-o-transition: all 0.15s ease-out 0s;
+	transition: all 0.15s ease-out 0s;
+}
+.block-slidedeals-v1 .product-thumb:hover .owl-buttons .owl-next{
+	right:24px !important;
+}
+.block-slidedeals-v1 .owl-carousel:hover .owl-buttons div {
+	opacity: 1;
+}
+.block-slidedeals-v1 .owl-carousel .owl-buttons div i {
+	font-size: 25px;
+	margin: 0;
+	font-weight: bold;
+}
+@media (max-width: 992px) {
+	.block-slidedeals-v1.bg-sliderdeals .pre_text {
+		margin-bottom:15px;
+		padding-bottom:15xp;
+	}
+	.block-slidedeals-v1 .dealsslider-countdown.countdownHolder {
+		display: block;
+		height: 100% !important;
+		overflow: hidden;
+		margin-bottom:15px;
+	}
+	.block-slidedeals-v1 .sm-dealsslider .ds-items-detail .dealsslider-info .dealsslider-content .product-name {
+		padding-top: 0px;
+		font-size: 22px;
+		font-weight: 600;
+	}
+	.block-slidedeals-v1 .slick-prev.slick-arrow {
+		right:10px;
+		top:47%;
+	}
+	.block-slidedeals-v1 .slick-next.slick-arrow {
+		left:10px;
+		top:47%;
+	}
+	.block-slidedeals-v1 .slick-prev.slick-arrow,
+	.block-slidedeals-v1 .slick-next.slick-arrow {
+		padding:7px 10px;
+		background:#f5f5f5;
+	}
+	.block-slidedeals-v1 .slick-arrow {
+		display:block !important
+	}
+	.block-slidedeals-v1 #sync1 {
+		padding-right: 0px;
+	}
+	.block-slidedeals-v1 .slick-prev.slick-arrow {
+		right:0px;
+		top:47%;
+	}
+
+}
+@media (min-width: 992px) {
+	.block-slidedeals-v1 .dealsslider-datetime {
+		padding-right:0px;
+	}
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+	.block-slidedeals-v1 .dealsslider-countdown .countDays,
+	.block-slidedeals-v1 .dealsslider-countdown .countHours,
+	.block-slidedeals-v1 .dealsslider-countdown .countMinutes{
+		width: 43px;
+		margin-right:4px;
+	}
+	.block-slidedeals-v1 .dealsslider-countdown .countSec{
+		width: 43px;
+		margin-right:0px;
+	}
+}
+
+.block-slidedeals-v1 {
+	margin-bottom:20px;
+}

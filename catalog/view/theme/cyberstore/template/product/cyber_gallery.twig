@@ -1,0 +1,147 @@
+<div class="galleryPopup">
+  <div class="gallery-prod-name">{{ heading_title }}</div>
+<style>
+  .slider-main-img-popup {transition:opacity linear 0.3s;display: flex;justify-content: center;}
+  @media (min-width: 768px) {
+    .slider-main-img-popup {min-height: 40vh;}
+  }
+  @media (min-width: 992px) {
+    .slider-main-img-popup {min-height: 60vh;}
+  }
+  @media (min-width: 1200px) {
+    .slider-main-img-popup {min-height: 70vh;}
+  }
+  </style>
+  <div class="popup-slider-box">
+  <div class="slider-main-img-popup" style="opacity:0">
+    <div class="item">
+        <img class="img-responsive" src="{{ popup }}"/>
+    </div>
+     {% if (gallery_images) %}
+      {% for image in gallery_images %}
+      <div class="item">
+        <img class="img-responsive" src="{{ image['popup'] }}" />
+      </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+
+     {% if (gallery_images) %}
+    <div class="thumb-gallery hidden-xs hidden-sm">
+        <div class="item">
+          <img class="img-responsive thumbnail" src="{{ thumb_min }}" />
+        </div>
+        {% for image in gallery_images %}
+        <div class="item">
+          <img class="img-responsive thumbnail" src="{{ image['thumb'] }}"/>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+  <div class="info-product-popup">
+      {% if (review_status) %}
+        <div class="rating info-product">
+         <span class="rating-box">
+        {% set i = 1 %}{% for i in i..5 %}
+          {% if (rating < i) %}
+            <span class="product-rating-star">
+              <svg width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M5.5 8.75L3.47287 9.81573C2.73924 10.2014 1.88181 9.57846 2.02192 8.76155L2.40907 6.50431L0.769082 4.90572C0.175565 4.32718 0.503075 3.31921 1.3233 3.20002L3.5897 2.87069L4.60326 0.816985C4.97008 0.0737394 6.02992 0.0737402 6.39674 0.816986L7.4103 2.87069L9.67671 3.20002C10.4969 3.31921 10.8244 4.32718 10.2309 4.90572L8.59093 6.50431L8.97808 8.76155C9.11819 9.57846 8.26076 10.2014 7.52713 9.81573L5.5 8.75Z" fill="#EFEFEF"/>
+              </svg>
+            </span>
+          {% else %}
+            <span class="product-rating-star">
+              <svg width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M5.5 8.75L3.47287 9.81573C2.73924 10.2014 1.88181 9.57846 2.02192 8.76155L2.40907 6.50431L0.769082 4.90572C0.175565 4.32718 0.503075 3.31921 1.3233 3.20002L3.5897 2.87069L4.60326 0.816985C4.97008 0.0737394 6.02992 0.0737402 6.39674 0.816986L7.4103 2.87069L9.67671 3.20002C10.4969 3.31921 10.8244 4.32718 10.2309 4.90572L8.59093 6.50431L8.97808 8.76155C9.11819 9.57846 8.26076 10.2014 7.52713 9.81573L5.5 8.75Z" fill="#E5DB77"/>
+              </svg>
+            </span>
+          {% endif %}
+        {% endfor %}
+           <span class="quantity-reviews"><a href="" onclick="$('a[href=\'#tab-review\']').trigger('click');$('html, body').animate({ scrollTop: $('a[href=\'#tab-review\']').offset().top - 5}, 250); return false;">{{ reviews }}</a></span>
+        </span>
+        </div>
+      {% endif %}
+      <div class="product-model"><b>{{ text_model }}</b> <span>{{ model }}</span></div>
+      {% if (price) %}
+        <div class="price">
+          {% if (not special) %}
+            {{ price }}
+          {% else %}
+            <span class="price-old">{{ price }}</span> <span class="price-new">{{ special }}</span>
+          {% endif %}
+          {% if (tax) %}
+            <span class="price-tax">{{ text_tax }} {{ tax }}</span>
+          {% endif %}
+        </div>
+      {% endif %}
+      <div class="cart">
+        {% if ((product_quantity <= 0) and disable_cart_button) %}
+          <button type="button" class="btn btn-general" disabled>{% if (change_text_cart_button_out_of_stock == 1 and product_quantity <= 0) %}<span>{{ disable_cart_button_text }}</span>{% else %}<img src="catalog/view/theme/cyberstore/image/addtocart-icon.svg" alt="{{ button_cart }}"/> <span>{{ button_cart }}</span>{% endif %}</button>
+        {% else %}
+          <button type="button" onclick='$.magnificPopup.close();$("#button-cart").trigger("click")' class="btn btn-general">{% if (change_text_cart_button_out_of_stock == 1 and product_quantity <= 0) %}<span>{{ disable_cart_button_text }}</span>{% else %}<img src="catalog/view/theme/cyberstore/image/addtocart-icon.svg" alt="{{ button_cart }}"/> <span>{{ button_cart }}</span>{% endif %}</button>
+        {% endif %}
+      </div>
+       {% if (show_nsproduct_btn_fastorder == '1') %}
+      {% if ((not disable_fastorder_button and ((product_quantity <= 0) or product_quantity > 0)) or (disable_fastorder_button and product_quantity > 0)) %}
+        <button class="btn btn-fastorder" type="button" data-toggle="tooltip" onclick="$.magnificPopup.close();setTimeout(function () {fastorder_open({{ product_id }});}, 50);" title="{{ config_text_open_form_send_order[lang_id]['config_text_open_form_send_order'] }}" {% if ((product_quantity <= 0) and disable_fastorder_button) %}disabled{% endif %}>
+          <img alt="{{ config_text_open_form_send_order[lang_id]['config_text_open_form_send_order'] }}" src="catalog/view/theme/cyberstore/image/fastorder-icon.svg"/>
+        <span>{{ config_text_open_form_send_order[lang_id]['config_text_open_form_send_order'] }}</span>
+        </button>
+      {% endif %}
+    {% endif %}
+  </div>
+
+<script>
+$('.slider-main-img-popup').slick({
+  draggable: true,
+  centerMode: true,
+  swipeToSlide: false,
+  slidesToShow: 1,
+  slidesToScroll: 1,
+  infinite: false,
+  arrows: true,
+  initialSlide: 0,
+  prevArrow: "<div class='btn-slick-prev-mainimg'><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 17 49' width='16' height='40'><path d=\"M14.5824 24.2177L0.169802 1.64078C-0.133787 1.16522 -0.0203484 0.520408 0.43077 0.190628C0.896295 -0.149684 1.53586 -0.0208369 1.84885 0.469445L17 24.2034L1.85515 48.5205C1.54761 49.0143 0.909647 49.151 0.440354 48.8163C-0.0145324 48.4918 -0.134893 47.8483 0.163502 47.3692L14.5824 24.2177Z\"></path></svg></div>",
+  nextArrow: "<div class='btn-slick-next-mainimg'><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 17 49' width='16' height='40'><path d=\"M14.5824 24.2177L0.169802 1.64078C-0.133787 1.16522 -0.0203484 0.520408 0.43077 0.190628C0.896295 -0.149684 1.53586 -0.0208369 1.84885 0.469445L17 24.2034L1.85515 48.5205C1.54761 49.0143 0.909647 49.151 0.440354 48.8163C-0.0145324 48.4918 -0.134893 47.8483 0.163502 47.3692L14.5824 24.2177Z\"></path></svg></div>",
+  fade:true,
+  adaptiveHeight: true,
+  asNavFor: '.thumb-gallery',
+  responsive: [{
+    breakpoint: 992,
+    settings: {dots: true}
+  },
+  {
+    breakpoint: 300,
+    settings: {dots: true}
+  }
+  ]
+});
+{% if (gallery_images) %}
+$(".thumb-gallery").slick({
+  focusOnSelect: true,
+  asNavFor: '.slider-main-img-popup',
+  infinite: false,
+  slidesToShow: 6,
+  prevArrow: "<div class='btn-slick-prev'><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 17 49' width='15' height='20'><path d=\"M14.5824 24.2177L0.169802 1.64078C-0.133787 1.16522 -0.0203484 0.520408 0.43077 0.190628C0.896295 -0.149684 1.53586 -0.0208369 1.84885 0.469445L17 24.2034L1.85515 48.5205C1.54761 49.0143 0.909647 49.151 0.440354 48.8163C-0.0145324 48.4918 -0.134893 47.8483 0.163502 47.3692L14.5824 24.2177Z\"></path></svg></div>",
+  nextArrow: "<div class='btn-slick-next'><svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 17 49' width='15' height='20'><path d=\"M14.5824 24.2177L0.169802 1.64078C-0.133787 1.16522 -0.0203484 0.520408 0.43077 0.190628C0.896295 -0.149684 1.53586 -0.0208369 1.84885 0.469445L17 24.2034L1.85515 48.5205C1.54761 49.0143 0.909647 49.151 0.440354 48.8163C-0.0145324 48.4918 -0.134893 47.8483 0.163502 47.3692L14.5824 24.2177Z\"></path></svg></div>",
+});
+
+$(window).resize(function() {
+$(".slider-main-img-popup .zoomImg").remove();
+$('.slider-main-img-popup').slick('initializeEvents');
+$('.thumb-gallery').slick('initializeEvents');
+setTimeout(function () {
+$(".slider-main-img-popup .zoomImg").remove();
+$(".slider-main-img-popup .item").zoom({on: 'click'});
+}, 200);
+});
+{% endif %}
+$(".slider-main-img-popup .item").zoom({on: 'click'});
+setTimeout(function () {
+$('.slider-main-img-popup').slick("refresh");
+$('.slider-main-img-popup').slick('slickGoTo', {{ slickToGo }},  true);
+$('.slider-main-img-popup').css('opacity','1');
+}, 100);
+</script>
+</div>

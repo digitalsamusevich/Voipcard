@@ -1,0 +1,200 @@
+<script>
+function ProStickerLoad(product_id) {
+  var products_id = products_url_alias = '';
+  var stickers_mod_pages = $('{{ settings.class }} a div[class*="wrap_pro_sticker"]');
+
+  if (stickers_mod_pages.length) {
+    stickers_mod_pages.each(function(index, element) {
+      $(element).children('div.pro_sticker').remove();
+      $(element).children('div.box-sticker').remove();
+      $(element).children('img').unwrap();
+    });
+  }
+
+  $('{{ settings.class }} a img:first-child').each(function(index, element) {
+    var a = $(element).parent('a');
+      var href = a.attr('href');
+
+      if (href != null && href != 'undefined') {
+        if (/product_id=[0-9]*/.test(href)) {
+          var matches = href.match(/product_id=([0-9]*)/);
+
+          if (matches != null && matches != 'undefined') {
+            products_id += '&prod_id_ajax[' + index + ']=' + matches[1];
+
+            $(element).wrap('<div class="wrap_pro_sticker' + index + '" style="position:relative;"></div>');
+          }
+        } else if (/\/[a-zA-Zа-яА-ЯёЁ0-9\-\_\%]*[\.]{0,1}[a-zA-Z]{0,}\?|$/.test(href)) {
+          var matches = href.match(/\/([a-zA-Zа-яА-ЯёЁ0-9\-\_\%]*)[^]{0}[a-zA-Z]{0,}(?:\?|$)/);
+
+          if (matches != null && matches != 'undefined') {
+            products_url_alias += '&url_product[' + index + ']=' + encodeURIComponent (matches[1]);
+
+            $(element).wrap('<div class="wrap_pro_sticker' + index + '" style="position:relative;"></div>');
+          }
+        }
+      }
+
+  });
+
+  if (product_id) {
+    var a_main = $('{{ settings.class_main_image }} div.pro_stickermain');
+    if (a_main.length) {
+      $('.pro_stickermain').children('div.pro_sticker').remove();
+      $('.pro_stickermain').children('div.box-sticker').remove();
+    }
+    products_id += '&prod_id_ajax[main]=' + product_id;
+    if (!a_main.length) {
+    $('{{ settings.class_main_image }}').wrap('<div class="pro_stickermain"></div>');
+    }
+  }
+
+
+
+  $.ajax({
+    url: '{{ url_module }}',
+    type: 'POST',
+    data: products_id + products_url_alias,
+    dataType: 'json',
+    cache: false,
+    success: function(json) {
+      $.each(json, function(numb, data) {
+        var mp_image = $('{{ settings.class }} a div.wrap_pro_sticker' + numb + ' img:first-child');
+        var image_w_mp_image = parseInt(mp_image.css('width'));
+        var image_h_mp = parseInt(mp_image.css('height'));
+        if (data && image_w_mp_image > '{{ settings.min_width }}' && image_h_mp > '{{ settings.min_height }}') {
+          mp_image.before(data);
+          var stickers_mod_pages = $('{{ settings.class }} a div.wrap_pro_sticker' + numb + ' div.pro_sticker');
+          var stickers_label = $('{{ settings.class }} a div.wrap_pro_sticker' + numb + ' div.box-sticker');
+
+          if ($( document ).width()<768) {
+            stickers_mod_pages.each(function() {
+              $(this).attr('style',$(this).attr('style-mob'));
+            });
+          }
+          stickers_mod_pages.fadeIn(300);
+          stickers_label.css({'display':'block'})
+          stickers_label.fadeIn(300);
+          {% if (settings['hide_hover'] == 1) %}
+          $('{{ settings.class }} a div.wrap_pro_sticker' + numb).hover(
+            function() {
+              stickers_mod_pages.hide();
+              stickers_label.hide();
+            },
+            function() {
+              stickers_mod_pages.show();
+              stickers_label.show();
+            });
+          {% endif %}
+
+        } else {
+          mp_image.unwrap();
+        }
+
+
+          if (product_id && (numb == 'main')) {
+            var image_main = $('div.pro_stickermain');
+            var block_product_main = $('{{ settings.class_main_image }}');
+            var image_width = parseInt(block_product_main.css('width'))-20;
+            var image_height = parseInt(block_product_main.css('height'));
+
+
+          if (data && image_width > '{{ settings.min_width }}' && image_height > '{{ settings.min_height }}') {
+
+            var $data = $(data);
+            var stickers_right_block = $data.filter('.sticker_before_price');
+            var stickers_left_image = $data.not('.sticker_before_price');
+
+            stickers_right_block.removeAttr('style');
+            stickers_right_block.removeAttr('style-mob');
+            stickers_right_block.css({'display':'inline-block','position':'relative','left':'0','top':'0'})
+
+            stickers_right_block.each(function () {
+             $(this).find('.pop_sticker').attr('data-placement','bottom');
+            });
+
+            $('#product .price').before('<div class="sticker_main_right_block"></div>');
+            stickers_right_block.fadeIn(300);
+
+            $('.sticker_main_right_block').append(stickers_right_block);
+
+
+            var indent_px = {'topleft':0, topcenter: 0, topright: 0, centerleft: 0, centercenter: 0, centerright: 0, bottomleft: 0, bottomcenter: 0, bottomright: 0};
+
+            stickers_left_image.each(function(){
+              if($(this).attr('data-img-height')){
+
+                $(this).css({'margin-top':indent_px[$(this).attr('data-position')]});
+                indent_px[$(this).attr('data-position')] = Number($(this).attr('data-img-height')) + indent_px[$(this).attr('data-position')] + 5;
+              }
+            });
+
+            image_main.append(stickers_left_image);
+
+            var pro_stickermain = $('div.pro_stickermain div.pro_sticker');
+            var pro_stickermain_label = $('div.pro_stickermain div.box-sticker');
+
+            pro_stickermain_label.css({'display':'block'})
+            pro_stickermain_label.fadeIn(300);
+            pro_stickermain.fadeIn(300);
+
+            {% if (settings['hide_hover'] == 1) %}
+            $('{{ settings.class_main_image }} div.pro_sticker' + numb).hover(
+              function() {
+                pro_stickermain.hide();
+                pro_stickermain_label.hide();
+              },
+              function() {
+                pro_stickermain.show();
+                pro_stickermain_label.show();
+              }
+            );
+            {% endif %}
+
+          } else {
+            $('div.pro_stickermain .slider-main-img').unwrap();
+          }
+
+        }
+      });
+    }
+  });
+};
+
+$(document).on('click', '[data-toggle="tab"],.box-showmore, #showmore', function () {
+  setTimeout ('ProStickerLoad()', 1500);
+});
+$(document).on('mouseenter','.pop_sticker', function(e){
+    var $element_popover = $(this);
+    e.preventDefault();
+    $('.pop_sticker').not(this).popover('destroy');
+    if ($element_popover.closest('.product-thumb').length != 0) {
+       $element_popover.popover({ placement: 'auto right', trigger: "manual" , container: 'body', html: true, animation:false});
+    }
+    if ($element_popover.closest('.sticker_main_right_block').length != 0) {
+       $element_popover.popover({ placement: 'auto bottom', trigger: "manual" , container: 'body', html: true, animation:false});
+    }
+    $element_popover.popover('show');
+    $element_popover.popover().data('bs.popover').tip().addClass('popover-sticker');
+}).on('mouseleave','.popover,.pop_sticker', function(e){
+   var $element_popover = $(this);
+   setTimeout(function () {
+      if (!$(".popover:hover").length) {
+        $element_popover.popover("destroy");
+      }
+   }, 100);
+});
+</script>
+<style>
+div.pro_sticker {
+  display:none;
+  position:absolute;
+  top:5px;
+  z-index:{{ settings.z_index }};
+}
+div.box-sticker  {
+  display:none;
+  position:absolute;
+  z-index:{{ settings.z_index }};
+}
+</style>

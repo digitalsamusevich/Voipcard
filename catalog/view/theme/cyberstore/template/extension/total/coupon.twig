@@ -1,0 +1,51 @@
+<div class="panel panel-default">
+  <div class="panel-heading">
+    <div class="panel-title"><a href="#collapse-coupon" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion">{{ heading_title }}
+    	<svg xmlns="http://www.w3.org/2000/svg" width="7" height="5" fill="none" viewBox="0 0 7 5">
+			<path fill="#000" fill-rule="evenodd" d="M3.174 2.856a.5.5 0 00.707-.004L6.144.562a.5.5 0 01.712.704L4.592 3.555a1.5 1.5 0 01-2.121.012L.148 1.27A.5.5 0 11.852.559l2.322 2.297z" clip-rule="evenodd"></path>
+		</svg>
+    	</a></div>
+  </div>
+  <div id="collapse-coupon" class="panel-collapse collapse">
+    <div class="panel-body">
+      <label class="control-label" for="input-coupon">{{ entry_coupon }}</label>
+      <div class="input-group dflex">
+        <input type="text" name="coupon" value="{{ coupon }}" placeholder="{{ entry_coupon }}" id="input-coupon" class="form-control" />
+        <span class="input-group-btn">
+        <input type="button" value="{{ button_coupon }}" id="button-coupon" data-loading-text="{{ text_loading }}"  class="btn btn-primary" />
+        </span></div>
+      <script>
+$('#button-coupon').on('click', function() {
+	$.ajax({
+		url: 'index.php?route=extension/total/coupon/coupon',
+		type: 'post',
+		data: 'coupon=' + encodeURIComponent($('input[name=\'coupon\']').val()),
+		dataType: 'json',
+		beforeSend: function() {
+			$('#button-coupon').button('loading');
+		},
+		complete: function() {
+			$('#button-coupon').button('reset');
+		},
+		success: function(json) {
+			$('.alert-dismissible').remove();
+
+			if (json['error']) {
+				$('.breadcrumb').after('<div class="alert alert-danger alert-dismissible"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+
+				$('html, body').animate({ scrollTop: 0 }, 'slow');
+			}
+
+			if (json['redirect']) {
+				location = json['redirect'];
+			}
+		},
+		error: function(xhr, ajaxOptions, thrownError) {
+			alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+		}
+	});
+});
+</script>
+    </div>
+  </div>
+</div>

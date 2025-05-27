@@ -1,0 +1,195 @@
+.tabs__header,
+.tabs__header__scroll {
+	position: relative;
+}
+.tabs__header__scroll {
+	overflow-x: auto;
+	overflow-y: hidden;
+	scrollbar-width: none;
+	-ms-overflow-style: none;
+	-webkit-overflow-scrolling: touch;
+	padding-bottom: 15px;
+	border-radius: 8px;
+}
+.tabs__header:before {
+	position: absolute;
+	width: 15px;
+	height: 15px;
+	content: "";
+	top: 35px;
+	z-index: 1;
+	border-radius: 0px 0px 0px 8px;
+	box-shadow: -2px 2px 0px 1px #fff;
+}
+.tabs__header.pct_nav:before {
+	top:43px;
+}
+.tabs__header:after {
+	position: absolute;
+	width: 15px;
+	height: 15px;
+	content: "";
+	top: 35px;
+	z-index: 1;
+	border-radius: 0px 0px 8px 0px;
+	box-shadow: 2px 2px 0px 1px #fff;
+	right: 0;
+}
+.tabs__header.pct_nav:after {
+	top:43px;
+}
+.tabs_nav_prev {
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	height: 100%;
+	width: 17px;
+	text-align:center;
+	 z-index:1;
+	 display: -webkit-flex;
+	 display: -moz-flex;
+	 display: -ms-flex;
+	 display: -o-flex;
+	 display: flex;
+	 align-items: center;
+	 background: #fff;
+	 cursor:pointer;
+	 border-top-left-radius: 4px;
+}
+.tabs_nav_prev svg {
+	transform: rotate(180deg);
+}
+.tabs_nav_next {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	height: calc(100% - 2px);
+	width: 17px;
+	text-align:center;
+	 z-index:1;
+	 display: -webkit-flex;
+	 display: -moz-flex;
+	 display: -ms-flex;
+	 display: -o-flex;
+	 display: flex;
+	 align-items: center;
+	background: #fff;
+	cursor:pointer;
+	border-top-right-radius: 4px;
+}
+.tabs__header {
+	margin-bottom: 15px;
+	border-radius: 8px;
+}
+.tabs__header.pct_nav{
+	margin-bottom: 5px;
+	padding-top: 8px;
+}
+.tabs__header .my-tabs {
+	margin-bottom: 0px;
+	text-align: left;
+	white-space:nowrap;
+	position: relative;
+	margin-top: 0px;
+	transition: .3s;
+}
+.tabs__active_line {
+	height: 100%;
+	display: block !important;
+	background: #fff;
+	border-radius: 8px;
+	box-shadow: 9px 8px 10px rgba(0,0,0,0.067);
+	position: absolute !important;
+	bottom: 0px;
+	transition: .3s;
+}
+.tabs__header .my-tabs.nav-tabs > li.active > a:focus, .tabs__header .my-tabs > li.active a {
+	box-shadow: none;
+	background:transparent;
+}
+.my-tabs {
+	text-align:left;
+	border-bottom:0px;
+	margin-top:10px;
+	margin-bottom:20px;
+	background: #f8f9fa;
+	border-radius: 8px;
+	display: inline-block;
+}
+.tabs-product.col-sm-12 {
+	clear: both;
+}
+@media (max-width: 992px) {
+	.my-tabs.nav-tabs > li {margin-bottom:3px;}
+	.my-tabs {border-bottom:0px;}
+}
+.my-tabs.nav-tabs > li {
+	float:none;
+	display:inline-block;
+	text-align:center;
+	margin-bottom: 0px;
+	z-index: 2;
+}
+.my-tabs.nav-tabs > li > a {
+	margin-right: 0px;
+	line-height: 1.42857143;
+	border:0px;
+	border-radius:8px;
+	color:#a0a0a0;
+	padding:15px 25px;
+	font-size:14px;
+	text-decoration: none;
+}
+
+.my-tabs.nav-tabs > li.active > a:focus,
+.my-tabs.nav-tabs > li.active > a:hover {
+	color: #000;
+	background-color: #fff;
+	border:0px;
+}
+
+.my-tabs.nav > li > a:focus, .my-tabs.nav > li > a:hover {
+	background-color: transparent;
+	color: #000;
+	border:0px;
+}
+.my-tabs.nav-tabs > li.active > a:focus,
+.my-tabs > li.active a {
+ 	border:0px;
+ 	color:#000000;
+ 	background: #ffffff;
+ 	box-shadow: 9px 8px 10px rgba(0,0,0,0.067);
+}
+.tabs__header__scroll .my-tabs.nav-tabs > li.active > a:focus,
+.tabs__header__scroll .my-tabs.nav-tabs > li.active > a:hover,
+.tabs__header__scroll .my-tabs.nav > li > a:focus,
+.tabs__header__scroll .my-tabs.nav > li > a:hover {
+	background-color: transparent;
+}
+
+
+/*END PRO CAT TAB*/
+.tab-content #tab-description img {
+  max-width: 100%;
+}
+.tab-content .product-thumb .image-carousel .owl-buttons .owl-prev{
+	left:-20% !important;
+    transition: all 0.4s ease-out 0s;
+}
+.tab-content .product-thumb:hover .image-carousel .owl-buttons .owl-prev{
+	left:0px !important;
+}
+.tab-content .product-thumb .image-carousel .owl-buttons .owl-next{
+	right:-10% !important;
+    transition: all 0.4s ease-out 0s;
+}
+.tab-content .product-thumb:hover .image-carousel .owl-buttons .owl-next{
+	right:24px !important;
+}
+.tab-pane {padding-bottom:3px;}
+.tab-pane.active {
+	max-width:100%;
+}
+.tab-pane.active iframe{
+	max-width:100%;
+}

@@ -1,0 +1,164 @@
+{{ header }}
+<div class="container">
+<div class="col-sm-12 content-box-cs">
+<div class="breadcrumbs-box">
+	<ul class="breadcrumb">
+		{% for i,breadcrumb in breadcrumbs %}
+			{% if (i+1 < breadcrumbs|length) %}
+				<li><a href="{{ breadcrumb.href }}"><span>{{ breadcrumb.text }}</span></a></li>
+			{% else %}
+				<li><span>{{ breadcrumb.text }}</span></li>
+			{% endif %}
+		{% endfor %}
+	</ul>
+</div>
+  <div class="row">
+	{{ column_left }}
+	{% if (column_left and column_right) %}
+	{% set class = 'col-sm-8 col-md-6' %}
+	{% set cols_class = 'col-lg-6 col-md-6 col-sm-12' %}
+	{% elseif (column_left or column_right) %}
+	{% set class = 'col-sm-8 col-md-9' %}
+	{% set cols_class = 'col-lg-4 col-md-4 col-sm-6' %}
+	{% else %}
+	{% set class = 'col-sm-12' %}
+	{% set cols_class = 'col-lg-3 col-md-3 col-sm-6' %}
+	{% endif %}
+	<div id="content" class="{{ class }}">
+  	{{ content_top }}
+	<h1>{{ heading_title }}</h1>
+		{% if (thumb or description) %}
+		  <div class="category_description news">
+			{% if thumb %}
+			<div class="psfl-l"><img src="{{ thumb }}" alt="{{ heading_title }}" title="{{ heading_title }}" class="img-thumbnail" /></div>
+			{% endif %}
+			{% if description %}
+				<div>{{ description }}</div>
+			{% endif %}
+		  </div>
+		{% endif %}
+		{% if (categories and news_show_subcategories is defined and (news_show_subcategories == 1) ) %}
+			<div class="row">
+			<div class="box-sub-cat">
+		  {% for category in categories %}
+			<div class="item-subc col-sm-6 col-md-4 col-lg-3">
+				<a class="subcategory dflex flex-column h-100" href="{{ category['href'] }}">
+					{% if (news_show_subcategories_image == 1) %}<div class="sub-cat-img"><img loading="lazy" decoding="async" width="{{ subcat_width }}" height="{{ subcat_height }}" class="img-responsive" alt="{{ category['name'] }}" src="{{ category['thumb'] }}"></div>{% endif %}
+					<div class="name-wrapper">{{ category['name'] }}</div>
+				</a>
+			</div>
+		  {% endfor %}
+		  </div>
+		  </div>
+	  {% endif %}
+	  {% if articles %}
+	  	<div class="view-box">
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 localstorage dflex align-items-center justify-content-between">
+				<div class="ls-limit-sorts dflex">
+					<div class="btn-group mr-10">
+						<button type="button" class="btn btn-sorts dropdown-toggle" data-toggle="dropdown">
+							{% for sort_active in sorts %}{% if (sort_active['value'] == sort ~ '-' ~ order) %}{{ sort_active['text'] }}{% endif %}{% endfor %}
+							<svg xmlns="http://www.w3.org/2000/svg" width="9" height="4" fill="none" viewBox="0 0 9 4"><path stroke="#000" stroke-linecap="round" d="M8 .8L5.118 2.882a1 1 0 01-1.162.006L1 .8"></path></svg>
+						</button>
+						<ul class="dropdown-menu dropdown-menu-left cs-dropdown">
+							{% for sorts in sorts %}
+								{% if (sorts['value'] == sort ~ '-' ~ order) %}
+									<li class="active"><button class="btn-sort-link" onclick="location.href='{{ sorts['href'] }}'">{{ sorts['text'] }}</button></li>
+								{% else %}
+									<li><button class="btn-sort-link" onclick="location.href='{{ sorts['href'] }}'">{{ sorts['text'] }}</button></li>
+								{% endif %}
+							{% endfor %}
+						</ul>
+					</div>
+					<div class="btn-group">
+					  <ul class="dropdown-menu dropdown-menu-left cs-dropdown">
+					  	{% set mmr_limit_active = '' %}
+						{% for limits in limits %}
+						{% if (limits['value'] == limit) %}
+						<li class="active"><a href="{{ limits['href'] }}" rel="nofollow">{{ limits['text'] }}</a></li>
+						{% set mmr_limit_active = limits['text'] %}
+						{% else %}
+						<li><a href="{{ limits['href'] }}" rel="nofollow">{{ limits['text'] }}</a></li>
+						{% endif %}
+						{% endfor %}
+					  </ul>
+					  <button type="button" class="btn btn-limits dropdown-toggle" data-toggle="dropdown" title="{{ text_limit }}">
+						{{ mmr_limit_active is defined ? mmr_limit_active : limits['text'] }}
+						<svg xmlns="http://www.w3.org/2000/svg" width="9" height="4" fill="none" viewBox="0 0 9 4"><path stroke="#000" stroke-linecap="round" d="M8 .8L5.118 2.882a1 1 0 01-1.162.006L1 .8"></path></svg>
+					  </button>
+					</div>
+				</div>
+			</div>
+		</div>
+		</div>
+		<div class="row">
+		{% for article in articles %}
+			<div class="articles-list col-xs-12">
+				<div class="product-thumb">
+				<div class="article-image"><img class="img-responsive" loading="lazy" decoding="async" width="{{ article_list_width }}" height="{{ article_list_height }}" alt="{{ article.name }}" src="{{ article.image }}"></div>
+				<div class="caption">
+					<div class="article-name"><a href="{{ article.href }}">{{ article.name }}</a></div>
+					<div class="article-date-viewed dflex">
+						<div class="article-date">
+							<span class="icon-date-added">
+								<svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" clip-rule="evenodd" d="M8.5 16C12.6421 16 16 12.6421 16 8.5C16 4.35786 12.6421 1 8.5 1C4.35786 1 1 4.35786 1 8.5C1 12.6421 4.35786 16 8.5 16ZM8.5 17C13.1944 17 17 13.1944 17 8.5C17 3.80558 13.1944 0 8.5 0C3.80558 0 0 3.80558 0 8.5C0 13.1944 3.80558 17 8.5 17Z" fill="black"/>
+									<path fill-rule="evenodd" clip-rule="evenodd" d="M8.5 3.36896C8.77614 3.36896 9 3.59282 9 3.86896V8.2603L12.013 10.6807C12.2283 10.8537 12.2626 11.1684 12.0896 11.3837C11.9167 11.5989 11.602 11.6333 11.3867 11.4603L8 8.73968V3.86896C8 3.59282 8.22386 3.36896 8.5 3.36896Z" fill="black"/>
+								</svg>
+							</span>
+							<span class="text-date-added">{{ article.date_added }}</span>
+						</div>
+						<div class="art-viewed">
+							<span class="icon-viewed">
+								<svg width="17" height="11" viewBox="0 0 17 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" clip-rule="evenodd" d="M13.9672 8.54952C15.3309 7.66708 16 6.56629 16 5.5C16 4.43371 15.3309 3.33292 13.9672 2.45048C12.6134 1.5745 10.6832 1 8.5 1C6.31679 1 4.38664 1.5745 3.03284 2.45048C1.66907 3.33292 1 4.43371 1 5.5C1 6.56629 1.66907 7.66708 3.03284 8.54952C4.38664 9.4255 6.31679 10 8.5 10C10.6832 10 12.6134 9.4255 13.9672 8.54952ZM8.5 11C13.1944 11 17 8.53757 17 5.5C17 2.46243 13.1944 0 8.5 0C3.80558 0 0 2.46243 0 5.5C0 8.53757 3.80558 11 8.5 11Z" fill="black"/>
+									<path fill-rule="evenodd" clip-rule="evenodd" d="M8.5 7C9.32843 7 10 6.32843 10 5.5C10 4.67157 9.32843 4 8.5 4C7.67157 4 7 4.67157 7 5.5C7 6.32843 7.67157 7 8.5 7ZM8.5 8C9.88071 8 11 6.88071 11 5.5C11 4.11929 9.88071 3 8.5 3C7.11929 3 6 4.11929 6 5.5C6 6.88071 7.11929 8 8.5 8Z" fill="black"/>
+								</svg>
+							</span>
+							<span class="text-viewed">{{ article.viewed }}</span>
+						</div>
+					</div>
+					<div class="rating">
+						<span class="rating-box">
+							{% set i = 1 %}{% for i in i..5 %}
+								{% if (article['rating'] < i) %}
+								<span class="product-rating-star">
+									<svg width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path fill-rule="evenodd" clip-rule="evenodd" d="M5.5 8.75L3.47287 9.81573C2.73924 10.2014 1.88181 9.57846 2.02192 8.76155L2.40907 6.50431L0.769082 4.90572C0.175565 4.32718 0.503075 3.31921 1.3233 3.20002L3.5897 2.87069L4.60326 0.816985C4.97008 0.0737394 6.02992 0.0737402 6.39674 0.816986L7.4103 2.87069L9.67671 3.20002C10.4969 3.31921 10.8244 4.32718 10.2309 4.90572L8.59093 6.50431L8.97808 8.76155C9.11819 9.57846 8.26076 10.2014 7.52713 9.81573L5.5 8.75Z" fill="#EFEFEF"/>
+									</svg>
+								</span>
+								{% else %}
+								<span class="product-rating-star">
+									<svg width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path fill-rule="evenodd" clip-rule="evenodd" d="M5.5 8.75L3.47287 9.81573C2.73924 10.2014 1.88181 9.57846 2.02192 8.76155L2.40907 6.50431L0.769082 4.90572C0.175565 4.32718 0.503075 3.31921 1.3233 3.20002L3.5897 2.87069L4.60326 0.816985C4.97008 0.0737394 6.02992 0.0737402 6.39674 0.816986L7.4103 2.87069L9.67671 3.20002C10.4969 3.31921 10.8244 4.32718 10.2309 4.90572L8.59093 6.50431L8.97808 8.76155C9.11819 9.57846 8.26076 10.2014 7.52713 9.81573L5.5 8.75Z" fill="#E5DB77"/>
+									</svg>
+								</span>
+								{% endif %}
+							{% endfor %}
+						{% if (all_rating_reviews_status and article_review_status) %}
+						  <span class="quantity-reviews"><a data-placement="right"  data-toggle="tooltip" title="{{ text_reviews_title }}" href="{{ article['href'] }}#article-review-box">{{ article['reviews'] }}</a></span>
+						{% endif %}
+						</span>
+					</div>
+					<div class="article-description">{{ article.description }}</div>
+				</div>
+				</div>
+			</div>
+		{% endfor %}
+	  </div>
+	  <div class="row">
+		<div class="col-sm-12 text-center">{{ pagination }}</div>
+	  </div>
+	  {% endif %}
+	  {% if (not categories and not articles) %}
+	  <p>{{ text_empty }}</p>
+	  <div class="buttons">
+		<div class="pull-right"><a href="{{ continue }}" class="btn btn-primary">{{ button_continue }}</a></div>
+	  </div>
+	  {% endif %}
+	  {{ content_bottom }}</div>
+	{{ column_right }}</div>
+</div>
+</div>
+{{ footer }}

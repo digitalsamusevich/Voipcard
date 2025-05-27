@@ -1,0 +1,68 @@
+<div class="container-module">
+{% if (module_header) %}
+<div class="title-module rc-mod"><span>{{ module_header }}</span>
+	<a class="see-all-reviews" href="{{ link_all_reviews }}">{{ text_all_reviews }}<span><i class="fa fa-angle-right arrow"></i></span></a>
+</div>
+{% endif %}
+	<div class="row reviews review-customer{{ module }}">
+			{% for review in reviews %}
+			<div class="col-xs-12 col-sm-6 col-md-4 no-slider">
+				<div class="item-review">
+					<div class="rc-top">
+						<div class="rc-pr-image"><a href="{{ review['prod_href'] }}"><img loading="lazy" decoding="async" width="75" height="75" {% if (lazyload_module) %}data-srcset="{{ review['prod_thumb'] }}" srcset="{{ lazy_image }}" src="{{ review['prod_thumb'] }}" {% else %}src="{{ review['prod_thumb'] }}" {% endif %} alt="{{ review['prod_name'] }}" title="{{ review['prod_name'] }}" class="img-responsive {% if (lazyload_module) %}lazyload{% endif %}" /></a></div>
+						<div class="rs-pr-name"><a href="{{ review['prod_href'] }}">{{ review['prod_name'] }}</a></div>
+					</div>
+					<div class="rc-center">
+						<div class="review-description">{{ review['description'] }}</div>
+					</div>
+					<div class="dflex reviews-author text-left">{{ review['author'] }}</div>
+					<div class="rc-bottom dflex">
+						<span class="reviews-date">{{ review['date_added'] }}</span>
+						<span class="rating-box">
+							{% set i = 1 %}{% for i in i..5 %}
+								{% if (review['rating'] < i) %}
+								<svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M9.5 14.75L5.12173 17.0518C4.3881 17.4375 3.53067 16.8145 3.67078 15.9976L4.50695 11.1223L0.964856 7.66965C0.371339 7.09111 0.698849 6.08314 1.51907 5.96395L6.41413 5.25266L8.60326 0.816986C8.97008 0.0737402 10.0299 0.0737401 10.3967 0.816986L12.5859 5.25266L17.4809 5.96395C18.3012 6.08314 18.6287 7.09111 18.0351 7.66965L14.493 11.1223L15.3292 15.9976C15.4693 16.8145 14.6119 17.4375 13.8783 17.0518L9.5 14.75Z" fill="#EFEFEF"/>
+								</svg>
+								{% else %}
+								<svg width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M9.5 14.75L5.12173 17.0518C4.3881 17.4375 3.53067 16.8145 3.67078 15.9976L4.50695 11.1223L0.964856 7.66965C0.371339 7.09111 0.698849 6.08314 1.51907 5.96395L6.41413 5.25266L8.60326 0.816986C8.97008 0.0737402 10.0299 0.0737401 10.3967 0.816986L12.5859 5.25266L17.4809 5.96395C18.3012 6.08314 18.6287 7.09111 18.0351 7.66965L14.493 11.1223L15.3292 15.9976C15.4693 16.8145 14.6119 17.4375 13.8783 17.0518L9.5 14.75Z" fill="#E5DB77"/>
+								</svg>
+								{% endif %}
+							{% endfor %}
+						</span>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+	{% if (status_showmore is defined and status_showmore != 0) %}
+	{% if (nextPage) %}
+		<div class="showmore-review{{ module }} box-showmore"><span data-nextpage="{{ nextPage }}" class="box-ajax-load review-ajax-load{{ module }}"><img src="catalog/view/theme/cyberstore/image/showmore.svg" alt="showmore-icon"></span></div>
+	{% endif %}
+	{% endif %}
+{% if (status_showmore is defined and status_showmore != 0) %}
+<script>
+$(document).on('click', '.review-ajax-load{{ module }}', function () {
+	$.ajax({
+		url: 'index.php?route=extension/module/cyber_reviewscustomer/getNextPage',
+		type: 'post',
+		data: 'page=' + $(this).attr('data-nextpage') + '&module={{ module }}&setting={{ setting }}',
+		dataType: 'html',
+		beforeSend: function() {
+			$('.showmore-review{{ module }} span').addClass('active-load');
+		},
+		complete: function() {
+			$('.showmore-review{{ module }} span').removeClass('active-load');
+		},
+		success:function(data){
+			$data = $(data);
+			var $products = $data.find('.review-customer{{ module }} > div.col-xs-12');
+			$('.review-customer{{ module }}').append($products);
+			$('.showmore-review{{ module }}').replaceWith($data.find('.showmore-review{{ module }}'));
+		}
+	});
+});
+</script>
+{% endif %}
+</div>

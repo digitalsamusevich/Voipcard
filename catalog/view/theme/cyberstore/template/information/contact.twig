@@ -1,0 +1,149 @@
+{{ header }}
+<div class="container">
+	<ul class="breadcrumb">
+		{% for i,breadcrumb in breadcrumbs %}
+		{% if (i+1 < breadcrumbs|length) %}<li><a href="{{ breadcrumb['href'] }}">{{ breadcrumb['text'] }}</a></li> {% else %}<li>{{ breadcrumb['text'] }}</li>{% endif %}
+	{% endfor %}
+	</ul>
+	<div class="row">{{ column_left }}
+		{% if (column_left and column_right) %}
+		{% set class = 'col-sm-4 col-md-6' %}
+		{% elseif (column_left or column_right) %}
+		{% set class = 'col-sm-8 col-md-9' %}
+		{% else %}
+		{% set class = 'col-sm-12' %}
+		{% endif %}
+		<div id="content" class="{{ class }}">
+		{{ content_top }}
+			<h1>{{ heading_title }}</h1>
+
+			{% if (cs_contact_map_code is defined) %}
+				<div class="row cs_contact_map_code">
+					<div class="col-sm-12">{{ cs_contact_map_code }}</div>
+				</div>
+			{% endif %}
+			<div class="row-flex pb-20">
+				<div class="col-xs-12 col-sm-6 col-md-6">
+				<div class="box-contact-left h-100">
+					<div class="contact-title">{{ store }}</div>
+					{% if (cs_contact_address is defined) %}
+					<div class="contact_address">
+						{{ cs_contact_address }}
+					</div>
+					{% endif %}
+
+					{% if (cs_contact_image is defined) %}
+					<div class="contact_image">
+						<img loading="lazy" src="{{ cs_contact_image }}" alt="{{ store }}">
+					</div>
+					{% endif %}
+					{% if (cs_contacts_phone is not empty) %}
+					<div class="contact-title">{{ text_contact_info }}</div>
+						<ul class="list-unstyled cs_contacts_phone">
+							{% for result_p in cs_contacts_phone %}
+								<li><a href="tel:{{ result_p['tel'] }}" target="_blank">{{ result_p['text'] }}</a></li>
+							{% endfor %}
+						</ul>
+					{% endif %}
+
+					{% if (cs_contact_email is defined) %}
+					<div class="contact_email">
+						{{ cs_contact_email }}
+					</div>
+					{% endif %}
+					{% if (cs_contact_working_time is defined) %}
+					<div class="contact-title">{{ text_open }}</div>
+						<ul class="list-unstyled">
+							{{ cs_contact_working_time }}
+						</ul>
+					{% endif %}
+				</div>
+				</div>
+				<div class="col-xs-12 col-sm-6 col-md-6 box-contact-form">
+					<form action="{{ action }}" method="post" enctype="multipart/form-data" class="form-horizontal h-100">
+						<fieldset>
+							<legend>{{ text_contact }}</legend>
+							<div class="form-group required">
+								<div class="col-sm-12">
+									<label class="control-label" for="input-name">{{ entry_name }}</label>
+									<input type="text" name="name" value="{{ name }}" id="input-name" class="form-control" />
+									{% if (error_name) %}
+									<div class="text-danger">{{ error_name }}</div>
+									{% endif %}
+								</div>
+							</div>
+							<div class="form-group required">
+								<div class="col-sm-12">
+									<label class="control-label" for="input-email">{{ entry_email }}</label>
+									<input type="text" name="email" value="{{ email }}" id="input-email" class="form-control" />
+									{% if (error_email) %}
+									<div class="text-danger">{{ error_email }}</div>
+									{% endif %}
+								</div>
+							</div>
+							<div class="form-group required">
+								<div class="col-sm-12">
+									<label class="control-label" for="input-enquiry">{{ entry_enquiry }}</label>
+									<textarea name="enquiry" rows="5" id="input-enquiry" class="form-control">{{ enquiry }}</textarea>
+									{% if (error_enquiry) %}
+									<div class="text-danger">{{ error_enquiry }}</div>
+									{% endif %}
+								</div>
+							</div>
+							{{ captcha }}
+						</fieldset>
+						<div class="buttons">
+							<div class="pull-left">
+								<input class="btn btn-primary" type="submit" value="{{ button_submit }}" />
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+			{% if (locations) %}
+			<div class="mt-10 h2 store-title">{{ text_store }}</div>
+				<div class="panel-group">
+					{% for location in locations %}
+					<div class="panel-store">
+						<div class="panel-body">
+							<div class="row">
+								{% if (location['image']) %}
+								<div class="col-sm-3"><img src="{{ location['image'] }}" alt="{{ location['name'] }}" title="{{ location['name'] }}" class="img-responsive" /></div>
+								{% endif %}
+								<div class="col-sm-3"><strong>{{ location['name'] }}</strong><br />
+									<address>
+									{{ location['address'] }}
+									</address>
+									{% if (location['geocode']) %}
+									<a href="https://maps.google.com/maps?q={{ geocode|url_encode }}&hl={{ geocode_hl }}&t=m&z=15" target="_blank" class="btn btn-info"><i class="fa fa-map-marker"></i> {{ button_map }}</a>
+									{% endif %}
+								</div>
+								<div class="col-sm-3"> <strong>{{ text_telephone }}</strong><br>
+									{{ location['telephone'] }}<br />
+									<br />
+									{% if (location['fax']) %}
+									<strong>{{ text_fax }}</strong><br>
+									{{ location['fax'] }}
+									{% endif %}
+								</div>
+								<div class="col-sm-3">
+									{% if (location['open']) %}
+									<strong>{{ text_open }}</strong><br />
+									{{ location['open'] }}<br />
+									<br />
+									{% endif %}
+									{% if (location['comment']) %}
+									<strong>{{ text_comment }}</strong><br />
+									{{ location['comment'] }}
+									{% endif %}
+								</div>
+							</div>
+						</div>
+					</div>
+					{% endfor %}
+				</div>
+			{% endif %}
+			{{ content_bottom }}</div>
+		{{ column_right }}</div>
+</div>
+{{ footer }}

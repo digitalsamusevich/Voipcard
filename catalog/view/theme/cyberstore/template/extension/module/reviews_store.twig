@@ -1,0 +1,161 @@
+<div class="container-module review-store-cont">
+ 	<div class="title-module">
+ 		<span>{{ heading_title }}</span>
+ 		<a class="see-all-reviews" href="{{ all_review_link }}">{{ btn_all_review }}<span><i class="fa fa-angle-right arrow"></i></span></a>
+ 	</div>
+ 	<div class="row rating-info-box">
+ 		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+ 			<div class="block-reviews f-box dflex">
+ 				<div class="average-reviews">
+	 				<div class="average-rating-number"><span>{{ rating_store }}</span></div>
+	 				<div class="total-reviews">
+	 					<span class="num-total-rs">{{ text_sum_reviews }}{{ total_rs }}</span>
+	 				</div>
+	 				<div class="average-rating-stars">
+	 					<div class="stars-average-grey">
+	 						<div class="stars-average-gold" style="width:{{ rating_store*100/5}}%;"></div>
+	 					</div>
+	 				</div>
+
+ 				</div>
+ 				<div class="star-rating-desc">
+ 					<div class="line-info">
+ 						<span class="star-before-line">
+ 							<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" fill="none" viewBox="0 0 19 18">
+								<path fill="#E5DB77" fill-rule="evenodd" d="M9.966 14.995a1 1 0 00-.931 0l-3.913 2.057a1 1 0 01-1.45-1.054l.835-4.875L.965 7.67a1 1 0 01.554-1.706l4.895-.711L8.604.817a1 1 0 011.793 0l2.19 4.436 4.894.711a1 1 0 01.554 1.706l-3.542 3.453.837 4.875a1 1 0 01-1.451 1.054l-3.913-2.057z" clip-rule="evenodd"/>
+							</svg>
+	 					</span>
+	 					<div class="percent_rating_line">
+	                        <div class="percent_rating" style="width: {{ percent_rating['star5'] }}%"></div>
+	                    </div>
+	                    <span class="percent_rating_text">{{ percent_rating['star5'] }}%</span>
+ 					</div>
+
+ 					<div class="line-info">
+ 						<span class="star-before-line">
+ 							<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" fill="none" viewBox="0 0 19 18">
+								<path fill="#E5DB77" fill-rule="evenodd" d="M9.966 14.995a1 1 0 00-.931 0l-3.913 2.057a1 1 0 01-1.45-1.054l.835-4.875L.965 7.67a1 1 0 01.554-1.706l4.895-.711L8.604.817a1 1 0 011.793 0l2.19 4.436 4.894.711a1 1 0 01.554 1.706l-3.542 3.453.837 4.875a1 1 0 01-1.451 1.054l-3.913-2.057z" clip-rule="evenodd"/>
+							</svg>
+	 					</span>
+	 					<div class="percent_rating_line">
+	                        <div class="percent_rating" style="width: {{ percent_rating['star4'] }}%"></div>
+	                    </div>
+	                    <span class="percent_rating_text">{{ percent_rating['star4'] }}%</span>
+ 					</div>
+
+ 					<div class="line-info">
+ 						<span class="star-before-line">
+ 							<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" fill="none" viewBox="0 0 19 18">
+								<path fill="#E5DB77" fill-rule="evenodd" d="M9.966 14.995a1 1 0 00-.931 0l-3.913 2.057a1 1 0 01-1.45-1.054l.835-4.875L.965 7.67a1 1 0 01.554-1.706l4.895-.711L8.604.817a1 1 0 011.793 0l2.19 4.436 4.894.711a1 1 0 01.554 1.706l-3.542 3.453.837 4.875a1 1 0 01-1.451 1.054l-3.913-2.057z" clip-rule="evenodd"/>
+							</svg>
+	 					</span>
+	 					<div class="percent_rating_line">
+	                        <div class="percent_rating" style="width: {{ percent_rating['star3'] }}%"></div>
+	                    </div>
+	                    <span class="percent_rating_text">{{ percent_rating['star3'] }}%</span>
+ 					</div>
+
+ 					<div class="line-info">
+ 						<span class="star-before-line">
+ 							<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" fill="none" viewBox="0 0 19 18">
+								<path fill="#E5DB77" fill-rule="evenodd" d="M9.966 14.995a1 1 0 00-.931 0l-3.913 2.057a1 1 0 01-1.45-1.054l.835-4.875L.965 7.67a1 1 0 01.554-1.706l4.895-.711L8.604.817a1 1 0 011.793 0l2.19 4.436 4.894.711a1 1 0 01.554 1.706l-3.542 3.453.837 4.875a1 1 0 01-1.451 1.054l-3.913-2.057z" clip-rule="evenodd"/>
+							</svg>
+	 					</span>
+	 					<div class="percent_rating_line">
+	                        <div class="percent_rating" style="width: {{ percent_rating['star2'] }}%"></div>
+	                    </div>
+	                    <span class="percent_rating_text">{{ percent_rating['star2'] }}%</span>
+ 					</div>
+
+ 					<div class="line-info">
+ 						<span class="star-before-line">
+ 							<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" fill="none" viewBox="0 0 19 18">
+								<path fill="#E5DB77" fill-rule="evenodd" d="M9.966 14.995a1 1 0 00-.931 0l-3.913 2.057a1 1 0 01-1.45-1.054l.835-4.875L.965 7.67a1 1 0 01.554-1.706l4.895-.711L8.604.817a1 1 0 011.793 0l2.19 4.436 4.894.711a1 1 0 01.554 1.706l-3.542 3.453.837 4.875a1 1 0 01-1.451 1.054l-3.913-2.057z" clip-rule="evenodd"/>
+							</svg>
+	 					</span>
+	 					<div class="percent_rating_line">
+	                        <div class="percent_rating" style="width: {{ percent_rating['star1'] }}%"></div>
+	                    </div>
+	                    <span class="percent_rating_text">{{ percent_rating['star1'] }}%</span>
+ 					</div>
+ 				</div>
+ 			</div>
+ 		</div>
+ 		<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+ 			<div class="block-reviews s-box">
+ 				<div class="rsinfo">
+                    {% for result_info in reviews_theme_rating %}
+                        <div class="rsinfo-item">
+                        	<span class="rs-theme-text">{{ result_info['theme_text'] }}</span>
+                        	<div class="rs-theme-stars"><div class="avg-rating-stars"><div class="avg-realrating" style="width:{{ result_info['avg_rating']*100/5}}%;"></div></div></div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="btn-block-rs">
+	                {% if (review_guest) %}
+	                <button type="button" onclick="popupFormReviewStore()" class="btn btn-write-rs">{{ btn_write_review }}</button>
+	                {% else %}
+	                    {{ text_review_guest }}
+	                {% endif %}
+	            </div>
+ 			</div>
+ 		</div>
+ 	</div>
+ 	<div class="row">
+ 		<div class="review-store-box review-store{{ module }}">
+        {% for review_store in reviews_store %}
+        	<div class="col-xs-12 col-sm-6 col-md-4 no-slider">
+            	<div class="item-rs">
+            		<div class="rs-review-info d-flex jcsb">
+	                    <div class="rs-review-author">
+	                    	<span class="rs-review-icon">
+	                    	<svg xmlns="http://www.w3.org/2000/svg" width="13" height="14" fill="none" viewBox="0 0 13 14">
+									<path fill="#000" fill-rule="evenodd" d="M6.5 5.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm0 1.5a3 3 0 100-6 3 3 0 000 6zM5.33 9.45a48.02 48.02 0 01-1.486-.277c-.777-.156-1.469.433-1.469 1.165 0 .642.52 1.162 1.162 1.162h5.926c.642 0 1.162-.52 1.162-1.162 0-.732-.692-1.321-1.469-1.165a48.02 48.02 0 01-1.486.277c-.396.066-.849.133-1.17.133-.321 0-.774-.067-1.17-.133zM4.139 7.702C2.463 7.366.875 8.629.875 10.338A2.662 2.662 0 003.537 13h5.926a2.662 2.662 0 002.662-2.662c0-1.709-1.588-2.972-3.264-2.636-1.038.208-2.008.381-2.361.381-.353 0-1.323-.173-2.361-.381z" clip-rule="evenodd"/>
+								</svg>
+	                    	</span>
+	                    	<span class="author-name">{{ review_store['author'] }}</span>
+	                	</div>
+	                    <div class="rs-review-dateadded">{{ review_store['date_added'] }}</div>
+	                </div>
+	                <div class="rs-review-stars">
+	                      <div class="avg-rating-stars"><div class="avg-realrating" style="width:{{ review_store['avg_customer_rating']*100/5}}%;"></div></div>
+	                </div>
+	                <div class="rs-desc-reviews">{{ review_store['description'] }}</div>
+
+
+            	</div>
+        	</div>
+        {% endfor %}
+        </div>
+        {% if (status_showmore is defined and status_showmore != 0) %}
+	    {% if (nextPage) %}
+	        <div class="showmore-review-store{{ module }} box-showmore"><span data-nextpage="{{ nextPage }}" class="box-ajax-load review-store-ajax-load{{ module }}"><img src="catalog/view/theme/cyberstore/image/showmore.svg" alt="showmore-icon"></span>
+	    	</div>
+	    {% endif %}
+	    {% endif %}
+ 	</div>
+{% if (status_showmore is defined and status_showmore != 0) %}
+<script>
+$(document).on('click', '.review-store-ajax-load{{ module }}', function () {
+    $.ajax({
+        url: 'index.php?route=extension/module/cyber_reviews_store/getNextPage',
+        type: 'post',
+        data: 'page=' + $(this).attr('data-nextpage') + '&module={{ module }}&setting={{ setting }}',
+        dataType: 'html',
+        beforeSend: function() {
+            $('.showmore-review-store{{ module }} span').addClass('active-load');
+        },
+        complete: function() {
+            $('.showmore-review-store{{ module }} span').addClass('active-load');
+        },
+        success:function(data){
+            $data = $(data);
+            var $reviews_store = $data.find('.review-store{{ module }} > div.col-xs-12');
+            $('.review-store{{ module }}').append($reviews_store);
+            $('.showmore-review-store{{ module }}').replaceWith($data.find('.showmore-review-store{{ module }}'));
+        }
+    });
+})
+</script>
+{% endif %}
+</div>

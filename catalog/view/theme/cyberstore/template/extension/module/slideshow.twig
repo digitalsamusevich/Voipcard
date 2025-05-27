@@ -1,0 +1,20 @@
+<div id="slideshow{{ module }}" class="owl-carousel carousel-container" style="opacity: 1;">
+  {% for key,banner in banners %}
+    {% if (banner['link']) %}
+    <a href="{{ banner['link'] }}"><img {% if (key > 0) %}loading="lazy"{% endif %} decoding="async" width="{{ width }}" height="{{ height }}" src="{{ banner['image'] }}" alt="{{ banner['title'] }}" class="img-responsive" /></a>
+    {% else %}
+    <img {% if (key > 0) %}loading="lazy"{% endif %} decoding="async" width="{{ width }}" height="{{ height }}" src="{{ banner['image'] }}" alt="{{ banner['title'] }}" class="img-responsive" />
+    {% endif %}
+  {% endfor %}
+</div>
+<script>
+$('#slideshow{{ module }}').owlCarousel({
+  items: 6,
+  autoPlay: 15000,
+  singleItem: true,
+  navigation: true,
+  navigationText: ['<span class="slideshow-btn-prev"><svg xmlns="http://www.w3.org/2000/svg" width="5" height="10" fill="none" viewBox="0 0 5 10"><path fill="#000" fill-rule="evenodd" d="M3.993 8.905a.5.5 0 01-.698-.112L1.213 5.91a1.5 1.5 0 01-.01-1.743l2.089-2.956a.5.5 0 11.816.576L2.02 4.744a.5.5 0 00.003.581l2.082 2.882a.5.5 0 01-.112.698z" clip-rule="evenodd"/></svg></span>', '<span class="slideshow-btn-next"><svg xmlns="http://www.w3.org/2000/svg" width="5" height="10" fill="none" viewBox="0 0 5 10"><path stroke="#000" stroke-linecap="round" d="M1.3 1.5l2.082 2.882a1 1 0 01.006 1.162L1.3 8.5"></path></svg></span>'],
+  pagination: true,
+  transitionStyle: 'fade'
+});
+</script>

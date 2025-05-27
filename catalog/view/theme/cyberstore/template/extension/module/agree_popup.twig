@@ -1,0 +1,84 @@
+<div id="popup-agree" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header agree-header">
+				<button type="button" class="hidden" data-dismiss="modal">&times;</button>
+				<h1>{% if (agreedata['icon_agree_header'] != '') %}<i class="{{ agreedata['icon_agree_header']}} fa-fw"></i>{% endif %}{{ agreedata['title_agree'][lang_id] is defined ? agreedata['title_agree'][lang_id]['text'] : '' }}</h1>
+			</div>
+
+			<div class="modal-body agree-content">
+				<div class="description_agree">{{ agree_description }}</div>
+			</div>
+
+			{% if (agreedata['status_btn_agree'] or (agreedata['status_btn_disagree'])) %}
+			<div class="modal-footer agree-footer">
+				<div class="text-right">
+					{% if (agreedata['status_btn_disagree']) %}
+						<button onclick="location.href='{{ agreedata['btn_disagree_location_href'] is defined ? agreedata['btn_disagree_location_href'] : '' }}'" class="btn btn-disagree" type="button">{% if (agreedata['icon_btn_disagree'] != '') %}<i class="{{ agreedata['icon_btn_disagree']}} fa-fw"></i>{% endif %}{{ agreedata['btn_disagree'][lang_id] is defined ? agreedata['btn_disagree'][lang_id]['text'] : '' }}</button>
+					{% endif %}
+					{% if (agreedata['status_btn_agree']) %}
+						<button onclick="saveCookieAgree();" class="btn btn-agree" type="button">{% if (agreedata['icon_btn_agree'] != '') %}<i class="{{ agreedata['icon_btn_agree']}} fa-fw"></i>{% endif %}{{ agreedata['btn_agree'][lang_id] is defined ? agreedata['btn_agree'][lang_id]['text'] : '' }}</button>
+					{% endif %}
+				</div>
+			</div>
+			{% endif %}
+			<script>
+			function saveCookieAgree() {
+				$.ajax({
+			        type: 'get',
+			        url:  'index.php?route=extension/module/cyber_agree_popup/saveAgreeCookie&saveAgreeCookie={{ agreedata['cookie_day'] is defined ? agreedata['cookie_day'] : '1' }}'
+			    });
+
+				$('#popup-agree').modal('hide');
+				$('#popup-agrees.modal.fade').remove();
+			}
+
+			{% if (agreedata['blur_click'] == '1') %}
+				$(document).click(function (e) {
+					if (e.target === $('#popup-agree')[0] && $('body').hasClass('modal-open')) {
+						saveCookieAgree();
+						$('#popup-agree').modal('hide');
+						$('#popup-agrees.modal.fade').remove();
+					}
+				})
+			{% endif %}
+
+			{% if (agreedata['escape_click'] == '1') %}
+			document.addEventListener('keydown', (event) => {
+				if (event.keyCode === 27) {
+					saveCookieAgree();
+					$('#popup-agree').modal('hide');
+					$('#popup-agrees.modal.fade').remove();
+				}
+			})
+			{% endif %}
+			</script>
+<style>
+	{% if (agreedata['background_btn_disagree'] != '') %}
+		#popup-agree .btn-disagree { background:{{ agreedata['background_btn_disagree']}};}
+	{% endif %}
+	{% if (agreedata['background_hover_btn_disagree'] != '') %}
+		#popup-agree .btn-disagree:hover { background:{{ agreedata['background_hover_btn_disagree']}};}
+	{% endif %}
+	{% if (agreedata['text_color_btn_disagree'] != '') %}
+		#popup-agree .btn-disagree { color:{{ agreedata['text_color_btn_disagree']}};}
+	{% endif %}
+	{% if (agreedata['text_color_hover_btn_disagree'] != '') %}
+		#popup-agree .btn-disagree:hover { color:{{ agreedata['text_color_hover_btn_disagree']}};}
+	{% endif %}
+	{% if (agreedata['background_btn_agree'] != '') %}
+		#popup-agree .btn-agree { background:{{ agreedata['background_btn_agree']}};}
+	{% endif %}
+	{% if (agreedata['background_hover_btn_agree'] != '') %}
+		#popup-agree .btn-agree:hover { background:{{ agreedata['background_hover_btn_agree']}};}
+	{% endif %}
+	{% if (agreedata['text_color_btn_agree'] != '') %}
+		#popup-agree .btn-agree { color:{{ agreedata['text_color_btn_agree']}};}
+	{% endif %}
+	{% if (agreedata['text_color_hover_btn_agree'] != '') %}
+		#popup-agree .btn-agree:hover { color:{{ agreedata['text_color_hover_btn_agree']}};}
+	{% endif %}
+</style>
+</div>
+</div>
+</div>

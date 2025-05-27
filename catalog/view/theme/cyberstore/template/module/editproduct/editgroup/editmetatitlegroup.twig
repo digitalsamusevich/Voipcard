@@ -1,0 +1,219 @@
+<div id="popup-editor-product">
+	<div class="title-editor">{{ entry_meta_title }}</div>
+		<ul class="nav nav-tabs">
+            <li class="active"><a href="#seo-general-tab" data-toggle="tab">{{ text_seo_general_tab }}</a></li>
+            <li><a id="tab-list-load" href="#seo-template-tab" data-toggle="tab">{{ text_seo_template_tab }}</a></li>
+        </ul>
+		<div class="tab-content">
+            <div class="tab-pane active" id="seo-general-tab">
+			  <form class="form-horizontal" id="form-product-meta-title" enctype="multipart/form-data" method="post">
+				<div class="form-group">
+					<div class="col-sm-12 col-sm-push-3"> <button type="button" id="button-save-seo" class="btn btn-success-editor">{{ button_seo_template_save }}</button></div>
+				</div>
+				<div class="form-group">  
+					<label class="col-sm-3 desc_edit_label" for="input-quantity">{{ entry_method }}</label>
+					<div class="col-sm-9">
+						<select class="form-control" id="input-quantity-method" name="seo_desc_method">
+							<option value="seo_desc_del">{{ text_delete_seo_meta }}</option>
+							<option value="seo_desc_skip">{{ text_skip_seo_meta }}</option>											 
+						</select>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-sm-12" id="title_load_select">
+						{% for language in languages %} 
+						<div class="input-group"><span class="input-group-addon">{% if (VERSION < 2.2) %}<img src="admin/view/image/flags/{{ language['image'] }}" title="{{ language['name'] }}" />{% else %}<img src="admin/language/{{ language['code'] }}/{{ language['code'] }}.png" title="{{ language['name'] }}" />{% endif %}</span>
+							 <input type="text" name="product_description[{{ language['language_id'] }}][meta_title]" value="{% if (sel_seo_tempalte is not empty) %}{{ sel_seo_tempalte[language['language_id']] is defined ? sel_seo_tempalte[language['language_id']]['meta_title'] : '' }}{% else %}{{ seo_prod[language['language_id']] is defined ? seo_prod[language['language_id']]['seo_prod_meta_title'] : '' }}{% endif %}" class="form-control" />
+						</div>
+					 {% endfor %} 
+					</div>
+				</div>
+				<div class="form-group">  
+					<label class="col-sm-3 desc_edit_label">{{ text_seo_designations }}</label>
+					<div class="col-sm-9" style="padding-top:9px;">
+						<span>{{ text_seo_product_name }}</span>
+						<span>{{ text_seo_price }}</span>
+						<span>{{ text_seo_model }}</span>
+						<span>{{ text_seo_sku }}</span>						
+						<span>{{ text_seo_category }}</span>
+						<span>{{ text_seo_manufacturer }}</span>									
+						<span>{{ text_seo_random_text }}</span>				
+					</div>
+				</div>
+			  </form>
+			</div>
+			<div class="tab-pane" id="seo-template-tab">
+				<form class="form-horizontal" id="form-product-list-seo" enctype="multipart/form-data" method="post">	
+					<div id="list_seo"></div>
+				</form>
+			</div>
+		</div>
+<div class="text-right">
+	<button onclick="$('.popup_banner').popup('hide'); groupEditorRefresh();" class="btn-editor btn-cancel-editor" type="button">{{ button_cancel }}</button>
+	<button onclick="saveGroupEditor();" data-loading-text="{{ text_loading_editor }}" class="btn-editor btn-save-editor" type="button">{{ button_save }}</button>
+</div>
+<script type="text/javascript">
+$('#list_seo').delegate('.pagination a', 'click', function(e) {
+  e.preventDefault();
+  $('#list_seo').load(this.href);
+});
+$('#list_seo').load('index.php?route=module/editproduct/editgroup/seoTitleLoad&token={{ token }}&seo_category_id={{ seo_category_id }}');
+
+function saveSeoTitleNew(seo_id) {
+	$.ajax({
+		url: 'index.php?route=module/editproduct/editgroup/saveSeoTitleNew&token={{ token }}&seo_id='+ seo_id +'&seo_category_id={{ seo_category_id }}',
+		type: 'post',
+		dataType: 'json',
+		data: $('#form-product-list-seo #seo_template'+seo_id+' input'),
+		success: function(json) {
+		$('#popup-editor-product .alert').remove();
+			if (json['warning']) {
+				$('#form-product-list-seo').before('<div class="alert alert-danger"><i class="fa fa-check-circle"></i> ' + json['warning'] + '</div>');	
+			}
+			if (json['success']) {
+				$('#form-product-list-seo').before('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');
+				$('#list_seo').load('index.php?route=module/editproduct/editgroup/seoTitleLoad&token={{ token }}&seo_category_id={{ seo_category_id }}');
+				$('#title_load_select').load('index.php?route=module/editproduct/editgroup/quickedit_metaTitleGroup&seo_category_id='+ {{ seo_category_id }} +'&token={{ token }} #title_load_select > div');				
+				setTimeout(function(){
+					$('.tooltip').remove();	
+					$('#popup-editor-product .alert').remove();									
+				}, 1000)
+			}
+		}
+	});
+}
+function applySeoTitle(seo_id) {
+	$.ajax({
+		url: 'index.php?route=module/editproduct/editgroup/applySeoTitle&token={{ token }}&seo_id='+ seo_id +'&seo_category_id={{ seo_category_id }}',
+		type: 'post',
+		dataType: 'json',
+		data: $('.editor-group-checked-product input.group-editor-checkbox[type=\'checkbox\']:checked, #form-product-meta-title').serialize(),
+		success: function(json) {
+		$('#popup-editor-product .alert').remove();
+			if (json['warning']) {
+				$('#form-product-list-seo').before('<div class="alert alert-danger"><i class="fa fa-check-circle"></i> ' + json['warning'] + '</div>');	
+			}
+			if (json['success']) {
+				$('#form-product-list-seo').before('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');
+				$('#list_seo').load('index.php?route=module/editproduct/editgroup/seoTitleLoad&token={{ token }}&seo_category_id={{ seo_category_id }}');
+				$('#title_load_select').load('index.php?route=module/editproduct/editgroup/quickedit_metaTitleGroup&seo_category_id='+ {{ seo_category_id }} +'&token={{ token }} #title_load_select > div');				
+				setTimeout(function(){
+					$('.tooltip').remove();		
+					$('#popup-editor-product .alert').remove();									
+				}, 1000)
+			}
+		}
+	});
+}
+function deleteSeoTitle(seo_id) {
+	$.ajax({
+		url: 'index.php?route=module/editproduct/editgroup/deleteSeoTitle&token={{ token }}&seo_id='+ seo_id +'&seo_category_id={{ seo_category_id }}',
+		type: 'post',
+		dataType: 'json',
+		data: $('.editor-group-checked-product input.group-editor-checkbox[type=\'checkbox\']:checked, #form-product-meta-description').serialize(),
+		success: function(json) {
+		$('#popup-editor-product .alert').remove();
+			if (json['warning']) {
+				$('#form-product-list-seo').before('<div class="alert alert-danger"><i class="fa fa-check-circle"></i> ' + json['warning'] + '</div>');	
+			}
+			if (json['success']) {
+				$('#form-product-list-seo').before('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');
+				$('#list_seo').load('index.php?route=module/editproduct/editgroup/seoTitleLoad&token={{ token }}&seo_category_id={{ seo_category_id }}');
+				$('#title_load_select').load('index.php?route=module/editproduct/editgroup/quickedit_metaTitleGroup&seo_category_id='+ {{ seo_category_id }} +'&token={{ token }} #title_load_select > div');				
+				setTimeout(function(){
+					$('.tooltip').remove();	
+					$('#popup-editor-product .alert').remove();									
+				}, 1000)
+			}
+		}
+	});
+}
+
+$('#button-save-seo').popover({
+	html: true,
+	placement: 'bottom',
+	trigger: 'click',
+	title: '{{ entry_name_seo_template }}',
+	content: function() {
+		html  = '<div class="input-group">';
+		html += '  <input type="text" name="name_seo_template" value="" placeholder="{{ text_name_seo_template }}" class="form-control">';
+		html += '  <span class="input-group-btn"><button type="button" title="" id="button-create-seo" class="btn btn-primary-editor"><i class="fa fa-plus-circle"></i></button></span>';
+		html += '</div>';
+
+		return html;
+	}
+});
+
+$('#button-save-seo').on('shown.bs.popover', function() {
+	$('#button-create-seo').on('click', function() {	
+		$.ajax({
+		url: 'index.php?route=module/editproduct/editgroup/saveSeoTemplateTitle&token={{ token }}&seo_category_id={{ seo_category_id }}',
+		type: 'post',
+		dataType: 'json',
+		data: $('.editor-group-checked-product input.group-editor-checkbox[type=\'checkbox\']:checked, #form-product-meta-title').serialize(),
+			beforeSend: function() {
+				$('#popup-editor-product .btn-save-editor').button('loading');
+				$('#form-product-meta-title').prepend('<div id="loading_img_svg"></div>');
+				$('#form-product-meta-title').css('opacity',0.5);
+				loading_img_svg(true);
+			},
+			complete: function() {
+				loading_img_svg(false);
+				$('#popup-editor-product .btn-save-editor').button('reset');
+				$('#form-product-meta-title').css('opacity',1);
+			},
+			success: function(json) {
+			$('#popup-editor-product .alert').remove();
+				if (json['warning']) {
+					$('#form-product-meta-title').before('<div class="alert alert-danger"><i class="fa fa-check-circle"></i> ' + json['warning'] + '</div>');	
+				}
+				if (json['success']) {
+					$('#form-product-meta-title').before('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');			
+					$('#list_seo').load('index.php?route=module/editproduct/editgroup/seoTitleLoad&token={{ token }}&seo_category_id={{ seo_category_id }}');
+					$('.popover').remove();	
+					setTimeout(function(){
+						$('.tooltip').remove();	
+						$('#popup-editor-product .alert').remove();									
+					}, 1000)
+				}
+			}
+		});	
+	});
+});		 
+
+
+
+function saveGroupEditor() {	
+	$.ajax({
+		url: 'index.php?route=module/editproduct/editgroup/productGroupMetaTitleChange&token={{ token }}',
+		type: 'post',
+		dataType: 'json',
+		data: $('.editor-group-checked-product input.group-editor-checkbox[type=\'checkbox\']:checked, #form-product-meta-title').serialize(),
+		beforeSend: function() {
+			$('#popup-editor-product .btn-save-editor').button('loading');
+			$('#form-product-meta-title').prepend('<div id="loading_img_svg"></div>');
+			$('#form-product-meta-title').css('opacity',0.5);
+			loading_img_svg(true);
+		},
+		complete: function() {
+			loading_img_svg(false);
+			$('#popup-editor-product .btn-save-editor').button('reset');
+			$('#form-product-meta-title').css('opacity',1);
+		},
+		success: function(json) {
+		$('#popup-editor-product .alert').remove();
+			if (json['warning']) {
+				$('#form-product-meta-title').before('<div class="alert alert-danger"><i class="fa fa-check-circle"></i> ' + json['warning'] + '</div>');	
+			}
+			if (json['success']) {
+				$('#form-product-meta-title').before('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');			
+				
+				setTimeout(function(){
+					location.reload(true);										
+				}, 500)
+			}
+		}
+	});
+}
+</script>
+</div>

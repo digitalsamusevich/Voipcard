@@ -1,0 +1,428 @@
+{{ header }}
+{% if (position_1 is defined) %}
+	<div class="container-fluid">
+		<div class="row">
+		<div class="col-sm-12 pos1">
+			{% for key,pos1 in position_1 %}
+				{% if (hide_mode['position_1'][key] is not empty) %}
+					<div class="{{ hide_mode['position_1'][key] }}">{{ pos1 }}</div>
+				{% else %}
+					{{ pos1 }}
+				{% endif %}
+			{% endfor %}
+		</div>
+		</div>
+	</div>
+{% endif %}
+<div class="container">
+	<div class="row">
+	{% if ((general_menu_on_off == '1') and (main_menu == '1')) %}
+		<div class="sw-20 col-sm-4 col-md-3 position-no-owl hidden-xs hidden-sm">
+			<div id="menu-header-open"></div>
+			{% if (position_0 is defined) %}
+				{% for key,pos0 in position_0 %}
+					{% if (hide_mode['position_0'][key] is not empty) %}
+						<div class="{{ hide_mode['position_0'][key] }}">{{ pos0 }}</div>
+					{% else %}
+						{{ pos0 }}
+					{% endif %}
+				{% endfor %}
+			{% endif %}
+		</div>
+		{% if (position_1 is not defined) %}
+		<script>
+		if(window.matchMedia("(min-width: 992px)").matches){
+			$('#menu .menu-list-dropdown').addClass("nsmenu-block");
+			$(function(){$('#menu-header-open').css({'min-height': $('#menu .menu-list-dropdown.nsmenu-block #menu-list').outerHeight()});});
+		}
+		$(window).resize(function() {
+			if ($(window).width() > 992) {
+				$('#menu .menu-list-dropdown').not("#top-fixed #menu .menu-list-dropdown").addClass("nsmenu-block");
+				$('#menu-header-open').css({'min-height': $('.menu-list-dropdown.nsmenu-block #menu-list').outerHeight()});
+			} else {
+				$('#menu .menu-list-dropdown').removeClass("nsmenu-block");
+			}
+		});
+		</script>
+		{% else %}
+		<script>
+		if(window.matchMedia("(min-width: 992px)").matches){
+			$('#menu .menu-list-dropdown').addClass("nsmenu-block");
+		}
+		$(window).resize(function() {
+			if ($(window).width() > 992) {
+				$('#menu .menu-list-dropdown').addClass("nsmenu-block");
+			} else {
+				$('#menu .menu-list-dropdown').removeClass("nsmenu-block");
+			}
+		});
+		</script>
+		{% endif %}
+		<div class="sw-80 col-md-9">{{ content_top }}</div>
+		{% if (position_17 is defined) %}
+			<div class="col-md-3 pos17">
+				{% for key,pos17 in position_17 %}
+					{% if (hide_mode['position_17'][key] is not empty) %}
+						<div class="{{ hide_mode['position_17'][key] }}">{{ pos17 }}</div>
+					{% else %}
+						{{ pos17 }}
+					{% endif %}
+				{% endfor %}
+			</div>
+		{% endif %}
+		{% if (position_18 is defined) %}
+			<div class="col-md-3 pos18">
+				{% for key,pos18 in position_18 %}
+					{% if (hide_mode['position_18'][key] is not empty) %}
+						<div class="{{ hide_mode['position_18'][key] }}">{{ pos18 }}</div>
+					{% else %}
+						{{ pos18 }}
+					{% endif %}
+				{% endfor %}
+			</div>
+		{% endif %}
+		{% if (position_19 is defined) %}
+			<div class="col-md-3 pos19">
+				{% for key,pos19 in position_19 %}
+					{% if (hide_mode['position_19'][key] is not empty) %}
+						<div class="{{ hide_mode['position_19'][key] }}">{{ pos19 }}</div>
+					{% else %}
+						{{ pos19 }}
+					{% endif %}
+				{% endfor %}
+			</div>
+		{% endif %}
+		{% if (position_20 is defined) %}
+			<div class="col-md-6 pos20">
+				{% for key,pos20 in position_20 %}
+					{% if (hide_mode['position_20'][key] is not empty) %}
+						<div class="{{ hide_mode['position_20'][key] }}">{{ pos20 }}</div>
+					{% else %}
+						{{ pos20 }}
+					{% endif %}
+				{% endfor %}
+			</div>
+		{% endif %}
+		{% if (position_21 is defined) %}
+			<div class="col-md-3 pos21">
+				{% for key,pos21 in position_21 %}
+					{% if (hide_mode['position_21'][key] is not empty) %}
+						<div class="{{ hide_mode['position_21'][key] }}">{{ pos21 }}</div>
+					{% else %}
+						{{ pos21 }}
+					{% endif %}
+				{% endfor %}
+			</div>
+		{% endif %}
+	{% else %}
+		<div class="col-md-12">{{ content_top }}</div>
+		{% if (position_17 is defined) %}
+			<div class="col-md-4 pos17">
+				{% for key,pos17 in position_17 %}
+					{% if (hide_mode['position_17'][key] is not empty) %}
+						<div class="{{ hide_mode['position_17'][key] }}">{{ pos17 }}</div>
+					{% else %}
+						{{ pos17 }}
+					{% endif %}
+				{% endfor %}
+			</div>
+		{% endif %}
+		{% if (position_18 is defined) %}
+			<div class="col-md-4 pos18">
+				{% for key,pos18 in position_18 %}
+					{% if (hide_mode['position_18'][key] is not empty) %}
+						<div class="{{ hide_mode['position_18'][key] }}">{{ pos18 }}</div>
+					{% else %}
+						{{ pos18 }}
+					{% endif %}
+				{% endfor %}
+			</div>
+		{% endif %}
+		{% if (position_19 is defined) %}
+			<div class="col-md-4 pos19">
+				{% for key,pos19 in position_19 %}
+					{% if (hide_mode['position_19'][key] is not empty) %}
+						<div class="{{ hide_mode['position_19'][key] }}">{{ pos19 }}</div>
+					{% else %}
+						{{ pos19 }}
+					{% endif %}
+				{% endfor %}
+			</div>
+		{% endif %}
+		{% if (position_20 is defined) %}
+			<div class="col-md-8 pos20">
+				{% for key,pos20 in position_20 %}
+					{% if (hide_mode['position_20'][key] is not empty) %}
+						<div class="{{ hide_mode['position_20'][key] }}">{{ pos20 }}</div>
+					{% else %}
+						{{ pos20 }}
+					{% endif %}
+				{% endfor %}
+			</div>
+		{% endif %}
+		{% if (position_21 is defined) %}
+			<div class="col-md-4 pos21">
+				{% for key,pos21 in position_21 %}
+					{% if (hide_mode['position_21'][key] is not empty) %}
+						<div class="{{ hide_mode['position_21'][key] }}">{{ pos21 }}</div>
+					{% else %}
+						{{ pos21 }}
+					{% endif %}
+				{% endfor %}
+			</div>
+		{% endif %}
+	{% endif %}
+	</div>
+	<div class="row">
+	{{ column_left }}
+    {% if (column_left and column_right) %}
+    {% set class = 'col-sm-4 col-md-6' %}
+    {% elseif (column_left or column_right) %}
+    {% set class = 'col-sm-8 col-md-9' %}
+    {% else %}
+    {% set class = 'col-sm-12' %}
+    {% endif %}
+    <div class="{{ class }}">
+		{{ content_bottom }}
+	</div>
+    {{ column_right }}
+	</div>
+</div>
+{% if (position_2 is defined or position_3 is defined) %}
+	<div class="box-bg-full bg_mode_pos_2">
+	<div class="container">
+		<div class="row">
+			{% if (position_2 is defined) %}
+			<div class="col-sm-6 col-md-6 pos2">
+			{% for key,pos2 in position_2 %}
+				{% if (hide_mode['position_2'][key] is not empty) %}
+					<div class="{{ hide_mode['position_2'][key] }}">{{ pos2 }}</div>
+				{% else %}
+					{{ pos2 }}
+				{% endif %}
+			{% endfor %}
+			</div>
+			{% endif %}
+			{% if (position_3 is defined) %}
+			<div class="col-sm-6 col-md-6 pos3">
+				{% for key,pos3 in position_3 %}
+					{% if (hide_mode['position_3'][key] is not empty) %}
+						<div class="{{ hide_mode['position_3'][key] }}">{{ pos3 }}</div>
+					{% else %}
+						{{ pos3 }}
+					{% endif %}
+				{% endfor %}
+			</div>
+			{% endif %}
+		</div>
+	</div>
+	</div>
+{% endif %}
+
+{% if (position_4 is defined or position_5 is defined) %}
+	<div class="container">
+		<div class="row">
+			{% if (position_4 is defined) %}
+			<div class="col-sm-4 col-md-3 pos4">
+				{% for key,pos4 in position_4 %}
+					{% if (hide_mode['position_4'][key] is not empty) %}
+						<div class="{{ hide_mode['position_4'][key] }}">{{ pos4 }}</div>
+					{% else %}
+						{{ pos4 }}
+					{% endif %}
+				{% endfor %}
+			</div>
+			{% endif %}
+			{% if (position_5 is defined) %}
+			<div class="col-sm-8 col-md-9 pos5">
+				{% for key,pos5 in position_5 %}
+					{% if (hide_mode['position_5'][key] is not empty) %}
+						<div class="{{ hide_mode['position_5'][key] }}">{{ pos5 }}</div>
+					{% else %}
+						{{ pos5 }}
+					{% endif %}
+				{% endfor %}
+			</div>
+			{% endif %}
+		</div>
+	</div>
+{% endif %}
+
+{% if (position_6 is defined or position_7 is defined) %}
+	<div class="container">
+		<div class="row">
+			{% if (position_6 is defined) %}
+			<div class="col-sm-8 col-md-9 pos6">
+				{% for key,pos6 in position_6 %}
+					{% if (hide_mode['position_6'][key] is not empty) %}
+						<div class="{{ hide_mode['position_6'][key] }}">{{ pos6 }}</div>
+					{% else %}
+						{{ pos6 }}
+					{% endif %}
+				{% endfor %}
+			</div>
+			{% endif %}
+			{% if (position_7 is defined) %}
+			<div class="col-sm-4 col-md-3 pos7">
+				{% for key,pos7 in position_7 %}
+					{% if (hide_mode['position_7'][key] is not empty) %}
+						<div class="{{ hide_mode['position_7'][key] }}">{{ pos7 }}</div>
+					{% else %}
+						{{ pos7 }}
+					{% endif %}
+				{% endfor %}
+			</div>
+			{% endif %}
+		</div>
+	</div>
+{% endif %}
+
+{% if (position_8 is defined or position_9 is defined or position_10 is defined) %}
+	<div class="container">
+		<div class="row">
+		{% if (position_8 is defined and position_9 is defined) %}
+		{% set class10 = 'col-sm-4 col-md-6' %}
+		{% elseif (position_8 is defined or position_9 is defined) %}
+		{% set class10 = 'col-sm-8 col-md-9' %}
+		{% else %}
+		{% set class10 = 'col-sm-12' %}
+		{% endif %}
+			{% if (position_8 is defined) %}
+				<div class="col-sm-4 col-md-3 position-no-owl pos8">
+					{% for key,pos8 in position_8 %}
+						{% if (hide_mode['position_8'][key] is not empty) %}
+							<div class="{{ hide_mode['position_8'][key] }}">{{ pos8 }}</div>
+						{% else %}
+							{{ pos8 }}
+						{% endif %}
+					{% endfor %}
+				</div>
+			{% endif %}
+			{% if (position_9 is defined) %}
+				<div class="col-sm-4 col-md-3 position-no-owl pos9">
+					{% for key,pos9 in position_9 %}
+						{% if (hide_mode['position_9'][key] is not empty) %}
+							<div class="{{ hide_mode['position_9'][key] }}">{{ pos9 }}</div>
+						{% else %}
+							{{ pos9 }}
+						{% endif %}
+					{% endfor %}
+				</div>
+			{% endif %}
+			{% if (position_10 is defined) %}
+				<div class="{{ class10 }} position-no-owl pos10">
+					{% for key,pos10 in position_10 %}
+						{% if (hide_mode['position_10'][key] is not empty) %}
+							<div class="{{ hide_mode['position_10'][key] }}">{{ pos10 }}</div>
+						{% else %}
+							{{ pos10 }}
+						{% endif %}
+					{% endfor %}
+				</div>
+			{% endif %}
+		</div>
+	</div>
+{% endif %}
+{% if (position_22 is defined) %}
+	<div class="box-bg-full bg_mode_pos_22">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12 pos22">
+			{% for key,pos22 in position_22 %}
+				{% if (hide_mode['position_22'][key] is not empty) %}
+					<div class="{{ hide_mode['position_22'][key] }}">{{ pos22 }}</div>
+				{% else %}
+					{{ pos22 }}
+				{% endif %}
+			{% endfor %}
+			</div>
+		</div>
+	</div>
+	</div>
+{% endif %}
+{% if (position_11 is defined or position_12 is defined or position_13 is defined or position_14 is defined) %}
+	<div class="box-bg-full bg_mode_pos_11">
+	<div class="container">
+		<div class="row">
+			{% if (position_11 is defined) %}
+			<div class="col-sm-6 col-md-3 position-no-owl pos11">
+				{% for key,pos11 in position_11 %}
+					{% if (hide_mode['position_11'][key] is not empty) %}
+						<div class="{{ hide_mode['position_11'][key] }}">{{ pos11 }}</div>
+					{% else %}
+						{{ pos11 }}
+					{% endif %}
+				{% endfor %}
+			</div>
+			{% endif %}
+			{% if (position_12 is defined) %}
+			<div class="col-sm-6 col-md-3 position-no-owl pos12">
+				{% for key,pos12 in position_12 %}
+					{% if (hide_mode['position_12'][key] is not empty) %}
+						<div class="{{ hide_mode['position_12'][key] }}">{{ pos12 }}</div>
+					{% else %}
+						{{ pos12 }}
+					{% endif %}
+				{% endfor %}
+			</div>
+			{% endif %}
+			{% if (position_13 is defined) %}
+			<div class="col-sm-6 col-md-3 position-no-owl pos13">
+				{% for key,pos13 in position_13 %}
+					{% if (hide_mode['position_13'][key] is not empty) %}
+						<div class="{{ hide_mode['position_13'][key] }}">{{ pos13 }}</div>
+					{% else %}
+						{{ pos13 }}
+					{% endif %}
+				{% endfor %}
+			</div>
+			{% endif %}
+			{% if (position_14 is defined) %}
+			<div class="col-sm-6 col-md-3 position-no-owl pos14">
+				{% for key,pos14 in position_14 %}
+					{% if (hide_mode['position_14'][key] is not empty) %}
+						<div class="{{ hide_mode['position_14'][key] }}">{{ pos14 }}</div>
+					{% else %}
+						{{ pos14 }}
+					{% endif %}
+				{% endfor %}
+			</div>
+			{% endif %}
+		</div>
+	</div>
+</div>
+{% endif %}
+
+{% if (position_15 is defined) %}
+	<div class="box-bg-full bg_mode_pos_15">
+	<div class="container">
+		<div class="row">
+		<div class="col-sm-12 pos15">
+			{% for key,pos15 in position_15 %}
+				{% if (hide_mode['position_15'][key] is not empty) %}
+					<div class="{{ hide_mode['position_15'][key] }}">{{ pos15 }}</div>
+				{% else %}
+					{{ pos15 }}
+				{% endif %}
+			{% endfor %}
+		</div>
+		</div>
+	</div>
+	</div>
+{% endif %}
+{% if (position_16 is defined) %}
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-sm-12 pos16">
+			{% for key,pos16 in position_16 %}
+				{% if (hide_mode['position_16'][key] is not empty) %}
+					<div class="{{ hide_mode['position_16'][key] }}">{{ pos16 }}</div>
+				{% else %}
+					{{ pos16 }}
+				{% endif %}
+			{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endif %}
+{{ footer }}

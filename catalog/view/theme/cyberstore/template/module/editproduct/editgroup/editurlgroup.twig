@@ -1,0 +1,62 @@
+<div id="popup-editor-product">
+	<div class="title-editor">{{ entry_url_group }}</div>
+		<form class="form-horizontal" id="form-product-url" enctype="multipart/form-data" method="post">
+			<div class="form-group">  
+				<label class="col-sm-3 control-label" for="input-quantity-method">{{ entry_method }}</label>
+				<div class="col-sm-9">
+					<select class="form-control" id="input-quantity-method" name="url_method">
+						<option value="url_skip">{{ text_skip_url_full }}</option>
+						<option value="url_change">{{ text_change_all_url }}</option>
+					</select>
+				</div>
+			</div>
+			<div class="form-group">  
+				<label class="col-sm-3 control-label" for="input-url-already-use">{{ text_url_alredy_use }}</label>
+				<div class="col-sm-9">
+					<select class="form-control" id="input-url-already-use" name="url_already_use">
+						<option value="add_id">{{ text_url_add_id }}</option>			  
+						<option value="add_model">{{ text_url_add_model }}</option>			  
+						<option value="add_sku">{{ text_url_add_sku }}</option>			  
+					</select>
+				</div>
+			</div>
+		</form>
+		<div class="text-right">
+			<button onclick="$('.popup_banner').popup('hide'); groupEditorRefresh();" class="btn-editor btn-cancel-editor" type="button">{{ button_cancel }}</button>
+			<button onclick="saveGroupEditor();" data-loading-text="{{ text_loading_editor }}" class="btn-editor btn-save-editor" type="button">{{ button_save }}</button>
+		</div>
+<script type="text/javascript">
+function saveGroupEditor() {	
+	$.ajax({
+		url: 'index.php?route=module/editproduct/editgroup/productGroupUrlChange&token={{ token }}',
+		type: 'post',
+		dataType: 'json',
+		data: $('.editor-group-checked-product input.group-editor-checkbox[type=\'checkbox\']:checked, #form-product-url').serialize(),
+		beforeSend: function() {
+			$('#popup-editor-product .btn-save-editor').button('loading');
+			$('#form-product-url').prepend('<div id="loading_img_svg"></div>');
+			$('#form-product-url').css('opacity',0.5);
+			loading_img_svg(true);
+		},
+		complete: function() {
+			loading_img_svg(false);
+			$('#popup-editor-product .btn-save-editor').button('reset');
+			$('#form-product-url').css('opacity',1);
+		},
+		success: function(json) {
+		$('#popup-editor-product .alert').remove();
+			if (json['warning']) {
+				$('#form-product-url').before('<div class="alert alert-danger"><i class="fa fa-check-circle"></i> ' + json['warning'] + '</div>');	
+			}
+			if (json['success']) {
+				$('#form-product-url').before('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');			
+				
+				setTimeout(function(){
+					location.reload(true);										
+				}, 500)
+			}
+		}
+	});
+}
+</script>
+</div>

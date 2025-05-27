@@ -1,0 +1,73 @@
+<div class="shopping-cart type_cart">
+<div id="cart" class="btn-group btn-block">
+  <button type="button" {% if (on_off_shopping_cart_click == '1') %} onclick="fastorder_open_cart();" {% else %}data-toggle="dropdown"{% endif %} class="btn btn-block dropdown-toggle">
+	{% if (icon_shopcart is not defined or icon_shopcart == '') %}
+	<svg class="shop-bag" width="21" height="19" viewBox="0 0 21 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M0.0996094 1.0001C0.0996094 0.503041 0.502553 0.100098 0.999609 0.100098H2.3909C3.19834 0.100098 3.91761 0.610433 4.18428 1.3726M4.18428 1.3726L7.21456 10.0331C7.21456 10.0331 7.21455 10.0331 7.21456 10.0331C7.2286 10.0732 7.26646 10.1001 7.30896 10.1001H17.5827C17.6303 10.1001 17.6712 10.0667 17.6807 10.0201L18.8727 4.18431C18.8727 4.1843 18.8727 4.18432 18.8727 4.18431C18.8853 4.12232 18.838 4.06427 18.7747 4.06427H8.17454C7.67748 4.06427 7.27454 3.66132 7.27454 3.16427C7.27454 2.66721 7.67748 2.26427 8.17454 2.26427H18.7747C19.9768 2.26427 20.8768 3.36663 20.6363 4.54447L19.4443 10.3803C19.2636 11.2649 18.4855 11.9001 17.5827 11.9001H7.30896C6.50153 11.9001 5.78227 11.3898 5.51558 10.6277L2.48528 1.96707C2.47125 1.92697 2.43339 1.9001 2.3909 1.9001H0.999609C0.502553 1.9001 0.0996094 1.49715 0.0996094 1.0001" fill="white"/>
+  <path d="M7 19C8.10457 19 9 18.1046 9 17C9 15.8954 8.10457 15 7 15C5.89543 15 5 15.8954 5 17C5 18.1046 5.89543 19 7 19Z" fill="white"/>
+  <path d="M17 19C18.1046 19 19 18.1046 19 17C19 15.8954 18.1046 15 17 15C15.8954 15 15 15.8954 15 17C15 18.1046 15.8954 19 17 19Z" fill="white"/>
+  </svg>
+	{% elseif ('fa fa-' in icon_shopcart) %}
+	<i class="shop-bag {{ icon_shopcart }}"></i>
+	{% else %}
+	<img class="shop-bag" src="{{ icon_shopcart }}" alt="" title="" />
+	{% endif %}
+    <span class="cart-total">{{ text_items }}</span>
+  </button>
+  <ul class="dropdown-menu pull-right"  >
+    {% if (products or vouchers) %}
+    <li>
+      <table class="table table-striped">
+        {% for product in products %}
+        <tr>
+          <td class="text-left">{% if (product['thumb']) %}
+            <a href="{{ product['href'] }}"><img src="{{ product['thumb'] }}" alt="{{ product['name'] }}" title="{{ product['name'] }}" class="img-responsive" /></a>
+            {% endif %}</td>
+          <td class="text-left"><a href="{{ product['href'] }}">{{ product['name'] }}</a>
+            {% if (product['option']) %}
+            {% for option in product['option'] %}
+            <br />
+            - <small>{{ option['name'] }} {{ option['value'] }}</small>
+            {% endfor %}
+            {% endif %}
+            {% if (product['recurring']) %}
+            <br />
+            - <small>{{ text_recurring }} {{ product['recurring'] }}</small>
+            {% endif %}</td>
+           <td class="text-right"><div class="cart-quantity-header">x {{ product['quantity'] }}</div></td>
+          <td class="text-right">{{ product['total'] }}</td>
+          <td class="text-center"><button type="button" onclick="cart.remove('{{ product['cart_id'] }}');" title="{{ button_remove }}" class="btn btn-link-delete"><i class="fa fa-trash-o"></i></button></td>
+        </tr>
+        {% endfor %}
+        {% for voucher in vouchers %}
+        <tr>
+          <td class="text-center"></td>
+          <td class="text-left">{{ voucher['description'] }}</td>
+          <td class="text-right">x&nbsp;1</td>
+          <td class="text-right">{{ voucher['amount'] }}</td>
+          <td class="text-center text-danger"><button type="button" onclick="voucher.remove('{{ voucher['key'] }}');" title="{{ button_remove }}" class="btn btn-link-delete"><i class="fa fa-trash-o"></i></button></td>
+        </tr>
+        {% endfor %}
+      </table>
+    </li>
+    <li>
+      <div>
+        <table class="table">
+          {% for total in totals %}
+          <tr>
+            <td class="text-right total-title"><strong>{{ total['title'] }}</strong></td>
+            <td class="text-right total-text">{{ total['text'] }}</td>
+          </tr>
+          {% endfor %}
+        </table>
+        <p class="text-left"><a class="btn btn-shopping" href="{{ cart }}">{{ text_cart }}</a><a class="btn btn-checkout" href="{{ checkout }}">{{ text_checkout }}</a></p>
+      </div>
+    </li>
+    {% else %}
+    <li>
+      <p class="text-center">{{ text_empty }}</p>
+    </li>
+    {% endif %}
+  </ul>
+</div>
+</div>

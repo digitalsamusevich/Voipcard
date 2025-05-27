@@ -1,0 +1,329 @@
+<footer class="type-footer-{{ type_footer }}">
+{% if (banner_items_footers is not empty) %}
+<div class="box-banner-container">
+<div class="container">
+<div class="row banner-footer">
+	{% for banner_items_footer in banner_items_footers %}
+        <div class="col-xs-6 col-sm-6 col-md-2">
+		<div class="block-banner-footer  {% if ((banner_items_footer['popup'] == '1') and (banner_items_footer['link']) or (banner_items_footer['popup'] == '0') and (banner_items_footer['link'])) %}is_a_link{% endif %}" {% if ((banner_items_footer['popup'] == '1') and (banner_items_footer['link'])) %} onclick="banner_link_open('{{ banner_items_footer['link']}}')"{% elseif ((banner_items_footer['popup'] == '0') and (banner_items_footer['link'])) %}onclick="location='{{ banner_items_footer['link'] }}'" {% endif %}>
+			{% if (banner_items_footer['icon_type'] == 0) %}
+            <div class="icon-banner-footer">
+				<span><i class="{{ banner_items_footer['icon_image']}}"></i></span>
+			</div>
+            {% else %}
+            <div class="image-banner-footer">
+                <img loading="lazy" decoding="async" width="50" height="50" src="{{ banner_items_footer['image'] }}" alt="{{ banner_items_footer['title'][lang_id] }}">
+            </div>
+            {% endif %}
+			<div class="text-footer-banner">
+				<div class="banner-title-footer">{{ banner_items_footer['title'][lang_id] }}</div>
+				<div class="banner-description-footer">{{ banner_items_footer['description'][lang_id] }}</div>
+			</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+</div>
+</div>
+{% endif %}
+<div class="footer-top">
+<div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12">
+       <div class="newsletter">
+       </div>
+       </div>
+      {% if (type_footer == 2) %}
+        <div class="col-xs-12 col-sm-12 col-md-3 footer-left-contact">
+        {% if (cs_logo_footer is not empty) %}
+        <div id="logo-footer">
+              <img loading="lazy" decoding="async" width="{{ cs_logo_fw }}" height="{{ cs_logo_fh }}" src="{{ cs_logo_footer }}" alt="" class="img-responsive">
+        </div>
+        {% endif %}
+        <div class="contact-f-t2">
+        <ul class="list-unstyled">
+            {% if (phones_footer) %}
+                {% for phone_footer in phones_footer %}
+                    {% if (phone_footer['type'] is not empty) %}
+                    <li><a {{ phone_footer['type'] }}> {% if (phone_footer['icon_footer_phone'] is not empty) %}<i class="{{ phone_footer['icon_footer_phone'] }} fa-width"></i> {% endif %}{{ phone_footer['phone_footer'] }}</a></li>
+                    {% else %}
+                    <li>{% if (phone_footer['icon_footer_phone'] is not empty) %}<i class="{{ phone_footer['icon_footer_phone'] }} fa-width"></i> {% endif %}{{ phone_footer['phone_footer'] }}</li>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </ul>
+        </div>
+        </div>
+      {% endif %}
+      {% if (informations) %}
+      <div class="col-xs-12 col-sm-6 {% if (type_footer == 1) %}col-md-4{% else %}col-md-3{% endif %}">
+        <div class="title-f">{% if (fcols['column_1'][lang_id]['icon_image'] is defined and (fcols['column_1'][lang_id]['icon_image'] != '')) %}<i class="{{ fcols['column_1'][lang_id]['icon_image'] }}"></i> {% endif %}
+		{{ fcols['column_1'][lang_id]['name_column'] is defined ? fcols['column_1'][lang_id]['name_column'] : '' }}</div>
+        <ul class="list-unstyled two-c-pc">
+          {% for information in informations %}
+          <li><a href="{{ information['href'] }}">{{ information['title'] }}</a></li>
+          {% endfor %}
+		  {% if (fcols['link_contact'] is defined) %}<li><a href="{{ contact }}">{{ text_contact }}</a></li>{% endif %}
+
+		  {% if (fcols['link_sitemap'] is defined) %}<li><a href="{{ sitemap }}">{{ text_sitemap }}</a></li>{% endif %}
+		  {% if (fcols['link_manufacturer'] is defined) %}<li><a href="{{ manufacturer }}">{{ text_manufacturer }}</a></li>{% endif %}
+
+		  {% if (fcols['link_affiliate'] is defined) %}<li><a href="{{ affiliate }}">{{ text_affiliate }}</a></li>{% endif %}
+		  {% if (fcols['link_special'] is defined) %}<li><a href="{{ special }}">{{ text_special }}</a></li>{% endif %}
+		  {% if (footer_links) %}
+				{% for result in footer_links %}
+					{% if (result['column_link'] == 4) %}
+						<li><a href="{{ result['link'] }}">{{ result['title'] }}</a></li>
+					{% endif %}
+				{% endfor %}
+			{% endif %}
+        </ul>
+      </div>
+      {% endif %}
+      <div class="col-xs-12 col-sm-6 {% if (type_footer == 1) %}col-md-4{% else %}col-md-3{% endif %}">
+         <div class="title-f">{% if (fcols['column_2'][lang_id]['icon_image'] is defined and (fcols['column_2'][lang_id]['icon_image'] != '')) %}<i class="{{ fcols['column_2'][lang_id]['icon_image'] }}"></i> {% endif %}
+		{{ fcols['column_2'][lang_id]['name_column'] is defined ? fcols['column_2'][lang_id]['name_column'] : '' }}</div>
+        <ul class="list-unstyled two-c-pc">
+			{% if (footer_links) %}
+				{% for result in footer_links %}
+					{% if (result['column_link'] == 2) %}
+						<li><a href="{{ result['link'] }}">{{ result['title'] }}</a></li>
+					{% endif %}
+				{% endfor %}
+			{% endif %}
+        </ul>
+      </div>
+      <div class="col-xs-12 col-sm-6 {% if (type_footer == 1) %}col-md-4{% else %}col-md-3{% endif %}">
+        <div class="title-f">{% if (fcols['column_3'][lang_id]['icon_image'] is defined and (fcols['column_3'][lang_id]['icon_image'] != '')) %}<i class="{{ fcols['column_3'][lang_id]['icon_image'] }}"></i> {% endif %}
+		{{ fcols['column_3'][lang_id]['name_column'] is defined ? fcols['column_3'][lang_id]['name_column'] : '' }}</div>
+        <ul class="list-unstyled two-c-pc">
+			{% if (fcols['link_account'] is defined) %}<li><a href="{{ account }}">{{ text_account }}</a></li>{% endif %}
+			{% if (fcols['link_order'] is defined) %}<li><a href="{{ order }}">{{ text_order }}</a></li>{% endif %}
+			{% if (fcols['link_wishlist'] is defined) %}<li><a href="{{ wishlist }}">{{ text_wishlist }}</a></li>{% endif %}
+			{% if (fcols['link_newsletter'] is defined) %}<li><a href="{{ newsletter }}">{{ text_newsletter }}</a></li>{% endif %}
+			{% if (fcols['link_return'] is defined) %}<li><a href="{{ return }}">{{ text_return }}</a></li>{% endif %}
+			 {% if (fcols['link_voucher'] is defined) %}<li><a href="{{ voucher }}">{{ text_voucher }}</a></li>{% endif %}
+			{% if (footer_links) %}
+				{% for result in footer_links %}
+					{% if (result['column_link'] == 3) %}
+						<li><a href="{{ result['link'] }}">{{ result['title'] }}</a></li>
+					{% endif %}
+				{% endfor %}
+			{% endif %}
+        </ul>
+      </div>
+      </div>
+       {% if (type_footer == 1) %}
+	  <div class="footer-bottom-contact dflex">
+         {% if (cs_logo_footer is not empty) %}
+        <div id="logo-footer">
+              <img loading="lazy" decoding="async" width="{{ cs_logo_fw }}" height="{{ cs_logo_fh }}" src="{{ cs_logo_footer }}" alt="" class="img-responsive">
+        </div>
+        {% endif %}
+        {% if (phones_footer) %}
+        <div class="contact-f-t1 dflex">
+             {% for phone_footer_data in phones_footer|batch(phones_footer|length / 2|round(1, 'ceil')) %}
+                <ul class="list-unstyled">
+				{% for phone_footer in phone_footer_data %}
+					{% if (phone_footer['type'] is not empty) %}
+					<li><a {{ phone_footer['type'] }}><i class="{{ phone_footer['icon_footer_phone'] }} fa-width"></i> {{ phone_footer['phone_footer'] }}</a></li>
+					{% else %}
+					<li><i class="{{ phone_footer['icon_footer_phone'] }} fa-width"></i> {{ phone_footer['phone_footer'] }}</li>
+					{% endif %}
+				{% endfor %}
+                </ul>
+            {% endfor %}
+        </div>
+        {% endif %}
+	   </div>
+       {% endif %}
+
+  </div>
+  </div>
+{% if (footer_desc_status or (footer_map_status == 'codemap' or footer_map_status == 'gmap')) %}
+<div class="fdesc_fmap">
+<div class="container">
+	<div class="row">
+		{% if (footer_desc_status) %}
+		<div class="{% if (footer_map_status == 'off') %}col-md-12{% else %}col-md-6{% endif %}">
+		{{ description_store_footer}}
+		</div>
+		{% endif %}
+		<div class="{% if (footer_desc_status) %}col-md-6{% else %}col-md-12{% endif %}">
+			{% if (footer_map_status == 'codemap') %}{{ code_map }}{% endif %}
+			{% if (footer_map_status == 'gmap') %}
+			<div id="gmap_footer"></div>
+<script src="//maps.google.com/maps/api/js?key={{ google_api_map_key }}"></script>
+<script async src="catalog/view/theme/cyberstore/js/markerclusterer.js"></script>
+<script async src="catalog/view/theme/cyberstore/js/FullScreenControl.js"></script>
+<script>
+function initialize() {
+	var myLatlng = new google.maps.LatLng({{ center_google_map }});
+	var myOptions = {
+		zoom: {{ zoom_google_map }},
+		center: myLatlng,
+		mapTypeId: google.maps.MapTypeId.ROADMAP
+	}
+	var map = new google.maps.Map(document.getElementById("gmap_footer"), myOptions);
+	map.controls[google.maps.ControlPosition.TOP_RIGHT].push(FullScreenControl(map, '<span class="open-full-screen">{{ gmap_full_screen }}</span>','<span class="normal-screen">{{ gmap_normal_screen }}</span>'));
+	var markers = [];
+	myPlaces = [];
+	{% for gmap_new in gmap_setting %}
+		myPlaces.push(new Place('{{ gmap_new.onelinetext[lang_id] }}', {{ gmap_new['latlong'] }}, '{{ gmap_new.maptext[lang_id] }}'));'));
+	{% endfor %}
+for (var i = 0, n = myPlaces.length; i < n; i++) {
+	var marker = new google.maps.Marker({
+    position: new google.maps.LatLng(myPlaces[i].latitude, myPlaces[i].longitude),
+    map: map,
+	title: myPlaces[i].name
+});
+
+    var infowindow = new google.maps.InfoWindow({
+        content: '<div class="title_popap_marker">' + myPlaces[i].name + '</div><div class="description_popap_marker">' + myPlaces[i].description + '</div>'
+    });
+    makeInfoWindowEvent(map, infowindow, marker);
+
+markers.push(marker);
+
+    }
+markerClusterer = new MarkerClusterer(map, markers, {
+	maxZoom: 14,
+	gridSize: 50,
+	styles: null
+});
+
+
+}
+function makeInfoWindowEvent(map, infowindow, marker) {
+    google.maps.event.addListener(marker, 'click', function() {
+        infowindow.open(map, marker);
+    });
+}
+function Place(name, latitude, longitude, description){
+    this.name = name;
+    this.latitude = latitude;
+    this.longitude = longitude;
+    this.description = description;
+}
+google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+			{% endif %}
+		</div>
+	</div>
+</div>
+</div>
+{% endif %}
+<div class="footer-copyright-payment">
+<div class="container">
+	<div class="dflex-fcp">
+        {% if (config_payments_footer) %}
+		<div class="fpayment">
+        <ul class="list-unstyled">
+			{% for config_payments_footer in config_payments_array_footer %}
+			<li>
+				<a target="_blank" href="{% if (config_payments_footer['payments_link_footer']) %}//{{ config_payments_footer['payments_link_footer']}}{% else %}javascript:void(0);{% endif %}"><img src="{{ config_payments_footer['icon_footer_payments'] }}" alt="" title=""></a>
+			</li>
+			{% endfor %}
+        </ul>
+		</div>
+        {% endif %}
+		<div class="fcopyright">{{ powered_new }}</div>
+
+        {% if (social_footer) %}
+        <div class="socials">
+        <ul class="list-unstyled">
+            <li>
+            {% for rsf in social_footer %}
+                <a {% if (rsf['social_icon_footer'] is not empty) %} class="sficon" onmouseout="this.style.background=''" onMouseOver="this.style.background='{{ rsf['bg_hover_icon'] }}'" {% endif %} target="_blank" href="{% if (rsf['social_link_footer']) %}//{{ rsf['social_link_footer'] }}{% else %}javascript:void(0);{% endif %}">
+                {% if (rsf['social_icon_footer'] is not empty) %}
+                <i class="{{ rsf['social_icon_footer'] }}"></i>
+                {% else %}
+                <img src="{{ rsf['ifs'] }}" alt="" title="">
+                {% endif %}
+                </a>
+            {% endfor %}
+            </li>
+        </ul>
+        </div>
+        {% endif %}
+	</div>
+</div>
+{% if (config_ns_footer_counters is not empty) %}
+<div class="container">
+	<div class="row">
+		{{ config_ns_footer_counters }}
+	</div>
+</div>
+{% endif %}
+</div>
+</footer>
+<script>
+function price_format(n){
+	c = {{ currency['decimals'] is empty ? "0" : currency['decimals'] }};
+	d = '{{ currency['decimal_point'] }}';
+	t = '{{ currency['thousand_point'] }}';
+	s_left = '{{ currency['symbol_left'] }}';
+	s_right = '{{ currency['symbol_right'] }}';
+	n = n * {{ currency['value'] }};
+	i = parseInt(n = Math.abs(n).toFixed(c)) + '';
+	j = ((j = i.length) > 3) ? j % 3 : 0;
+	return s_left + (j ? i.substr(0, j) + t : '') + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : '') + s_right;
+}
+$(document).on('click', '.title-f', function () {
+	if($(document).width() < 768){
+		$(this).next().slideToggle(200);
+	}
+});
+
+function downloadCSSAtOnload() {
+	{% for key,value_href in css_cyber_footer %}
+		var element{{ key }} = document.createElement("link");
+		element{{ key }}.href = "{{ value_href }}";
+		element{{ key }}.rel = "stylesheet";
+		document.body.appendChild(element{{ key }});
+	{% endfor %}
+}
+
+function downloadJSAtOnload() {
+	{% for key,value_src in js_cyber_footer %}
+		var element{{ key }} = document.createElement("script");
+		element{{ key }}.src = "{{ value_src }}";
+		document.body.appendChild(element{{ key }});
+	{% endfor %}
+	setTimeout(function () {
+		{% if (config_additional_settings_newstore['price_recalc'] is defined and (config_additional_settings_newstore['price_recalc'] == '1')) %}
+		$('.quantity_plus_minus > .quantity-num').each(function () {
+			recalcQuantity(this, false);
+		});
+		{% endif %}
+	},1000);
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+	{% if (css_cyber_footer is not empty) %}
+		downloadCSSAtOnload();
+	{% endif %}
+	{% if (css_cyber_footer is not empty) %}
+	downloadJSAtOnload();
+	{% endif %}
+});
+if(/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream){
+	var el_tag_a = document.getElementsByTagName('a');
+	for(var i = 0; i < el_tag_a.length; i++){
+	    el_tag_a[i].addEventListener('touchend',function(){});
+	}
+	var el_tag_b = document.getElementsByTagName('button');
+	for(var i = 1; i < el_tag_b.length; i++){
+	    el_tag_b[i].addEventListener('touchend',function(){});
+	}
+	var el_tag_i = document.getElementsByTagName('input');
+	for(var i = 0; i < el_tag_i.length; i++){
+	    el_tag_i[i].addEventListener('touchend',function(){});
+	}
+	var el_tag_s = document.getElementsByTagName('span');
+	for(var i = 0; i < el_tag_s.length; i++){
+	    el_tag_s[i].addEventListener('touchend',function(){});
+	}
+}
+</script>
+</body></html>

@@ -1,0 +1,217 @@
+<div id="popup-editor-product">
+	<div class="title-editor">{{ text_images_product_google }}</div>
+	<form class="form-horizontal" id="form-image-url" enctype="multipart/form-data" method="post">
+		<input type="hidden" name="user_change" value="{{ user_change }}">
+		<div class="form-group">
+			{% if (product_id) %} 
+				<input name="selected[]" value="{{ product_id }}" type="hidden" />
+			{% endif %} 
+			<label class="col-sm-3 desc_edit_label">{{ text_folder }}</label>
+			<div class="col-sm-3">
+				<select class="form-control" id="category_default" name="image_url[directory][main]">
+					<option data-name-folder="" value="data">catalog</option>
+					{% if (category_default is defined) %} 
+						<option data-name-folder="{{ category_default }}" selected="selected" value="catalog/{{ category_default }}">catalog/{{ category_default }}</option>
+					{% else %} 
+						<option data-name-folder="" value="data">catalog</option>  
+					{% endif %} 
+						
+					{% for directory in directories %} 
+						<option data-name-folder="{{ directory['dir_name'] }}" value="{{ directory['path'] }}">{{ directory['path'] }}</option>
+					{% endfor %} 
+				</select>
+			</div>
+			<div class="col-sm-3">
+				<button type="button" data-toggle="tooltip" title="{{ button_folder }}" id="button-folder" class="btn-editor btn-save-editor"><i class="fa fa-folder"></i></button>
+			</div>		
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 desc_edit_label">{{ entry_url_image }}</label>
+			<div class="col-sm-9">
+				<input class="form-control" type="text" name="add_image_url" value=""/>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 desc_edit_label">{{ entry_general_addit_image }}</label>
+			<div class="col-sm-4">		
+				<input class="general" type="checkbox" name="general_image_url" value="general" /> {{ text_main }} 
+				<input class="additional" type="checkbox" name="additional_image_url" value="additional" /> {{ text_additional }} 
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-3 desc_edit_label">{{ entry_name_image }}</label>
+			<div class="col-sm-9">
+				<input class="form-control" type="text" name="image_name" value="{{ product_name }}"/>
+			</div>
+		</div>
+		
+	</form>	
+	<div class="row mtb10">
+		<div class="col-xs-12 text-center">
+			<button class="btn-editor btn-primary-editor" type="button" data-toggle="collapse" data-target="#change_edit_category" aria-expanded="false" aria-controls="collapseExample">
+			{{ button_last_change }}
+			</button>
+		</div>
+	</div>
+	<div class="row collapse" id="change_edit_category">
+	<div class="col-xs-12">
+	<table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th class="text-center">{{ ch_user }}</th>
+        <th class="text-center">{{ ch_image_general }}</th>
+        <th class="text-center">{{ ch_image_additional }}</th>
+        <th class="text-center">{{ ch_date }}</th>
+      </tr>
+    </thead>
+    <tbody>
+	{% set i=0 %}
+		{% for result in change_edit_image_url %} 
+			{% if (i >= 10) %} 
+			<tr>
+				<td class="text-center"><div class="ch-user-name">{{ result['user_name'] }}{% endif %}</div></label></td>
+				<td class="text-center">{% if (result['general_image'] != '') %} 
+					<i class="fa fa-check-square-o ch-green" aria-hidden="true"></i>
+				{% else %} 
+					<i class="fa fa-minus-square ch-red" aria-hidden="true"></i>
+				{% endif %} 
+				</td>
+				<td class="text-center">{% if (result['additional_image'] != '') %} 
+					<i class="fa fa-check-square-o ch-green" aria-hidden="true"></i>
+				{% else %} 
+					<i class="fa fa-minus-square ch-red" aria-hidden="true"></i>
+				{% endif %} 
+				</td>
+				<td class="text-center">{{ result['date_modified'] }}</td>
+			</tr>
+		{% set i = i + 1 %}
+	{% endfor %} 
+    </tbody>
+  </table>
+	</div>
+</div>	
+<div class="text-right">
+	<button onclick="$('.popup_banner').popup('hide');" class="btn-editor btn-cancel-editor" type="button">{{ button_cancel }}</button>
+	<button onclick="saveEditorImageUrl();" class="btn-editor btn-save-editor" type="button">{{ button_save }}</button>
+</div>
+<script type="text/javascript">
+function saveEditorImageUrl() {
+	$.ajax({
+			url: 'index.php?route=module/editproduct/editimageurl/saveImageUrl&product_id={{ product_id }}',
+			type: 'post',
+			dataType: 'json',
+			data: $('#form-image-url').serialize(),
+			beforeSend: function() {
+				$('.popup-alert').remove();
+				$('#form-image-url').prepend('<div id="loading_img_svg"></div>');
+				$('#form-image-url').css('opacity',0.5);
+				loading_img_svg(true);
+			},
+			complete: function() {
+				loading_img_svg(false);
+				$('#form-image-url').css('opacity',1);
+			},
+			success: function(json) {
+				$('.popup-alert').remove();
+				if (json['error']) {
+					$('#form-image-url').before('<div class="popup-alert alert alert-danger"><i class="fa fa-info-circle"></i> '+ json['error'] +' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+				}
+				if (json['success']) {
+					$('#form-image-url').before('<div class="popup-alert alert alert-success"><i class="fa fa-info-circle"></i> '+ json['success'] +' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+				location.reload();
+				}
+			},
+			error: function(xhr, ajaxOptions, thrownError) {
+				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			}
+		});	
+};
+</script>
+<script type="text/javascript">
+		function checks() {
+           $('#popup-editor-product .general').on('change', function(){
+				if ($('#popup-editor-product .general:checkbox:checked').length > 0) {
+					$('#popup-editor-product .additional').attr('disabled', 'disabled');
+					$('#popup-editor-product .additional').toggleClass('disabled');
+				} else {
+					$('#popup-editor-product .additional').removeAttr('disabled', 'disabled');	
+					$('#popup-editor-product .additional').removeClass('disabled');
+				}
+				
+           });
+		   $('#popup-editor-product .additional').on('change', function(){
+                if ($('#popup-editor-product .additional:checkbox:checked').length > 0) {
+					$('#popup-editor-product .general').attr('disabled', 'disabled');	                 
+                 } else {
+					$('#popup-editor-product .general').removeAttr("disabled","disabled");
+				 }
+           });
+          } checks();
+$('#button-folder').popover({
+	html: true,
+	placement: 'bottom',
+	trigger: 'click',
+	title: '{{ entry_folder }}',
+	content: function() {
+		html  = '<div class="input-group">';
+		html += '  <input type="text" name="folder" value="" placeholder="{{ entry_folder }}" class="form-control">';
+		html += '  <span class="input-group-btn"><button type="button" title="{{ button_folder }}" id="button-create" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button></span>';
+		html += '</div>';
+
+		return html;
+	}
+});
+
+$('#button-folder').on('shown.bs.popover', function() {
+	$('#button-create').on('click', function() {
+	var category_default = encodeURIComponent($('#category_default option:selected').attr('data-name-folder'));
+	
+		$.ajax({
+			url: 'index.php?route=common/filemanagernew/folder&token={{ token }}&directory='+ category_default+'',
+			type: 'post',
+			dataType: 'json',
+			data: 'folder=' + encodeURIComponent($('input[name=\'folder\']').val()),
+			beforeSend: function() {
+				$('.popup-alert').remove();
+				$('#button-create').prop('disabled', true);
+				$('#form-image-url').prepend('<div id="loading_img_svg"></div>');
+				$('#form-image-url').css('opacity',0.5);
+				loading_img_svg(true);
+			},
+			complete: function() {
+				loading_img_svg(false);
+				$('#form-image-url').css('opacity',1);
+				$('#button-create').prop('disabled', false);
+			},
+			success: function(json) {
+				if (json['error']) {
+					$('#form-image-url').before('<div class="popup-alert alert alert-danger"><i class="fa fa-info-circle"></i> '+ json['error'] +' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+				}
+
+				if (json['success']) {
+					$('#form-image-url').before('<div class="popup-alert alert alert-success"><i class="fa fa-info-circle"></i> '+ json['success'] +' <button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+					$('#popup-editor-product .popover').popover('hide');
+					$('#category_default').load('index.php?route=module/editproduct/editimageurl/loadFolder&token={{ token }}&product_id={{ product_id }}');
+				}
+			},
+			error: function(xhr, ajaxOptions, thrownError) {
+				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+			}
+		});
+	});
+});		  
+</script> 
+<script type="text/javascript">
+$('#form-image_url{{ product_id }} input[type=\'checkbox\']').on('click', function() {
+		if ($(this).attr('name') == 'image_url[data][main]') {
+			$('#form-image_url{{ product_id }} input[name=\'image_url[data][main]\']').not(this).removeAttr('checked');
+			$(this).parents('div:first').children('input[name=\'image_url[data_dop][]\']').removeAttr('checked');
+		} else {
+			$(this).parents('div:first').children('input[name=\'image_url[data][main]\']').removeAttr('checked');
+		}
+		
+		$('#form-image_url{{ product_id }} .image_google_count_main').html($('#form-image_url{{ product_id }} input[name=\'image_url[data][main]\']:checked').length);
+		$('#form-image_url{{ product_id }} .image_google_count_additional').html($('#form-image_url{{ product_id }} input[name=\'image_url[data_dop][]\']:checked').length);
+	});
+</script>  
+</div>

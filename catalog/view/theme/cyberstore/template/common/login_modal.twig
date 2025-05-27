@@ -1,0 +1,67 @@
+<div class="modal-dialog modal-login">
+	<div class="modal-content">
+		<form id="login_data" enctype="multipart/form-data" method="post">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">{{ text_login }}</h4>
+			</div>
+			<div class="modal-body">
+				<div class="form-group sections_block_rquaired">
+					<div class="input-group">
+						<input type="text" name="emailpopup" value="" placeholder="{{ entry_email }}" id="input-email-popup" class="form-control" />
+                        <span class="input-group-addon">
+                            <img src="catalog/view/theme/cyberstore/image/form-icon/email-icon.svg" alt="">
+                        </span>
+					</div>
+				</div>
+				<div class="form-group sections_block_rquaired">
+					<div class="input-group">
+						<input type="password" name="passwordpopup" value="" placeholder="{{ entry_password }}" id="input-password-popup" class="form-control" />
+                        <span class="input-group-addon"><img src="catalog/view/theme/cyberstore/image/form-icon/password-icon.svg" alt=""></span>
+					</div>
+				</div>
+				<div class="form-group text-right"><a class="forgotten" href="{{ forgotten }}">{{ text_forgotten }}</a></div>
+			</div>
+			<div class="modal-footer text-right">
+				<button type="button" id="button-login-popup" class="btn-login">{{ button_login }}</button>
+			</div>
+		</form>
+	</div>
+</div>
+<script>
+$(document).delegate('#button-login-popup', 'click', function() {
+$('#login_data').prepend('<div class="masked_bg"></div><div class="loading_masked"></div>');
+    $.ajax({
+        url: 'index.php?route=common/login_modal/login_validate',
+        type: 'post',
+        data: $('#login_data :input'),
+        dataType: 'json',
+        beforeSend: function() {
+        	loading_masked(true);
+		},
+        success: function(json) {
+			loading_masked(false);
+			$('.masked_bg').remove();
+			$('.loading_masked').remove();
+            $('#login_data .message, #login_data .text-danger').remove();
+            if(json['islogged']){
+				 window.location.href="index.php?route=account/account";
+			}
+			if (json['error']) {
+				$('#login_data .modal-body').prepend('<div class="form-group message"><div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div></div>');
+			}
+			if(json['success']){
+				loacation();
+				$('#login-form-popup').modal('hide');
+			}
+
+        },
+        error: function(xhr, ajaxOptions, thrownError) {
+            alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+        }
+    });
+});
+function loacation() {
+	location.reload();
+}
+</script>

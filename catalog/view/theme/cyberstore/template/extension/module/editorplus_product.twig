@@ -1,0 +1,75 @@
+{% if (user_logged) %} 
+	{% if (user_logged) %} 
+<div class="edit-product-button">
+{% if link_module_edit_admin == 'Y' %} 
+	<a target="_blank" href="admin/index.php?route=extension/module/cyber_editproduct&user_token={{ user_token }}" class="btn-editprod"  data-toggle="tooltip" title="{{ pge_text_admin_setting }}"><i class="fa fa-cog" aria-hidden="true"></i></a>
+{% endif %} 
+{% if link_product_admin == 'Y' %} 
+<a data-toggle="tooltip" target="_blank" href="{{ constant('HTTP_SERVER') }}admin/index.php?route=catalog/product/edit&user_token={{ user_token }}&product_id={{ product_id }}"class="btn-editprod" title="{{ pge_text_catalog_prod_edit }}"><i class="fa fa-cogs" aria-hidden="true"></i></a>
+{% endif %} 
+{% if view_open_description_edit == 'Y' %} 
+	<a data-toggle="tooltip" onclick="show_editor('index.php?route=module/editproduct/editdescription&product_id={{ product_id }}')" href="javascript:void(0);" class="btn-editprod" title="{{ pge_text_description }}"><i class="fa fa-newspaper-o" aria-hidden="true"></i></a>
+{% endif %} 
+ {% if view_open_code_edit == 'Y' %} 
+		<a data-toggle="tooltip" onclick="show_editor('index.php?route=module/editproduct/editcode&product_id={{ product_id }}')" href="javascript:void(0);" class="btn-editprod" title="{{ pge_text_code }}"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+{% endif %} 
+{% if view_open_category_edit == 'Y' %} 
+	<a data-toggle="tooltip" onclick="show_editor('index.php?route=module/editproduct/editcategory&product_category&product_id={{ product_id }}')" href="javascript:void(0);" class="btn-editprod " title="{{ pge_text_categories }}"><i class="fa fa-sitemap" aria-hidden="true"></i></a>
+{% endif %} 
+{% if view_open_image_edit == 'Y' %} 
+	<a data-toggle="tooltip" onclick="show_editor('index.php?route=module/editproduct/editimage&product_id={{ product_id }}')" href="javascript:void(0);" class="btn-editprod " title="{{ pge_text_images_product }}"><i class="fa fa-picture-o" aria-hidden="true"></i></a>
+{% endif %} 
+{% if view_open_image_edit == 'Y' %} 
+	<a data-toggle="tooltip" onclick="show_editor('index.php?route=module/editproduct/editimageurl&product_id={{ product_id }}')" href="javascript:void(0);" class="btn-editprod" title="{{ pge_text_images_product_url }}"><i class="fa fa-link" aria-hidden="true"></i></a>
+{% endif %} 
+{% if view_open_image_google_edit == 'Y' %} 
+	<a data-toggle="tooltip" onclick="show_editor('index.php?route=module/editproduct/editimagegoogle&product_id={{ product_id }}')" href="javascript:void(0);"  class="btn-editprod " title="{{ pge_text_images_product_google }}"><i class="fa fa-google" aria-hidden="true"></i></a>
+{% endif %} 
+{% if view_open_price_edit == 'Y' %} 
+	<a data-toggle="tooltip" onclick="show_editor('index.php?route=module/editproduct/editprice&product_id={{ product_id }}')" href="javascript:void(0);" class="btn-editprod" title="{{ pge_text_price }}"><i class="fa fa-money" aria-hidden="true"></i></a>
+ {% endif %} 
+ {% if view_open_special_edit == 'Y' %}	 
+	<a data-toggle="tooltip" onclick="show_editor('index.php?route=module/editproduct/editspecial&special_price&product_id={{ product_id }}')" href="javascript:void(0);" class="btn-editprod" title="{{ pge_text_special }}"><i class="fa fa-tag" aria-hidden="true"></i></a>
+{% endif %}	
+{% if view_open_option_edit == 'Y' %} 
+	<a data-toggle="tooltip" onclick="show_editor('index.php?route=module/editproduct/editdiscount&product_id={{ product_id }}')" href="javascript:void(0);" class="btn-editprod" title="{{ pge_text_discount_title }}"><i class="fa fa-legal fa-fw" aria-hidden="true"></i></a>
+{% endif %} 
+ {% if view_open_related_edit == 'Y' %} 
+	<a data-toggle="tooltip" onclick="show_editor('index.php?route=module/editproduct/editrelated&product_id={{ product_id }}')" href="javascript:void(0);" class="btn-editprod" title="{{ pge_text_related }}"><i class="fa fa-thumbs-o-up" aria-hidden="true"></i></a>	
+{% endif %}	
+{% if view_open_attribute_edit == 'Y' %}	
+	<a data-toggle="tooltip" onclick="show_editor('index.php?route=module/editproduct/editattribute&product_id={{ product_id }}')" href="javascript:void(0);" class="btn-editprod" title="{{ pge_text_attribute }}"><i class="fa fa-buysellads" aria-hidden="true"></i></a>
+{% endif %}	
+{% if view_open_option_edit == 'Y' %}	
+	<a data-toggle="tooltip" onclick="show_editor('index.php?route=module/editproduct/editoption&product_id={{ product_id }}')" href="javascript:void(0);" class="btn-editprod" title="{{ pge_text_option }}"><i class="fa fa-cubes" aria-hidden="true"></i></a>
+{% endif %} 
+</div>
+{% endif %}	
+
+<script type="text/javascript">
+var loading_masked_img = '<img src="catalog/view/theme/cyberstore/image/ring-alt-1.svg" />';
+function loading_img_svg(action) {
+	if (action) {
+		$('#loading_img_svg').html(loading_masked_img);
+		$('#loading_img_svg').show();
+	} else {
+		$('#loading_img_svg').html('');
+		$('#loading_img_svg').hide();
+	}
+}
+function show_editor(link) {
+	$('body').prepend('<div id="loading_img_svg"></div>');
+	loading_img_svg(true); 
+	$('body').append('<div class="popup_banner"></div>');
+	$('.popup_banner').popup({
+		transition: 'all 0.3s',
+		closetransitionend: function () {$(this).remove();}
+	});
+	$('.popup_banner').load(link, function() {
+		$('.popup_banner').append('<i class="fa fa-times closepopup" onclick="$(\'.popup_banner\').popup(\'hide\');"></i>');
+		loading_img_svg(false); 
+		$('.popup_banner').popup('show');
+	});
+}
+</script>
+{% endif %}

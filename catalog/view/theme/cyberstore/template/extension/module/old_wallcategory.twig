@@ -1,0 +1,107 @@
+{% if (categories) %}
+{% if (status_slider == 1) %}
+<div class="container-fcat carousel-mod">
+	<div class="box-title">
+		{% if (heading_title[lang_id]['title_name'] is not empty) %}
+		<div class="title-text">{{ heading_title[lang_id]['title_name'] }}</div>
+		{% endif %}
+	</div>
+<div id="featured-category-slider{{ module }}" class="owl-carousel carousel-fcat">
+  {% for category in categories %}
+	<div class="item text-center box-fcat">
+		<div class="fcat-img">
+			<span {% if (category['subcategories']) %}class="drop-sub scb{{ module }}" data-wcatId="{{ category['category_id'] }}{% endif %}"><img class="lazyload" src="{{ lazy_img }}" data-src="{{ category['image'] }}" alt="{{ category['name'] }}"></span>
+		</div>
+		<div class="fcat-name"><a href="{{ category['href'] }}">{{ category['name'] }}</a></div>
+	</div>
+  {% endfor %}
+</div>
+<div class="bsc box-sub-category{{ module }}"></div>
+<script>
+$(document).on('click', '.scb{{ module }}', function () {
+	if($(this).hasClass('active')){
+		$('.scb{{ module }}').removeClass('active');
+		$('.fcat-img').removeClass('active');
+		$('.box-sub-category{{ module }}').removeClass('active');
+		$('.box-sub-category{{ module }}').html("");
+	} else {
+		$('.scb{{ module }}').removeClass('active');
+		$('.fcat-img').removeClass('active');
+		$('.box-sub-category{{ module }}').addClass('active');
+		$(this).addClass("active");
+		$(this).parent().addClass("active");
+			$('.box-sub-category{{ module }}').removeClass('active');
+			$('.box-sub-category{{ module }}').html("");
+			$.ajax({
+				url: 'index.php?route=extension/module/cyber_wallcategory/loadSubCateogry',
+				type: 'post',
+				data: 'category_id=' + $(this).attr('data-wcatId') + '&module={{ module }}&limit_sub_category={{ limit_sub_category }}&limit3lv={{ limit3lv }}',
+				dataType: 'html',
+				beforeSend: function() {
+					$('.box-sub-category{{ module }}').removeClass('active');
+					$('.box-sub-category{{ module }}').html("");
+				},
+				complete: function() {
+					$('.box-sub-category{{ module }}').addClass('active');
+				},
+				success:function(html){
+					$('.box-sub-category{{ module }}').append(html);
+				}
+			});
+
+	}
+});
+</script>
+<script>
+$('#featured-category-slider{{ module }}').owlCarousel({
+	items: 6,
+	navigation: true,
+	navigationText: ['<div class="btn btn-carousel-module next-prod"><i class="fa fa-angle-left arrow"></i></div>', '<div class="btn btn-carousel-module prev-prod"><i class="fa fa-angle-right arrow"></i></div>'],
+	pagination: false
+});
+</script>
+</div>
+{% else %}
+<div class="categorywall-container categorywall-{{ module }}">
+{% if (heading_title[lang_id]['title_name'] is not empty) %}
+<div class="title-module"><span>{{ heading_title[lang_id]['title_name'] }}</span></div>
+{% endif %}
+	<div class="wall-category-box">
+		{% for category in categories %}
+			<div class="box-item col-xs-12 col-sm-6 col-md-3 col-lg-3">
+				<div class="item-category {% if (category['subcategories']) %} parent_category {% endif %}">
+					<div class="wall-cat-image show-sub-cat-{{ module }}">
+					{% if (category['subcategories']) %}
+					<img class="lazyload" loading="lazy" decoding="async" width="{{ width }}" height="{{ height }}" data-srcset="{{ category.image }}" srcset="{{ lazy_img }}" src="{{ category.image }}" alt="{{ category['name'] }}">
+					{% else %}
+					<a href="{{ category['href'] }}"><img class="lazyload" loading="lazy" decoding="async" width="{{ width }}" height="{{ height }}" data-srcset="{{ category.image }}" srcset="{{ lazy_img }}" src="{{ category.image }}"  alt="{{ category['name'] }}"></a>
+					{% endif %}
+					</div>
+					<div class="wall-cat-name"><div class="display-table"><div class="display-table-cell"><a href="{{ category['href'] }}" >{{ category['name'] }}</a>{% if (category['subcategories']) %}<span class="open-sub-cat"><svg xmlns="http://www.w3.org/2000/svg" width="5" height="10" fill="none" viewBox="0 0 5 10"><path stroke="#000" stroke-linecap="round" d="M1.3 1.5l2.082 2.882a1 1 0 01.006 1.162L1.3 8.5"></path></svg></span>{% endif %}</div></div></div>
+						{% if (category['subcategories']) %}
+						<div class="item-sub-category">
+							{% for subcategory in category['subcategories'] %}
+								<div class="subcategory-name"><a href="{{ subcategory['href'] }}">{{ subcategory['name'] }}</a></div>
+							{% endfor %}
+						</div>
+						{% endif %}
+				</div>
+			</div>
+      {% endfor %}
+	  </div>
+<script>
+$(document).ready(function() {
+    if ($(".categorywall-{{ module }}").parents("#column-left, #column-right").length) {
+        $('.categorywall-{{ module }} .box-item').removeClass("col-sm-6 col-md-4 col-lg-3");
+        $('.categorywall-{{ module }} .box-item').addClass("col-sm-12 col-md-12 col-lg-12");
+    }
+});
+$(document).on('click', '.open-sub-cat', function () {
+	$(this).closest('.wall-cat-name').prev('.wall-cat-image').toggleClass('active-opacity');
+	$(this).closest('.wall-cat-name').next().toggleClass('active');
+	$(this).closest('.wall-cat-name').next().mCustomScrollbar({theme:"dark-3",scrollInertia:300});
+});
+</script>
+</div>
+{% endif %}
+{% endif %}

@@ -1,0 +1,209 @@
+<div id="popup-callback" class="wcb-4">
+	{% if (main_image_callback != '') %}
+		<div class="popup-image hidden-xs">
+			<div class="text-center"><img class="circular img-phone-contact" src="{{ main_image_callback }}"/></div>
+		</div>
+	{% endif %}
+	<div class="popup-image-contact hidden text-center">
+		<img src="catalog/view/theme/cyberstore/image/form-icon/contact-icon.svg" alt="">
+	</div>
+	<div class="popup-heading">
+		<ul class="list-unstyled">
+			<li class="active"><a class="cb-form" href="javascript:void(0)"><i class="{{ callbackpro['icon_callbackpro_header'] }}"></i> {{ callbackpro['title_callback'][lang_id] is defined ? callbackpro['title_callback'][lang_id]['text'] : '' }}</a></li>
+			 {% if (callbackpro['config_on_off_contact_right'] is defined) %}
+			<li><a class="cb-contact" href="javascript:void(0)">{{ callbackpro['block_name_phone'][lang_id] is defined ? callbackpro['block_name_phone'][lang_id]['block_name_phone'] : '' }}</a></li>
+			{% endif %}
+		</ul>
+	</div>
+	<script>
+		$(".popup-heading li a").click(function () {
+			if($(this).hasClass('cb-form') == true) {
+				$(this).parent().addClass('active');
+				$('.popup-center').removeClass('hidden');
+				{% if (main_image_callback != '') %}
+				$('.popup-image').removeClass('hidden');
+				{% endif %}
+				$('.popup-footer').removeClass('hidden');
+				$('.popup-image-contact').addClass('hidden');
+				$('.popup-contact').addClass('hidden');
+				$('.cb-contact').parent().removeClass('active');
+				$('.cb-contact').parent().removeClass('active');
+			} else if($(this).hasClass('cb-contact') == true) {
+				$(this).parent().addClass('active');
+				$('.popup-center').addClass('hidden');
+				{% if (main_image_callback != '') %}
+				$('.popup-image').addClass('hidden');
+				{% endif %}
+				$('.popup-footer').addClass('hidden');
+				$('.popup-image-contact').removeClass('hidden');
+				$('.popup-contact').removeClass('hidden');
+				$('.cb-form').parent().removeClass('active');
+			}
+		});
+	</script>
+	<div class="popup-center">
+	<form id="callback_data" data-ajax-submit enctype="multipart/form-data" method="post" class="form-horizontal">
+			{% if (callbackpro['config_on_off_fields_firstname_cb'] is defined) %}
+				<div class="form-group {{ callbackpro['config_fields_firstname_requared_cb'] is defined ? 'sections_block_rquaired' : 'sections_block' }}">
+					<div class="col-xs-12">
+					<div class="input-group margin-bottom-sm">
+						<input id="contact-name" class="form-control contact-name" type="text" placeholder="{{ callbackpro['config_placeholder_fields_firstname_cb'][lang_id]['config_placeholder_fields_firstname_cb'] }}" value="" name="name">
+						<span class="input-group-addon">
+							<img src="catalog/view/theme/cyberstore/image/form-icon/name-icon.svg" alt="">
+						</span>
+					</div>
+					<div id="error_name_callback" class="error_callback"></div>
+					</div>
+				</div>
+			{% endif %}
+			{% if (callbackpro['config_on_off_fields_phone_cb'] is defined) %}
+				<div class="form-group {{ callbackpro['config_fields_phone_requared_cb'] is defined ? 'sections_block_rquaired' : 'sections_block' }}">
+					<div class="col-xs-12">
+					<div class="input-group margin-bottom-sm">
+						 <input id="contact-phone" class="form-control contact-phone" type="text" placeholder="{{ callbackpro['config_placeholder_fields_phone_cb'][lang_id]['config_placeholder_fields_phone_cb'] }}" value="" name="phone">
+						<span class="input-group-addon">
+							<img src="catalog/view/theme/cyberstore/image/form-icon/tel-icon.svg" alt="">
+						</span>
+					</div>
+					<div id="error_phone_callback" class="error_callback"></div>
+					</div>
+				</div>
+			{% endif %}
+			{% if (callbackpro['config_on_off_fields_email_cb'] is defined) %}
+				<div class="form-group {{ callbackpro['config_fields_email_requared_cb'] is defined ? 'sections_block_rquaired' : 'sections_block' }}">
+					<div class="col-xs-12">
+					<div class="input-group margin-bottom-sm">
+						 <input id="contact-email" class="form-control contact-email" type="text" placeholder="{{ callbackpro['config_placeholder_fields_email_cb'][lang_id]['config_placeholder_fields_email_cb'] }}" value="" name="email_buyer">
+						<span class="input-group-addon">
+							<img src="catalog/view/theme/cyberstore/image/form-icon/email-icon.svg" alt="">
+						</span>
+					</div>
+					<div id="error_email_callback" class="error_callback"></div>
+					</div>
+				</div>
+			{% endif %}
+			{% if (callbackpro['config_on_off_fields_comment_cb'] is defined) %}
+				<div class="form-group {{ callbackpro['config_fields_comment_requared_cb'] is defined ? 'sections_block_rquaired' : 'sections_block' }}">
+					<div class="col-xs-12">
+					<div class="input-group margin-bottom-sm">
+						 <input id="contact-comment" class="form-control contact-comment" type="text" placeholder="{{ callbackpro['config_placeholder_fields_comment_cb'][lang_id]['config_placeholder_fields_comment_cb'] }}" value="" name="comment_buyer">
+						<span class="input-group-addon">
+							<img src="catalog/view/theme/cyberstore/image/form-icon/comment-icon.svg" alt="">
+						</span>
+					</div>
+					<div id="error_comment_callback" class="error_callback"></div>
+					</div>
+				</div>
+			{% endif %}
+			{% if (callbackpro['config_on_off_date_time'] is defined) %}
+				<div class="form-group">
+					<div class="col-xs-12">
+						<input type="text" name="time_callback_on" value="" class="form-control start" placeholder="{{ when_you_call_back }}" />
+						<input type="hidden" name="time_callback_off" value="" />
+					</div>
+				</div>
+			{% endif %}
+			{% if (call_topic_data is not empty) %}
+			   <div class="form-group">
+					<div class="col-xs-12">
+						<div class="select-a"><select class="form-control call_theme " name="topic_callback_send">
+							{% for res_call_topic in call_topic_data %}
+								<option value="{{ res_call_topic['name']}}">{{ res_call_topic['name']}}</option>
+							{% endfor %}
+						</select></div>
+					</div>
+			   </div>
+			{% endif %}
+			{% if (text_agree) %}
+				<div class="col-xs-12">
+				  {{ text_agree }}
+					<input type="checkbox" name="agree" value="1" />
+					<div class="error_agree"></div>
+				</div>
+			{% endif %}
+		<input type="hidden" id="callback_url" value="" name="url_site"  />
+	</form>
+	</div>
+	 {% if (callbackpro['config_on_off_contact_right'] is defined) %}
+	<div class="popup-contact hidden">
+		{% if (config_telephones is not empty) %}
+			<div class="p-block-phone">
+				{% for result in config_telephones %}
+					<div><a href="tel:{{ result['phone'] }}">{% if (result['phone'] != '') %}{% if (result['thumb'] != '') %}<img src="{{ result['thumb'] }}" />&nbsp;&nbsp;{% endif %}{{ result['phone'] }}</a></div>{% endif %}
+				{% endfor %}
+			</div>
+		{% endif %}
+		{% if (callbackpro['config_email_1'] != '') %}
+			<div class="email">
+				<div><i class="fa fa-envelope fa-fw"></i>&nbsp;{{ callbackpro['config_email_1'] }}</div>
+			</div>
+		{% endif %}
+		{% if (callbackpro['skype'] != '') %}
+			{% if (callbackpro['show_status_skype'] is defined) %}
+				{% if skype_status == '1' %}
+					<div class="skype">
+						<a class="status_skype" href="skype:?chat"><img src="catalog/view/theme/cyberstore/image/skype_online.png">&nbsp;{{ callbackpro['skype'] }}</a>
+					</div>
+				{% else %}
+					<div class="skype">
+						<a class="status_skype" href="skype:?chat"><img src="catalog/view/theme/cyberstore/image/skype_offline.png">&nbsp;{{ callbackpro['skype'] }}</a>
+					</div>
+				{% endif %}
+			{% else %}
+				<div class="skype">
+					<a class="status_skype" href="skype:?chat"><img src="catalog/view/theme/cyberstore/image/skype_offline.png">&nbsp;{{ callbackpro['skype'] }}</a>
+				</div>
+			{% endif %}
+		{% endif %}
+		<div class="schedule">
+			<div class="title-schedule">{{ callbackpro['title_schedule'][lang_id] is defined ? callbackpro['title_schedule'][lang_id]['text'] : '' }}</div>
+			<div class="config_daily">{{ callbackpro['daily'][lang_id] is defined ? callbackpro['daily'][lang_id]['text'] : '' }}</div>
+			<div class="config_weekend">{{ callbackpro['weekend'][lang_id] is defined ? callbackpro['weekend'][lang_id]['text'] : '' }}</div>
+		</div>
+		{% if (social_icons_contact) %}
+			<div class="col-sm-12 line_cb"></div>
+			<div class="title-social">{{ callbackpro['config_social_block_title'][lang_id] is defined ? callbackpro['config_social_block_title'][lang_id]['config_social_block_title'] : '' }}</div>
+			<div class="social">
+				{% for result in social_icons_contact %}
+					<div class="social-icon"><a href="{{ result['name'] }}" target="_blank"><img src="{{ result['thumb'] }}"/></a></div>
+				{% endfor %}
+			</div>
+		{% endif %}
+
+	</div>
+	{% endif %}
+	<div class="popup-footer">
+		<div class="anytext-callback text-center">{{ callbackpro['config_any_text_bottom_before_button'][lang_id] is defined ? callbackpro['config_any_text_bottom_before_button'][lang_id]['config_any_text_bottom_before_button'] : '' }}</div>
+		<div class="text-right">
+			<button onclick="sendCallback();" type="submit" class="btn-callback ladda-button" data-style="expand-left"><span class="ladda-label">{{ button_send }}</span></button>
+		</div>
+	</div>
+
+
+
+<script src="catalog/view/theme/cyberstore/js/callback_send.js" type="text/javascript"></script>
+{% if (callbackpro['config_on_off_date_time'] is defined) %}
+<script src="catalog/view/javascript/jquery/datetimepicker/moment/moment.min.js"></script>
+<script src="catalog/view/javascript/jquery/datetimepicker/moment/moment-with-locales.min.js"></script>
+{% if (dt_locale_file) %}
+<script src="catalog/view/javascript/jquery/datetimepicker/locale/{{ lang_datetimepicker }}.js"></script>
+{% endif %}
+<script src="catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.js"></script>
+<link rel="stylesheet" href="catalog/view/javascript/jquery/datetimepicker/bootstrap-datetimepicker.min.css"/>
+<script>
+$('.start').datetimepicker({
+	pickDate: true,
+	minDate : moment(),
+	pickTime: true
+});
+</script>
+{% endif %}
+{% if (callbackpro['config_mask_phone_number_cb'] != '') %}
+<script src="catalog/view/theme/cyberstore/js/maskedinput.js" type="text/javascript"></script>
+<script>
+{% if (callbackpro['config_mask_phone_number_cb'] != '') %}
+    $("#contact-phone").mask('{{ callbackpro['config_mask_phone_number_cb'] }}');
+{% endif %}
+</script>
+{% endif %}
+</div>

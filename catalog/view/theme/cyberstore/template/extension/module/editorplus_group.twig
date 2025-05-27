@@ -1,0 +1,167 @@
+{% if (user_logged) %}
+<script type="text/javascript">
+var loading_masked_img = '<img src="catalog/view/theme/cyberstore/image/ring-alt-1.svg" />';
+	function loading_img_svg(action) {
+		if (action) {
+			$('#loading_img_svg').html(loading_masked_img);
+			$('#loading_img_svg').show();
+		} else {
+			$('#loading_img_svg').html('');
+			$('#loading_img_svg').hide();
+		}
+	}
+	function show_editor(link) {
+		$('body').prepend('<div id="loading_img_svg"></div>');
+		loading_img_svg(true);
+		$('body').append('<div class="popup_banner"></div>');
+		$('.popup_banner').popup({
+			transition: 'all 0.3s',
+			closetransitionend: function () {$(this).remove();}
+		});
+		$('.popup_banner').load(link, function() {
+			$('.popup_banner').append('<i class="fa fa-times closepopup" onclick="$(\'.popup_banner\').popup(\'hide\');"></i>');
+			loading_img_svg(false);
+			$('.popup_banner').popup('show');
+		});
+	}
+	$('#group-editor').find('select').selectpicker('refresh');
+</script>
+{% if (group_editor == 'Y') %}
+<div id="group-editor">
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-6">
+				<div class="input-group">
+					<span class="input-group-addon input-group-edit"><i class="fa fa-pencil fa-fw"></i>{{ pge_text_batch_edit }}</span>
+					<select disabled="disabled" title="{{ pge_text_none_editor }}" class="form-control selectpicker bs-select-hidden" id="top-quick-edit-data">
+						<option class="bs-title-option" value=""> {{ pge_text_none_editor }} </option>
+						<optgroup label="{{ pge_text_opt_general_data }}">
+							<option value="nameGroup">{{ pge_text_opt_name_product }}</option>
+							<option value="metaTitleGroup">{{ pge_text_opt_meta_title }}</option>
+							<option value="metaH1Group">{{ pge_text_opt_meta_h1 }}</option>
+							<option value="metaDescriptionGroup">{{ pge_text_opt_meta_descripton }}</option>
+							<option value="metaKeywordGroup">{{ pge_text_opt_meta_keyword }}</option>
+							<option value="metaTagGroup">{{ pge_text_opt_tag }}</option>
+							<option value="urlGroup">{{ pge_text_opt_url }}</option>
+						</optgroup>
+						<optgroup label="{{ pge_text_opt_data }}">
+							<option value="priceGroup">{{ pge_text_opt_price }}</option>
+							<option value="quantityGroup">{{ pge_text_opt_quantity }}</option>
+							<option value="minquantityGroup">{{ pge_text_opt_minquantity }}</option>
+							<option value="modelGroup">{{ pge_text_opt_mlt }}</option>
+							<option value="codesGroup">{{ pge_text_opt_code }}</option>
+							<option value="dateavailableGroup">{{ pge_text_opt_date_status }}</option>
+							<option value="stockShippingGroup">{{ pge_text_opt_stockshipping }}</option>
+							<option value="weightDimensionsGroup">{{ pge_text_opt_weightdimensions }}</option>
+						</optgroup>
+						<optgroup label="{{ pge_text_opt_links }}">
+							<option value="manufacturerGroup">{{ pge_text_opt_manufacturer }}</option>
+							<option value="categoryGroup">{{ pge_text_opt_category }}</option>
+							<option value="filterGroup">{{ pge_text_opt_filter }}</option>
+							<option value="relatedProductGroup">{{ pge_text_opt_related }}</option>
+						</optgroup>
+						<optgroup label="{{ pge_text_opt_special_discount }}">
+							<option value="specialGroup">{{ pge_text_opt_special }}</option>
+							<option value="discountGroup">{{ pge_text_opt_discount }}</option>
+						</optgroup>
+						<optgroup label="{{ pge_text_opt_attribute_options }}">
+							<option value="attributeGroup">{{ pge_text_opt_attribute }}</option>
+							<option value="optionsGroup">{{ pge_text_opt_options }}</option>
+						</optgroup>
+					</select>
+				</div>
+			</div>
+			<div class="col-sm-6">
+				<button class="btn-editor btn-selectall-editor" type="button" onclick="groupEditorSelectAll();">{{ pge_text_select_all_product }}</button>
+				<span id="checked_countpr" class="btn-editor btn-countpr">0</span>
+				<span id="checked_countpr" class="btn-editor btn-cancel-editor" onclick="groupEditorRefresh();">{{ pge_text_reset }}</span>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript">
+var loading_masked_img = '<img src="catalog/view/theme/cyberstore/image/ring-alt-1.svg" />';
+	function loading_img_svg(action) {
+		if (action) {
+			$('#loading_img_svg').html(loading_masked_img);
+			$('#loading_img_svg').show();
+		} else {
+			$('#loading_img_svg').html('');
+			$('#loading_img_svg').hide();
+		}
+	}
+	function show_editor_group(link) {
+		$('body').prepend('<div id="loading_img_svg"></div>');
+		loading_img_svg(true);
+		$('body').append('<div class="popup_banner"></div>');
+		$('.popup_banner').popup({
+			transition: 'all 0.3s',
+			closetransitionend: function () {$(this).remove();}
+		});
+		$('.popup_banner').load(link, function() {
+			$('.popup_banner').append('<i class="fa fa-times closepopup" onclick="$(\'.popup_banner\').popup(\'hide\'); groupEditorRefresh(); "></i>');
+			loading_img_svg(false);
+			$('.popup_banner').popup('show');
+		});
+	}
+</script>
+<script type="text/javascript">
+$(document).on('click', '.editor-group-checked-product input.group-editor-checkbox', function () {
+	$(this).parent().toggleClass('active');
+});
+$(document).on('change', '.editor-group-checked-product input.group-editor-checkbox[type=\'checkbox\']', function () {
+	var checked_countpr = $(".editor-group-checked-product input.group-editor-checkbox[type=\'checkbox\']:checked").length;
+	$('#checked_countpr').html(checked_countpr);
+		if ($('.editor-group-checked-product input.group-editor-checkbox[type=\'checkbox\']:checked').val()) {
+			$('#group-editor').find('select').prop('disabled', false);
+			$('#group-editor').find('select').selectpicker('refresh');
+			$('#group-editor .input-group-addon').removeClass('input-group-edit');
+			$('#group-editor .input-group-addon').addClass('input-group-edit-active');
+		} else {
+			$('#group-editor').find('select').prop('disabled', true);
+			$('#group-editor').find('select').selectpicker('refresh');
+			$('#group-editor').find('select').selectpicker('val', '0');
+			$('#group-editor .input-group-addon').removeClass('input-group-edit-active');
+			$('#group-editor .input-group-addon').addClass('input-group-edit');
+		}
+	});
+$(document).on('change', '#top-quick-edit-data', function () {
+	if ($('.editor-group-checked-product input.group-editor-checkbox[type=\'checkbox\']:checked').val()) {
+		var count_checked = $(".editor-group-checked-product input.group-editor-checkbox[type=\'checkbox\']:checked").length;
+		var val_checked = $(".editor-group-checked-product input.group-editor-checkbox[type=\'checkbox\']:checked").val();
+		if (count_checked == 1) {
+			show_editor_group('index.php?route=module/editproduct/editgroup/quickedit_' + $(this).val() + '&seo_category_id='+ {{ seo_category_id }} +'&token={{ user_token }}&product_id='+val_checked);
+		} else {
+			show_editor_group('index.php?route=module/editproduct/editgroup/quickedit_' + $(this).val() + '&seo_category_id='+ {{ seo_category_id }} +'&token={{ user_token }}');
+		}
+	} else {
+		show_editor_group('index.php?route=module/editproduct/editgroup/quickedit_select_product');
+	}
+});
+
+function groupEditorRefresh(){
+	$('.editor-group-checked-product').removeClass('active');
+	$('#top-quick-edit-data').selectpicker('val', '0');
+	$('.editor-group-checked-product input.group-editor-checkbox[type=\'checkbox\']').prop('checked', false);
+	$('#group-editor').find('select').prop('disabled', true);
+	$('#group-editor').find('select').selectpicker('refresh');
+	$('#group-editor .input-group-addon').removeClass('input-group-edit-active');
+	$('#group-editor .input-group-addon').addClass('input-group-edit');
+	var checked_countpr = $(".editor-group-checked-product input.group-editor-checkbox[type=\'checkbox\']:checked").length;
+	$('#checked_countpr').html(checked_countpr);
+}
+function groupEditorSelectAll(){
+	$('.editor-group-checked-product').addClass('active');
+	$('#top-quick-edit-data').selectpicker('val', '0');
+	$('.editor-group-checked-product input.group-editor-checkbox[name*=\'selected_productgroupeditor\']').prop('checked', true);
+	$('input[name*=\'selected_productgroupeditor\']').prop('checked', this.checked);
+	$('#group-editor').find('select').prop('disabled', false);
+	$('#group-editor').find('select').selectpicker('refresh');
+	$('#group-editor .input-group-addon').removeClass('input-group-edit');
+	$('#group-editor .input-group-addon').addClass('input-group-edit-active');
+	var checked_countpr = $(".editor-group-checked-product input.group-editor-checkbox[type=\'checkbox\']:checked").length;
+	$('#checked_countpr').html(checked_countpr);
+	}
+</script>
+</div>
+{% endif %}
+{% endif %}

@@ -1,0 +1,141 @@
+#modal-found-cheaper .modal-4{
+    max-width: 400px;
+    width: calc(100% - 30px) !important;
+}
+#modal-found-cheaper .modal-content{
+    border-radius:12px;
+}
+#popup-found-cheaper {
+    background: #ffffff;
+    margin: 0 auto;
+    position: relative;
+    overflow:hidden;
+    padding: 15px;
+}
+#popup-found-cheaper .form-group {
+    margin-bottom: 20px;
+}
+#popup-found-cheaper .form-control {
+    border-width: 1px 0px 1px 1px;
+    border-style: solid;
+    border-color: #f4f4f4;
+    box-shadow: none;
+    color: #000000;
+    font-size: 13px;
+    border-top-left-radius: 12px;
+    border-bottom-left-radius: 12px;
+    padding: 12px 20px;
+    height: 52px;
+}
+#popup-found-cheaper .input-group-addon {
+    background:#fff;
+    border-width: 1px 1px 1px 0px;
+    border-style: solid;
+    border-color: #f4f4f4;
+    border-top-right-radius: 12px;
+    border-bottom-right-radius: 12px;
+    position: relative;
+    min-width: 54px;
+}
+#popup-found-cheaper .input-group-addon::before {
+    content: '';
+    position: absolute;
+    top: 9px;
+    bottom: 9px;
+    left: 0px;
+    border-left: 1px solid #f4f4f4;
+}
+#popup-found-cheaper .popup-heading {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+#popup-found-cheaper .info-text-found-cheaper {
+    background: #fff;
+    padding: 0px 20px;
+    overflow: auto;
+	clear:both;
+	width: 100%;
+    display: inline-block;
+	margin-bottom:0px;
+}
+#popup-found-cheaper .mfp-close {
+    background-image: url("/catalog/view/theme/cyberstore/image/form-icon/close-icon.svg");
+    cursor: pointer !important;
+    font-size: 0px;
+    height: 25px;
+    outline: medium none;
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    width: 25px;
+    z-index: 1060;
+    text-align: center;
+    line-height: 25px;
+    border: 1px solid #ececec;
+    border-radius: 50%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+#popup-found-cheaper .mfp-close:hover {
+    background-image: url("/catalog/view/theme/cyberstore/image/form-icon/close-h-icon.svg");
+    cursor: pointer !important;
+    font-size: 0px;
+    outline: medium none;
+    position: absolute;
+    line-height: 25px;
+    border: 1px solid #fff;
+    box-shadow:0px 2px 4px rgba(0,0,0,0.067);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#popup-found-cheaper .popup-footer {
+    padding-top: 15px;
+    text-align: right;
+}
+#popup-found-cheaper .btn-found-cheaper:focus,
+#popup-found-cheaper .btn-found-cheaper {
+    color: #fff;
+    background-color: #00BC52;
+    border:0px;
+    border-radius:12px;
+    display:inline-block;
+    font-size:14px;
+    padding:12px 24px;
+    font-weight:400;
+    box-shadow:none;
+    text-align: center;
+}
+#popup-found-cheaper .btn-found-cheaper:hover, #popup-found-cheaper .btn-found-cheaper:active {
+    background-color: #04A349;
+    border:0px;
+    color:#ffffff;
+}
+#popup-found-cheaper .form-group.sections_block_rquaired .input-group:before {
+    content: "*";
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    color: red;
+    width: 8px;
+    height: 14px;
+    z-index: 9;
+    margin-top: -12px;
+}
+.btn-cheaper {
+  display: inline-block;
+  outline: none;
+  text-align: center;
+  height: 34px;
+  background:#e1f7eb;
+  border-radius: 8px;
+  padding: 7px 15px;
+  color:#000;
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 600;
+}
+.btn-cheaper:hover,.btn-cheaper:focus {
+	 border-color: #fff;
+}

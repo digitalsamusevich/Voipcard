@@ -1,0 +1,88 @@
+<div class="container-module">
+	<div class="tabs__header">
+		<div class="tabs__header__scroll dragscroll hs-{{ module }}">
+			<ul class="nav nav-tabs my-tabs" id="prodCatTab{{ module }}">
+				<li class="tabs__active_line mod_{{ module }}"></li>
+				{% set tn = 0%}
+				{% for category in categories %}
+				<li {% if (tn == 0) %}class="active"{% endif %}><a data-toggle="tab" data-catid="{{ category['category_id'] }}" href="#cat-tab-{{ module }}-{{ category['category_id'] }}">{{ category['name'] }}</a></li>
+				{% set tn = tn + 1 %}
+				{% endfor %}
+			</ul>
+		</div>
+	</div>
+	<div class="tab-content prod_cat_tab_content">
+		{% set tn = 0%}
+		{% for category in categories %}
+		<div class="tab-pane fade {% if (tc == 0) %}active in{% endif %}" id="cat-tab-{{ module }}-{{ category['category_id'] }}">
+			<div class="content-items">
+			</div>
+		</div>
+		{% set tc = tc + 1 %}
+		{% endfor %}
+	</div>
+<script>
+$(document).ready(function() {
+$('.container-module .tabs__active_line.mod_{{ module }}').css({
+	'width':$('.container-module .tabs__header__scroll .my-tabs#prodCatTab{{ module }} li.active').outerWidth() + 9,
+	'left':$('.container-module .tabs__header__scroll .my-tabs#prodCatTab{{ module }} li.active').offset().left - $('.container-module .tabs__header__scroll > .my-tabs#prodCatTab{{ module }}').offset().left
+});
+});
+$('.container-module .tabs__header__scroll .my-tabs#prodCatTab{{ module }} li a').click(function(){
+	$('.container-module .tabs__active_line.mod_{{ module }}').css({
+		'width':$(this).outerWidth(),
+		'left':$(this).parent().offset().left - $('.container-module .tabs__header__scroll > .my-tabs#prodCatTab{{ module }}').offset().left
+	});
+	let width_block = $('.container-module .tabs__header__scroll.hs-{{ module }}').width();
+	let li_width = $(this).outerWidth();
+	let li_left = $(this).parent().offset().left - $('.container-module .tabs__header__scroll.hs-{{ module }} > .my-tabs#prodCatTab{{ module }}').offset().left;
+	let goLeft = li_left - (width_block / 2) + (li_width / 2);
+	if(goLeft > 0){
+		$('.container-module .tabs__header__scroll.hs-{{ module }}').animate({scrollLeft:goLeft})
+	} else {
+		$('.container-module .tabs__header__scroll.hs-{{ module }}').animate({scrollLeft:0})
+	}
+});
+var idCategory = $('#prodCatTab{{ module }} > li.active a').attr("data-catid");
+var checkExistHtml = $("#cat-tab-{{ module }}-"+idCategory+" .content-items").html();
+
+if($.trim(checkExistHtml).length==0||checkExistHtml==undefined){
+	$.ajax({
+		url: '{{ ajaxurl }}',
+		type: 'post',
+		data: 'category_id='+ idCategory+'&module={{ module }}&module_id={{ module_id }}',
+		dataType: 'html',
+		success: function(data) {
+			$("#cat-tab-{{ module }}-"+$('#prodCatTab{{ module }} > li.active a').attr("data-catid")+" .content-items").html(data);
+		}
+	});
+}
+$("#prodCatTab{{ module }} > li a").click(function(){
+	var Categoryid = $(this).attr("data-catid");
+	var checkExistHtml = $("#cat-tab-{{ module }}-"+Categoryid+" .content-items").html();
+	if($.trim(checkExistHtml).length==0||checkExistHtml==undefined){
+		$.ajax({
+			url: '{{ ajaxurl }}',
+			type: 'post',
+			data: 'category_id='+ Categoryid+'&module={{ module }}&module_id={{ module_id }}',
+			dataType: 'html',
+			success: function(data) {
+				$("#cat-tab-{{ module }}-"+Categoryid+" .content-items").html(data);
+				setTimeout(function () {
+				$('a > img').each(function () {
+					if ($( document ).width()>767) {
+						if ($(this).attr('data-additional-hover')) {
+							var img_src = $(this).attr('data-additional-hover');
+							$(this).addClass('main-img');
+							$(this).after('<img src="'+img_src+'" class="additional-img-hover img-responsive" title="'+$(this).attr('alt')+'" />');
+						}
+					}
+				});
+				addCsTimer();
+				},1000);
+			}
+		});
+	}
+});
+</script>
+</div>

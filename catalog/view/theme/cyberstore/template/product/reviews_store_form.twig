@@ -1,0 +1,98 @@
+	<div id="popup-reviews-store">
+	<div class="popup-heading">{{ text_store_rating }}</div>
+		<div class="row">
+			  <div class="col-md-12">
+				<form class="form-horizontal" id="form-reviews-store">
+				<div class="form-group required">
+					<div class="col-xs-12">
+					<div class="input-group margin-bottom-sm">
+						<input id="input-name" class="form-control" type="text" placeholder="{{ entry_name }}" value="" name="author">
+						<span class="input-group-addon">
+							<img src="catalog/view/theme/cyberstore/image/form-icon/name-icon.svg" alt="{{ entry_name }}">
+						</span>
+					</div>
+					</div>
+				</div>
+				<div class="form-group required">
+					<div class="col-xs-12">
+					<div class="input-group margin-bottom-sm">
+						<textarea id="input-review-description" class="form-control" type="text" placeholder="{{ entry_review }}" name="description"></textarea>
+						<span class="input-group-addon"><img src="catalog/view/theme/cyberstore/image/form-icon/comment-icon.svg" alt="{{ entry_review }}"></span>
+					</div>
+					<div class="help-block">{{ text_note }}</div>
+					</div>
+				</div>
+				<div class="popup-block-reviews">
+					{% if (reviews_theme) %}
+						{% for item in reviews_theme %}
+							<div class="rsinfo-item">
+								<div class="rs-theme-text">{{ item['theme_text'] }}</div>
+								<div class="rs-theme-stars">
+									<div class="rating-store">
+										<input class="hidden" id="rat1{{ item['reviews_store_theme_id'] }}" type="radio" name="rating[{{ item['reviews_store_theme_id'] }}]" value="1" /><label class="star-rating label-star{{ item['reviews_store_theme_id'] }}" for="rat1{{ item['reviews_store_theme_id'] }}"></label>
+										<input class="hidden" id="rat2{{ item['reviews_store_theme_id'] }}" type="radio" name="rating[{{ item['reviews_store_theme_id'] }}]" value="2" /><label class="star-rating label-star{{ item['reviews_store_theme_id'] }}" for="rat2{{ item['reviews_store_theme_id'] }}"></label>
+										<input class="hidden" id="rat3{{ item['reviews_store_theme_id'] }}" type="radio" name="rating[{{ item['reviews_store_theme_id'] }}]" value="3" /><label class="star-rating label-star{{ item['reviews_store_theme_id'] }}" for="rat3{{ item['reviews_store_theme_id'] }}"></label>
+										<input class="hidden" id="rat4{{ item['reviews_store_theme_id'] }}" type="radio" name="rating[{{ item['reviews_store_theme_id'] }}]" value="4" /><label class="star-rating label-star{{ item['reviews_store_theme_id'] }}" for="rat4{{ item['reviews_store_theme_id'] }}"></label>
+										<input class="hidden" id="rat5{{ item['reviews_store_theme_id'] }}" type="radio" name="rating[{{ item['reviews_store_theme_id'] }}]" value="5" /><label class="star-rating label-star{{ item['reviews_store_theme_id'] }}" for="rat5{{ item['reviews_store_theme_id'] }}"></label>
+									</div>
+									<script>
+										$('.label-star{{ item['reviews_store_theme_id'] }}').hover(function () {
+											$(this).prevAll('.label-star{{ item['reviews_store_theme_id'] }}').addClass('active');
+											$(this).addClass('active');
+										},function () {
+											$(this).prevAll('.label-star{{ item['reviews_store_theme_id'] }}').removeClass('active');
+											$(this).removeClass('active');
+										});
+										$('.label-star{{ item['reviews_store_theme_id'] }}').click(function(){
+											$('.label-star{{ item['reviews_store_theme_id'] }}').each(function(){
+												$(this).removeClass('checked');
+												$(this).prevAll('.label-star{{ item['reviews_store_theme_id'] }}').removeClass('checked');
+											});
+
+											$(this).addClass('checked');
+											$(this).prevAll('.label-star{{ item['reviews_store_theme_id'] }}').addClass('checked');
+										});
+									</script>
+								</div>
+							</div>
+						{% endfor %}
+					{% endif %}
+					</div>
+					{% if (reviews_store_setting['captcha'] is defined) %}
+					<div class="form-group">
+						<div class="col-sm-12">
+							{{ captcha_rs }}
+						</div>
+					</div>
+					{% endif %}
+				</form>
+				<div class="popup-footer text-right">
+					<button type="button" id="reviews_store" class="btn btn-primary">{{ btn_add_new_review_store }}</button>
+				</div>
+			  </div>
+			</div>
+<script>
+$('#reviews_store').on('click', function() {
+	$.ajax({
+		url: 'index.php?route=product/cyber_reviews_store/write',
+		type: 'post',
+		data: $('#form-reviews-store').serialize(),
+		dataType: 'json',
+		success: function(json) {
+			$('.alert-success, .alert-danger').remove();
+			if (json['error']) {
+				$('#popup-reviews-store #form-reviews-store').before('<div class="alert-popup-rs alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error'] + '</div>');
+			}
+
+			if (json['success']) {
+		  		$('#popup-reviews-store #form-reviews-store').before('<div class="alert-popup-rs alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');
+				setTimeout(function () {
+					$('#modal-review-store .close').trigger('click');
+					location.reload();
+				}, 1000);
+			}
+		}
+	});
+});
+</script>
+</div>

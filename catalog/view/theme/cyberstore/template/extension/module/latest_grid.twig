@@ -1,0 +1,303 @@
+<div class="container-module">
+<div class="title-module"><span>{{ heading_title }}</span></div>
+<div class="product-slider">
+<div class="container-modules dflex flex-wrap latest_gv latest_grid{{ module }}">
+  {% for product in products %}
+   <div class="item no-slider {{ class_mob_row }} col-sm-6 col-md-4 col-lg-1-5">
+    <div class="product-thumb dflex flex-column h-100">
+      <div class="image">
+			<div class="stickers-ns">
+				{% if ((on_off_sticker_special == '1') and product['special']) %}
+					<div class="sticker-ns special">
+						{% if (config_change_icon_sticker_special is not empty) %}<i class="fa {{ config_change_icon_sticker_special }} "></i>{% endif %}
+						<span>{{ text_sticker_special[lang_id]['config_change_text_sticker_special'] }}</span>
+					</div>
+				{% endif %}
+				{% if ((on_off_sticker_topbestseller == '1') and (product['top_bestsellers'] >= config_limit_order_product_topbestseller)) %}
+					<div class="sticker-ns bestseller">
+						{% if (config_change_icon_sticker_topbestseller is not empty) %}<i class="fa {{ config_change_icon_sticker_topbestseller }} "></i>{% endif %}
+						<span>{{ text_sticker_topbestseller[lang_id]['config_change_text_sticker_topbestseller'] }}</span>
+					</div>
+				{% endif %}
+				{% if ((on_off_sticker_popular == '1') and (product['viewed']>=config_min_quantity_popular)) %}
+					<div class="sticker-ns popular">
+						{% if (config_change_icon_sticker_popular is not empty) %}<i class="fa {{ config_change_icon_sticker_popular }} "></i>{% endif %}
+						<span>{{ text_sticker_popular[lang_id]['config_change_text_sticker_popular'] }}</span>
+					</div>
+				{% endif %}
+				{% if ((on_off_sticker_newproduct == '1') and product.sticker_new_prod ) %}
+					<div class="sticker-ns newproduct">
+						{% if (config_change_icon_sticker_newproduct is not empty) %}<i class="fa {{ config_change_icon_sticker_newproduct }}"></i>{% endif %}
+						{{ text_sticker_newproduct[lang_id]['config_change_text_sticker_newproduct'] }}
+					</div>
+				{% endif %}
+			</div>
+			<a href="{{ product['href'] }}"><img loading="lazy" decoding="async" width="{{ width }}" height="{{ height }}" {% if (lazyload_module) %}data-srcset="{{ product['thumb'] }}" srcset="{{ lazy_image }}" src="{{ product['thumb'] }}" {% else %}src="{{ product['thumb'] }}" {% endif %} alt="{{ product['name'] }}" title="{{ product['name'] }}" class="img-responsive {% if (lazyload_module) %}lazyload{% endif %}" {% if (product['additional_image_hover']) %}data-additional-hover="{{ product['additional_image_hover'] }}" {% endif %} /></a>
+			{% if (show_special_timer_module == '1' and product['special']) %}
+				<div class="action-timer">
+					<div class="timer_inner" data-date-end="{{ product['date_end'] }}"></div>
+				</div>
+			{% endif %}
+	  </div>
+	  <div class="caption dflex flex-column flex-grow-1">
+        <div class="product-name"><a href="{{ product['href'] }}">{{ product['name'] }}</a></div>
+        {% if (show_stock_status) %}
+				{% if (product['product_quantity'] <= 0) %}
+					<div class="stock-status outofstock">{{ product['stock_status'] }}</div>
+				{% else %}
+					<div class="stock-status instock">
+						<svg class="hidden" xmlns="http://www.w3.org/2000/svg" width="13" height="13" fill="none" viewBox="0 0 13 13"><path fill="#00BC52" d="M8.681 4.615a.5.5 0 01.702.707l-.064.063-3.914 3.237-1.681-1.115a.5.5 0 01.473-.876l.08.042 1.062.705 3.342-2.763z"/><path fill="#00BC52" fill-rule="evenodd" d="M12 6.5a5.5 5.5 0 10-11 0 5.5 5.5 0 0011 0zm-10 0a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0z" clip-rule="evenodd"/></svg>
+						{{ text_instock }}
+					</div>
+				{% endif %}
+			{% endif %}
+			{% if (setting_module['status_model'] is defined and (setting_module['status_model'] == '1')) %}
+				<div class="product-model">{{ product['model']}}</div>
+			{% endif %}
+			{% if (setting_module['status_description'] is defined and (setting_module['status_description'] == '1')) %}
+				<div class="product-description">{{ product['description'] }}</div>
+			{% endif %}
+			{% if (show_options) %}
+				<div id="option_latest_gv_{{ product['product_id'] }}" class="option latest-gv-opt">
+				{% for key,option in product['options'] %}
+					{% if (option['type'] == 'select') %}
+						<div class="form-group{% if option.required %} required {% endif %}">
+							<label class="control-label">{{ option['name'] }}</label>
+							<div id="input-option-latest{{ option['product_option_id'] }}">
+								<select onchange="recalc_quantity({{ product['product_id'] }},{{ product['minimum'] }},{{ product['price_no_format'] }},'{{ product['special_no_format'] }}','.latest_grid{{ module }}','latest_gv');" name="option[{{ option['product_option_id'] }}]" id="input-value-{{ option['product_option_id'] }}_latest_gv" class="form-control">
+									<option value="">{{ text_select }}</option>
+									{% for option_value in option['product_option_value'] %}
+									<option data-option-prefix="{{ option_value['price_prefix'] }}" data-option-price="{{ option_value['price_value'] }}" value="{{ option_value['product_option_value_id'] }}">{{ option_value['name'] }}
+									{% if (option_value['price']) %}
+									({{ option_value['price_prefix'] }}{{ option_value['price'] }})
+									{% endif %}
+									</option>
+									{% endfor %}
+								</select>
+						  </div>
+						</div>
+					{% endif %}
+				{% if (option['type'] == 'radio') %}
+				<div class="form-group{% if option.required %} required {% endif %}">
+					<label class="control-label">{{ option['name'] }}</label>
+				  <div id="input-option-latest{{ option['product_option_id'] }}">
+					{% for option_value in option['product_option_value'] %}
+						{% if (option_value['image'] or option_value['color']) %}
+							{% if (option['status_color_type'] == '1') %}
+								<div class="image-radio">
+								  <label>
+									<input data-option-prefix="{{ option_value['price_prefix'] }}" data-option-price="{{ option_value['price_value'] }}" onchange="recalc_quantity({{ product['product_id'] }},{{ product['minimum'] }},{{ product['price_no_format'] }},'{{ product['special_no_format'] }}','.latest_grid{{ module }}','latest_gv');" type="radio" name="option[{{ option['product_option_id'] }}]" value="{{ option_value['product_option_value_id'] }}" id="input-value-{{ option['product_option_id'] }}_{{ option_value['product_option_value_id'] }}_latest_gv" />
+										<span for="input-value-{{ option['product_option_id'] }}_{{ option_value['product_option_value_id'] }}_latest_gv" class="color-option" data-toggle="tooltip" title="{{ option_value['name'] ~ (option_value['price'] is not empty ? ' ' ~ option_value['price_prefix'] ~ option_value['price'] : '') }}" style="background-color:{{ option_value['color']}}"></span>
+								  </label>
+								</div>
+							{% else %}
+								<div class="image-radio">
+								  <label>
+									<input data-option-prefix="{{ option_value['price_prefix'] }}" data-option-price="{{ option_value['price_value'] }}" onchange="recalc_quantity({{ product['product_id'] }},{{ product['minimum'] }},{{ product['price_no_format'] }},'{{ product['special_no_format'] }}','.latest_grid{{ module }}','latest_gv');" type="radio" name="option[{{ option['product_option_id'] }}]" value="{{ option_value['product_option_value_id'] }}" id="input-value-{{ option['product_option_id'] }}_{{ option_value['product_option_value_id'] }}_latest_gv" />
+									<span class="image-option">
+									<img for="input-value-{{ option['product_option_id'] }}_{{ option_value['product_option_value_id'] }}_latest_gv" src="{{ option_value['image'] }}" alt="{{ option_value['name'] ~ (option_value['price'] is not empty ? ' ' ~ option_value['price_prefix'] ~ option_value['price'] : '') }}" class="img-thumbnail" data-toggle="tooltip" title="{{ option_value['name'] ~ (option_value['price'] is not empty ? ' ' ~ option_value['price_prefix'] ~ option_value['price'] : '') }}" />
+								  	</span>
+								  </label>
+								</div>
+							{% endif %}
+						{% else %}
+							<div class="radio-checbox-options">
+								<input data-option-prefix="{{ option_value['price_prefix'] }}" data-option-price="{{ option_value['price_value'] }}" onchange="recalc_quantity({{ product['product_id'] }},{{ product['minimum'] }},{{ product['price_no_format'] }},'{{ product['special_no_format'] }}','.latest_grid{{ module }}','latest_gv');" type="radio" name="option[{{ option['product_option_id'] }}]" value="{{ option_value['product_option_value_id'] }}" id="input-value-{{ option['product_option_id'] }}_{{ option_value['product_option_value_id'] }}_latest_gv" />
+								<label for="input-value-{{ option['product_option_id'] }}_{{ option_value['product_option_value_id'] }}_latest_gv">
+									<span class="option-name">{{ option_value['name'] }}</span>
+									{% if (option_value['price']) %}
+									<span class="option-price">{{ option_value['price_prefix'] }}{{ option_value['price'] }}</span>
+									{% endif %}
+								</label>
+							</div>
+						{% endif %}
+
+					{% endfor %}
+				  </div>
+				</div>
+				{% endif %}
+
+				{% if (option['type'] == 'checkbox') %}
+				<div class="form-group{% if option.required %} required {% endif %}">
+				  <label class="control-label">{{ option['name'] }}</label>
+				  <div id="input-option-latest{{ option['product_option_id'] }}">
+					{% for option_value in option['product_option_value'] %}
+						{% if (option_value['image'] or option_value['color']) %}
+							{% if (option['status_color_type'] == '1') %}
+								<div class="image-radio">
+								  <label>
+									<input data-option-prefix="{{ option_value['price_prefix'] }}" data-option-price="{{ option_value['price_value'] }}" onchange="recalc_quantity({{ product['product_id'] }},{{ product['minimum'] }},{{ product['price_no_format'] }},'{{ product['special_no_format'] }}','.latest_grid{{ module }}','latest_gv');" type="checkbox" name="option[{{ option['product_option_id'] }}][]" value="{{ option_value['product_option_value_id'] }}" id="input-value-{{ option['product_option_id'] }}_{{ option_value['product_option_value_id'] }}_latest_gv" />
+										<span for="input-value-{{ option['product_option_id'] }}_{{ option_value['product_option_value_id'] }}_latest_gv" class="color-option" data-toggle="tooltip" title="{{ option_value['name'] ~ (option_value['price'] is not empty ? ' ' ~ option_value['price_prefix'] ~ option_value['price'] : '') }}" style="background-color:{{ option_value['color']}}"></span>
+								  </label>
+								</div>
+							{% else %}
+								<div class="image-radio">
+								  <label>
+									<input data-option-prefix="{{ option_value['price_prefix'] }}" data-option-price="{{ option_value['price_value'] }}" onchange="recalc_quantity({{ product['product_id'] }},{{ product['minimum'] }},{{ product['price_no_format'] }},'{{ product['special_no_format'] }}','.latest_grid{{ module }}','latest_gv');" type="checkbox" name="option[{{ option['product_option_id'] }}][]" value="{{ option_value['product_option_value_id'] }}" id="input-value-{{ option['product_option_id'] }}_{{ option_value['product_option_value_id'] }}_latest_gv" />
+									<span class="image-option">
+									<img for="input-value-{{ option['product_option_id'] }}_{{ option_value['product_option_value_id'] }}_latest_gv" src="{{ option_value['image'] }}" alt="{{ option_value['name'] ~ (option_value['price'] is not empty ? ' ' ~ option_value['price_prefix'] ~ option_value['price'] : '') }}" class="img-thumbnail" data-toggle="tooltip" title="{{ option_value['name'] ~ (option_value['price'] is not empty ? ' ' ~ option_value['price_prefix'] ~ option_value['price'] : '') }}" />
+								  	</span>
+								  </label>
+								</div>
+							{% endif %}
+						{% else %}
+							<div class="radio-checbox-options">
+							  <input data-option-prefix="{{ option_value['price_prefix'] }}" data-option-price="{{ option_value['price_value'] }}" onchange="recalc_quantity({{ product['product_id'] }},{{ product['minimum'] }},{{ product['price_no_format'] }},'{{ product['special_no_format'] }}','.latest_grid{{ module }}','latest_gv');" type="checkbox" name="option[{{ option['product_option_id'] }}][]" value="{{ option_value['product_option_value_id'] }}" id="input-value-{{ option['product_option_id'] }}_{{ option_value['product_option_value_id'] }}_latest_gv" />
+								<label for="input-value-{{ option['product_option_id'] }}_{{ option_value['product_option_value_id'] }}_latest_gv">
+								<span class="option-name">{{ option_value['name'] }}</span>
+									{% if (option_value['price']) %}
+									<span class="option-price">{{ option_value['price_prefix'] }}{{ option_value['price'] }}</span>
+									{% endif %}
+							  </label>
+							</div>
+						{% endif %}
+					{% endfor %}
+				  </div>
+				</div>
+				{% endif %}
+			{% endfor %}
+			</div>
+			{% endif %}
+		{% if (setting_module['status_rating'] is defined and (setting_module['status_rating'] == '1')) %}
+		<div class="rating">
+			<span class="rating-box">
+				{% set i = 1 %}{% for i in i..5 %}
+					{% if (product['rating'] < i) %}
+						<span class="product-rating-star">
+							<svg width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M5.5 8.75L3.47287 9.81573C2.73924 10.2014 1.88181 9.57846 2.02192 8.76155L2.40907 6.50431L0.769082 4.90572C0.175565 4.32718 0.503075 3.31921 1.3233 3.20002L3.5897 2.87069L4.60326 0.816985C4.97008 0.0737394 6.02992 0.0737402 6.39674 0.816986L7.4103 2.87069L9.67671 3.20002C10.4969 3.31921 10.8244 4.32718 10.2309 4.90572L8.59093 6.50431L8.97808 8.76155C9.11819 9.57846 8.26076 10.2014 7.52713 9.81573L5.5 8.75Z" fill="#EFEFEF"/>
+							</svg>
+						</span>
+					{% else %}
+						<span class="product-rating-star">
+							<svg width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path fill-rule="evenodd" clip-rule="evenodd" d="M5.5 8.75L3.47287 9.81573C2.73924 10.2014 1.88181 9.57846 2.02192 8.76155L2.40907 6.50431L0.769082 4.90572C0.175565 4.32718 0.503075 3.31921 1.3233 3.20002L3.5897 2.87069L4.60326 0.816985C4.97008 0.0737394 6.02992 0.0737402 6.39674 0.816986L7.4103 2.87069L9.67671 3.20002C10.4969 3.31921 10.8244 4.32718 10.2309 4.90572L8.59093 6.50431L8.97808 8.76155C9.11819 9.57846 8.26076 10.2014 7.52713 9.81573L5.5 8.75Z" fill="#E5DB77"/>
+							</svg>
+						</span>
+					{% endif %}
+				{% endfor %}
+			{% if (setting_module['status_quantity_reviews'] is defined and (setting_module['status_quantity_reviews'] == '1')) %}
+			  <span class="quantity-reviews"><a data-placement="right"  data-toggle="tooltip" title="{{ text_reviews_title }}" href="{{ product['href'] }}#tab-review">{{ product['reviews'] }}</a></span>
+			{% endif %}
+			</span>
+		</div>
+		{% endif %}
+		<div class="pq-box">
+        {% if (product['price']) %}
+			<div class="price" data-price-no-format="{{ product['price_no_format'] }}" data-special-no-format="{{ product['special_no_format'] }}">
+			{% if (not product['special']) %}
+			<span class="price_no_format">{{ product['price'] }}</span>
+			{% else %}
+			<span class="price-old"><span class="price_no_format">{{ product['price'] }}</span></span>
+			{% if ((on_off_percent_discount == '1') and product['special']) %}
+			<div class="stickers-skidka"><div class="sticker-ns procent-skidka">{{ product['skidka'] }} %</div></div>
+			{% endif %}
+			<span class="price-new"><span class="special_no_format">{{ product['special'] }}</span></span>
+			{% endif %}
+			{% if (product['tax']) %}
+			<span class="price-tax">{{ text_tax }} {{ product['tax'] }}</span>
+			{% endif %}
+			</div>
+				{% if (setting_module['status_actions'] is not defined) %}
+					{% if (config_additional_settings_newstore['quantity_btn_module'] is defined and (config_additional_settings_newstore['quantity_btn_module'] == '1')) %}
+						<div class="quantity_plus_minus">
+							<span class="add-up add-action">
+								<svg xmlns="http://www.w3.org/2000/svg" width="7" height="5" fill="none" viewBox="0 0 7 5">
+									<path fill="#000" fill-rule="evenodd" d="M3.826 2.144a.5.5 0 00-.707.004L.856 4.438a.5.5 0 01-.712-.704l2.264-2.289a1.5 1.5 0 012.121-.012L6.852 3.73a.5.5 0 11-.704.711L3.826 2.144z" clip-rule="evenodd" />
+								</svg>
+							</span>
+							<input type="text" class="quantity-num form-control" name="quantity" value="{{ product['minimum'] }}" data-minimum="{{ product['minimum'] }}" {% if (config_additional_settings_luxshop['quantity_multiple'] is defined and (config_additional_settings_luxshop['quantity_multiple'] == '1') and product['minimum'] > 1) %}disabled{% endif %}>
+							<span class="add-down add-action">
+								<svg xmlns="http://www.w3.org/2000/svg" width="7" height="5" fill="none" viewBox="0 0 7 5">
+									<path fill="#000" fill-rule="evenodd" d="M3.174 2.856a.5.5 0 00.707-.004L6.144.562a.5.5 0 01.712.704L4.592 3.555a1.5 1.5 0 01-2.121.012L.148 1.27A.5.5 0 11.852.559l2.322 2.297z" clip-rule="evenodd" />
+								</svg>
+							</span>
+						</div>
+					{% endif %}
+				{% endif %}
+			{% endif %}
+		</div>
+		{% if (setting_module['status_actions'] is not defined) %}
+			<div class="actions">
+				<div class="cart"><button class="btn btn-general" type="button" {% if ((product['product_quantity'] <= 0) and disable_cart_button) %}disabled{% else %}onclick="cart.add('{{ product['product_id'] }}',this)" {% endif %}><span class="icon-cart-add"></span><span class="text-cart-add">{% if (change_text_cart_button_out_of_stock == 1 and product['product_quantity'] <= 0) %}{{ disable_cart_button_text }}{% else %}{{ button_cart }}{% endif %}</span></button></div>
+				<div class="addit-action">
+				{% if (config_on_off_latest_quickview == '1') %}
+					<div class="quickview"><button class="btn btn-quickview" onclick="quickview_open({{ product['product_id']}},'{{ all_prod is defined ? all_prod : 0 }}');"><span class="btn-icon-quickview"></span><span class="text-cart-quickview">{{ config_quickview_btn_name[lang_id]['config_quickview_btn_name'] }}</span></button></div>
+				{% endif %}
+				{% if (setting_module['status_fastorder'] is defined and (setting_module['status_fastorder'] == '1')) %}
+					{% if ((not disable_fastorder_button and ((product['product_quantity'] <= 0) or product['product_quantity'] > 0)) or (disable_fastorder_button and product['product_quantity'] > 0)) %}
+					<div class="quick-order">
+						<button class="btn btn-fastorder" type="button" data-toggle="tooltip" onclick="fastorder_open({{ product['product_id']}});" title="{{ config_text_open_form_send_order[lang_id]['config_text_open_form_send_order'] }}" {% if ((product['product_quantity'] <= 0) and disable_fastorder_button) %}disabled{% endif %}>
+							{% if (icon_open_form_send_order != '') %}
+								<i class="{{ icon_open_form_send_order }} fa-fw"></i>
+							{% else %}
+								<span class="btn-icon-fastorder"></span>
+							{% endif %}
+						</button>
+					</div>
+					{% endif %}
+				{% endif %}
+				{% if (setting_module['status_wishlist'] is defined and (setting_module['status_wishlist'] == '1')) %}
+					<div class="wishlist"><button class="btn btn-wishlist" type="button" data-toggle="tooltip" title="{{ button_wishlist }}" onclick="wishlist.add('{{ product['product_id'] }}');"><span class="btn-icon-wishlist"></span></button></div>
+				{% endif %}
+				{% if (setting_module['status_compare'] is defined and (setting_module['status_compare'] == '1')) %}
+					<div class="compare"><button class="btn btn-compare" type="button" data-toggle="tooltip" title="{{ button_compare }}" onclick="compare.add('{{ product['product_id'] }}');"><span class="btn-icon-compare"></span></button></div>
+				{% endif %}
+				</div>
+			</div>
+		{% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+  </div>
+  {% if (status_showmore is defined and status_showmore != 0) %}
+	{% if (nextPage) %}
+		<div class="showmore-latest{{ module }} box-showmore"><span data-nextpage="{{ nextPage }}" class="box-ajax-load latest-ajax-load{{ module }}"><img src="catalog/view/theme/cyberstore/image/showmore.svg" alt="showmore-icon"></span></div>
+	{% endif %}
+	{% endif %}
+  </div>
+{% if (status_showmore is defined and status_showmore != 0) %}
+<script>
+$(document).on('click', '.latest-ajax-load{{ module }}', function () {
+	$.ajax({
+		url: 'index.php?route=extension/module/cyber_latest_grid/getNextPage',
+		type: 'post',
+		data: 'page=' + $(this).attr('data-nextpage') + '&module={{ module }}&module_id={{ module_id }}',
+		dataType: 'html',
+		beforeSend: function() {
+			$('.showmore-latest{{ module }} span').addClass('active-load');
+		},
+		complete: function() {
+			$('.showmore-latest{{ module }} span').removeClass('active-load');
+		},
+		success:function(data){
+			$data = $(data);
+			var $products = $data.find('.latest_grid{{ module }} > div.item');
+			var $product_img = $products.find('a > img');
+
+			$product_img.each(function () {
+				if ($(this).attr('data-additional-hover')) {
+					var img_src = $(this).attr('data-additional-hover');
+					$(this).addClass('main-img');
+					$(this).after('<img src="'+img_src+'" class="additional-img-hover img-responsive" title="'+$(this).attr('alt')+'" />');
+				}
+			});
+			$('.latest_grid{{ module }}').append($products);
+			$('.showmore-latest{{ module }}').replaceWith($data.find('.showmore-latest{{ module }}'));
+			addCsTimer();
+		}
+	});
+});
+</script>
+{% endif %}
+<script>
+$('.latest_grid{{ module }}').each(function() {
+	if ($(".latest_grid{{ module }}").parents("#column-left, #column-right, .position-no-owl").length) {
+		var items = $(this).children('div.item');
+		items.removeClass('col-xs-12 col-sm-6 col-md-4 col-lg-3');
+		items.addClass('col-xs-12 col-sm-12 col-md-12 col-lg-12');
+	}
+});
+</script>
+</div>

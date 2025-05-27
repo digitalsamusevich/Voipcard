@@ -1,0 +1,71 @@
+<div class="easybanner-box">
+	<div class="row {% if (type_easy_banner != 1) %}dflex{% endif %} mod_{{ module }} type_banner_{{ type_easy_banner }}">
+{% if (type_easy_banner == 1) %}
+	{% set class = "col-xs-12 col-sm-12 col-md-12" %}
+{% elseif (type_easy_banner == 2) %}
+	{% set class = 'col-xs-12 col-sm-6 col-md-6' %}
+{% elseif (type_easy_banner == 3) %}
+	{% set class = 'col-xs-12 col-sm-12 col-md-4' %}
+{% elseif (type_easy_banner == 4) %}
+	{% set class = 'col-xs-12 col-sm-6' %}
+{% elseif (type_easy_banner == 5) %}
+	{% set class = 'col-xs-12 col-sm-6' %}
+{% elseif (type_easy_banner == 6) %}
+	{% set class = 'col-xs-12 col-sm-12 col-md-8' %}
+{% else %}
+	{% set class = 'col-xs-12 col-sm-12 col-md-8' %}
+{% endif %}
+{% set class = class ~' type-easy-b-'~type_easy_banner %}
+	{% for key,result in easy_banners %}
+		<div class="{{ class }}">
+			<div class="easy-banner-{{ module ~ key }} item-easy-b" style="background-color: {{ result['bg_block'] }}">
+				<a {% if (result['link'] is not empty) %}href="{{ result['link'] }}" class="eb-link"{% else %}href="javascript:void(0)" class="eb-no-link"{% endif %}>
+				{% if (result['logo_image']) %}
+				<div class="easy-b-logo-brand"><img loading="lazy" decoding="async" class="img-responsive" src="{{ result['logo_image'] }}" alt=""/></div>
+				{% endif %}
+				{% if (result['price']) %}
+				<div class="easy-b-price-box top-right">
+					<div class="easy-b-price-inner">
+						<span class="easy-b-price-from">{{ result['price_from'] }}</span>
+						<span class="easy-b-price">{{ result['price'] }}</span>
+					</div>
+				</div>
+				{% endif %}
+				<div class="item-img-and-text dflex jcsb">
+					<div class="easy-b-image">
+						<img loading="lazy" decoding="async" width="{{ result.width }}" height="{{ result.height }}" class="img-responsive" src="{{ result['image'] }}" alt="{{ result['title'] }}"/>
+					</div>
+					<div class="item-text">
+						<div class="easy-b-title" {% if (result['color_title'] is not empty) %}style="color:{{ result['color_title'] }}"{% endif %}>{{ result['title'] }}</div>
+						<div class="easy-b-description" {% if (result['color_desc'] is not empty) %}style="color:{{ result['color_desc'] }}"{% endif %}>{{ result['description'] }}</div>
+					</div>
+				</div>
+				</a>
+			</div>
+		</div>
+	{% endfor %}
+<script>
+addStyleHeader('{{ html_css }}');
+</script>
+{% if (type_easy_banner == 6) %}
+<script>
+$('.mod_{{ module }}.type_banner_{{ type_easy_banner }}').each(function() {
+    var items = $(this).children('div.col-xs-12');
+	for (var i = 0; i < items.length; i+=2) {
+      items.slice(i, i=2).removeClass('col-sm-12 col-md-8').wrapAll('<div class="col-xs-12 col-sm-12 col-md-4 dflex type_one_two_column_right"></div>');
+    }
+});
+</script>
+{% endif %}
+{% if (type_easy_banner == 7) %}
+<script>
+$('.mod_{{ module }}.type_banner_{{ type_easy_banner }}').each(function() {
+    var items = $(this).children('div.col-xs-12');
+	for (var i = 1; i < items.length; i+=2) {
+      items.slice(i, i=3).removeClass('col-sm-12 col-md-8').wrapAll('<div class="col-xs-12 col-sm-12 col-md-4 dflex type_one_two_column_right"></div>');
+    }
+});
+</script>
+{% endif %}
+	</div>
+</div>

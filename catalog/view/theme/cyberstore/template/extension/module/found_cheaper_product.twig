@@ -1,0 +1,176 @@
+<div id="popup-found-cheaper">
+  <div class="popup-heading">{{ fcpdata.title_popup_found_cheaper[lang_id] is defined ? fcpdata.title_popup_found_cheaper[lang_id].text : '' }}</div>
+	{% if (fcpdata.found_cheaper_info_text[lang_id]) %}
+	<div class="info-text-found-cheaper">
+		{{ fcpdata.found_cheaper_info_text[lang_id].text }}
+	</div>
+	{% endif %}
+  <div class="popup-center">
+	<form method="post" class="form-horizontal" enctype="multipart/form-data" id="form-found-cheaper">
+
+	   {% if (fcpdata['name_field']) %}
+		<div class="form-group {{ fcpdata['name_field_required'] == '1' ? 'sections_block_rquaired' : 'sections_block' }}">
+			<div class="col-xs-12">
+			<div class="input-group margin-bottom-sm">
+				<input id="contact-name" class="form-control contact-name" type="text" placeholder="{{ fcpdata['name_field_placeholder'][lang_id] is defined ? fcpdata['name_field_placeholder'][lang_id]['text'] : '' }}" value="{{ name_field }}" name="name_field">
+				<span class="input-group-addon">
+					<img src="catalog/view/theme/cyberstore/image/form-icon/name-icon.svg" alt="">
+				</span>
+			</div>
+			</div>
+		</div>
+		{% endif %}
+
+		{% if (fcpdata['telephone_field']) %}
+		<div class="form-group {{ fcpdata['telephone_field_required'] == '1' ? 'sections_block_rquaired' : 'sections_block' }}">
+			<div class="col-xs-12">
+			<div class="input-group margin-bottom-sm">
+				<input id="contact-telephone" class="form-control contact-telephone" type="text" placeholder="{{ fcpdata['telephone_field_placeholder'][lang_id] is defined ? fcpdata['telephone_field_placeholder'][lang_id]['text'] : '' }}" value="{{ telephone_field }}" name="telephone_field">
+				<span class="input-group-addon">
+					<img src="catalog/view/theme/cyberstore/image/form-icon/tel-icon.svg" alt="">
+				</span>
+			</div>
+			</div>
+		</div>
+		{% endif %}
+		{% if (fcpdata['email_field']) %}
+		<div class="form-group {{ fcpdata['email_field_required'] == '1' ? 'sections_block_rquaired' : 'sections_block' }}">
+			<div class="col-xs-12">
+			<div class="input-group margin-bottom-sm">
+				<input id="contact-email" class="form-control contact-email" type="text" placeholder="{{ fcpdata['email_field_placeholder'][lang_id] is defined ? fcpdata['email_field_placeholder'][lang_id]['text'] : '' }}" value="{{ email_field }}" name="email_field">
+				<span class="input-group-addon">
+					<img src="catalog/view/theme/cyberstore/image/form-icon/email-icon.svg" alt="">
+				</span>
+			</div>
+			</div>
+		</div>
+		{% endif %}
+       {% if (fcpdata['link_field']) %}
+		<div class="form-group {{ fcpdata['link_field_required'] == '1' ? 'sections_block_rquaired' : 'sections_block' }}">
+			<div class="col-xs-12">
+			<div class="input-group margin-bottom-sm">
+				<input id="contact-link" class="form-control contact-link" type="text" placeholder="{{ fcpdata['link_field_placeholder'][lang_id] is defined ? fcpdata['link_field_placeholder'][lang_id]['text'] : '' }}" value="" name="link_field">
+				<span class="input-group-addon">
+					<img src="catalog/view/theme/cyberstore/image/form-icon/link-icon.svg" alt="">
+				</span>
+			</div>
+			</div>
+		</div>
+		{% endif %}
+		{% if (fcpdata['comment_field']) %}
+		<div class="form-group {{ fcpdata['comment_field_required'] == '1' ? 'sections_block_rquaired' : 'sections_block' }}">
+			<div class="col-xs-12">
+			<div class="input-group margin-bottom-sm">
+				<input id="contact-comment" class="form-control contact-comment" type="text" placeholder="{{ fcpdata['comment_field_placeholder'][lang_id] is defined ? fcpdata['comment_field_placeholder'][lang_id]['text'] : '' }}" value="" name="comment_field">
+				<span class="input-group-addon">
+					<img src="catalog/view/theme/cyberstore/image/form-icon/comment-icon.svg" alt="">
+				</span>
+			</div>
+			</div>
+		</div>
+		{% endif %}
+      <input type="hidden" name="fcp_product_id" value="{{ product_id }}"/>
+	{% if (text_agree) %}
+        <div class="col-xs-12 text-center">
+		  {{ text_agree }}
+            <input type="checkbox" name="agree" value="1" />
+			<div class="error_agree"></div>
+        </div>
+		{% endif %}
+	</form>
+  </div>
+  <div class="popup-footer">
+    <button type="button" onclick="found_cheaper_product_confirm()"  class="btn btn-found-cheaper">{{ button_send_found_cheaper }}</button>
+  </div>
+{% if (fcpdata['telephone_field_mask'] != '') %}
+<script src="catalog/view/theme/cyberstore/js/maskedinput.js" type="text/javascript"></script>
+ <script>
+$(document).ready(function() {
+	$("#contact-telephone").mask("{{ fcpdata['telephone_field_mask'] }}");
+});
+</script>
+{% endif %}
+<script>
+function found_cheaper_product_confirm() {
+	$('#popup-found-cheaper #form-found-cheaper').prepend('<div class="masked_bg"></div><div class="loading_masked"></div>');
+	var success = 'false';
+		$('#callback_url').val(window.location.href);
+		$.ajax({
+			url: 'index.php?route=extension/module/cyber_found_cheaper_product/found_cheaper_product_confirm',
+			type: 'post',
+			data: $('#form-found-cheaper').serialize() + '&action=send',
+			dataType: 'json',
+			beforeSend: function() {
+				loading_masked(true);
+			},
+			success: function(json) {
+				loading_masked(false);
+				$('.masked_bg').remove();
+				$('.loading_masked').remove();
+				$('.alert').remove();
+
+				$('#popup-found-cheaper .form-control').removeClass('error_input');
+				$('.text-danger').empty();
+				if (json['error']) {
+					if (json['error']['name_field']) {
+						$('#popup-found-cheaper .contact-name').attr('placeholder',json['error']['name_field']);
+						$('#popup-found-cheaper .contact-name').addClass('error_input');
+					}
+					if (json['error']['telephone_field']) {
+						$('#popup-found-cheaper .contact-telephone').attr('placeholder',json['error']['telephone_field']);
+						$('#popup-found-cheaper .contact-telephone').addClass('error_input');
+					}
+					if (json['error']['comment_field']) {
+						$('#popup-found-cheaper .contact-comment').attr('placeholder',json['error']['comment_field']);
+						$('#popup-found-cheaper .contact-comment').addClass('error_input');
+					}
+					if (json['error']['link_field']) {
+						$('#popup-found-cheaper .contact-link').attr('placeholder',json['error']['link_field']);
+						$('#popup-found-cheaper .contact-link').addClass('error_input');
+					}
+					if (json['error']['email_field']) {
+						$('#popup-found-cheaper .contact-email').attr('placeholder',json['error']['email_field']);
+						$('#popup-found-cheaper .contact-email').addClass('error_input');
+					}
+					if (json['error']['error_agree']) {
+						$('#popup-found-cheaper .error_agree').append('<div class="alert alert-danger"><i class="fa fa-exclamation-circle"></i> ' + json['error']['error_agree'] + '<button type="button" class="close" data-dismiss="alert">&times;</button></div>');
+					}
+				}
+
+				if (json['success']){
+					$('#modal-found-cheaper').modal('hide');
+					html  = '<div id="modal-found-cheaper" class="modal fade">';
+					html += '  <div class="modal-dialog">';
+					html += '    <div class="modal-content cs-modal-success">';
+					html += '      <div class="modal-body"><img class="success-icon" alt="success-icon" src="catalog/view/theme/cyberstore/image/success-icon.svg"> <div class="text-modal-block">' + json['success'] + '</div><button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button></div>';
+					html += '    </div>';
+					html += '  </div>';
+					html += '</div>';
+
+					$('body').append(html);
+
+					$('#modal-found-cheaper').modal('show');
+				}
+			}
+
+		});
+}
+</script>
+<style>
+{% if (fcpdata['color_send_button']) %}
+#found-cheaper-wrapper .popup-footer .btn-found-cheaper {color:{{ fcpdata['color_send_button'] }}; }
+{% endif %}
+{% if (fcpdata['background_send_button']) %}
+#found-cheaper-wrapper .popup-footer .btn-found-cheaper {background:{{ fcpdata['background_send_button'] }}; }
+{% endif %}
+{% if (fcpdata['background_send_button_hover']) %}
+#found-cheaper-wrapper .popup-footer .btn-found-cheaper:hover {background:{{ fcpdata['background_send_button_hover'] }}; }
+{% endif %}
+{% if (fcpdata['border_send_button']) %}
+#found-cheaper-wrapper .popup-footer .btn-found-cheaper {border-color:{{ fcpdata['border_send_button'] }}; }
+{% endif %}
+{% if (fcpdata['border_send_button_hover']) %}
+#found-cheaper-wrapper .popup-footer .btn-found-cheaper:hover {border-color:{{ fcpdata['border_send_button_hover'] }}; }
+{% endif %}
+</style>
+</div>

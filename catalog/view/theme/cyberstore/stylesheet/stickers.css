@@ -1,0 +1,90 @@
+.stickers-ns {
+	right: 20px;
+	position: absolute;
+	top: 20px;
+	transition: all 0.15s ease 0s;
+	z-index:10;
+}
+
+.stickers-ns .fa{
+	font-size: 12px;
+	vertical-align: middle;
+}
+.stickers-ns > .sticker-ns {
+	margin-bottom: 8px;
+}
+.sticker-ns {
+	clear: right;
+	float: right;
+	font-size: 11px;
+	font-weight: 400;
+	padding:4px 15px;
+	position: relative;
+	border-radius:13px;
+	line-height:18px;
+  color:#fff;
+}
+@media (max-width: 768px) {
+  .stickers-ns {
+    top:10px;
+    right: 10px;
+  }
+  .sticker-ns {
+    padding:2px 10px;
+  }
+}
+.product-item:hover .stickers-ns, .product-block:hover .stickers-ns , .thumbnails:hover .stickers-ns{
+	opacity:0;
+	transition: all 0.15s  ease 0s;
+	z-index:-1;
+}
+.product-thumb:hover .stickers-ns{
+	opacity:0;
+	transition: all 0.15s  ease 0s;
+	z-index:-1;
+}
+.stickers-skidka {
+    text-align: left;
+    max-height: 20px;
+}
+.sticker-ns.procent-skidka {
+  background: url("/catalog/view/theme/cyberstore/image/procent-skidka.svg") no-repeat;
+  color: #fff;
+  font-weight: 600;
+  z-index: 10;
+  width: 42px;
+  font-size: 11px;
+  text-align: center;
+  padding: 0px;
+  border-radius: 4px;
+  position: relative;
+}
+.tooltip-inner {
+  background-color: #3f4e5d;
+  color:#fff;
+}
+.tooltip.top .tooltip-arrow {
+  border-top-color: #3f4e5d;
+  bottom:1px;
+}
+.tooltip.top-left .tooltip-arrow {
+  border-top-color: #3f4e5d;
+}
+.tooltip.top-right .tooltip-arrow {
+  border-top-color: #3f4e5d;
+}
+.tooltip.right .tooltip-arrow {
+  border-right-color: #3f4e5d;
+}
+.tooltip.left .tooltip-arrow {
+  border-left-color: #3f4e5d;
+}
+.tooltip.bottom .tooltip-arrow {
+  border-bottom-color: #3f4e5d;
+}
+.tooltip.bottom-left .tooltip-arrow {
+  border-bottom-color: #3f4e5d;
+}
+.tooltip.bottom-right .tooltip-arrow {
+  border-bottom-color: #3f4e5d;
+}

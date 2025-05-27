@@ -1,0 +1,48 @@
+{{ header }}
+<div id="information-information" class="container">
+<div class="col-sm-12 content-box-cs {% if (menu_open_information is defined and ((menu_open_information == '1') and (main_menu == '1') and (column_left))) %}mtopm10{% endif %}">
+<div class="breadcrumbs-box">
+	<ul class="breadcrumb {% if (menu_open_information is defined and ((menu_open_information == '1') and (main_menu == '1') and (column_left))) %}col-md-offset-3 col-lg-offset-3{% endif %}" >
+		{% for i,breadcrumb in breadcrumbs %}
+			{% if (i+1 < breadcrumbs|length) %}
+				<li><a href="{{ breadcrumb.href }}"><span>{{ breadcrumb.text }}</span></a></li>
+			{% else %}
+				<li><span>{{ breadcrumb.text }}</span></li>
+			{% endif %}
+		{% endfor %}
+	</ul>
+</div>
+  <div class="row">
+   {% if (menu_open_information is defined and ((menu_open_information == '1') and (main_menu == '1') and (column_left))) %}
+		<script>
+		if(window.matchMedia("(min-width: 992px)").matches){
+			$('.menu-list-dropdown').addClass("nsmenu-block");
+			$(function(){$('#column-left').css({'margin-top': $('.menu-list-dropdown').outerHeight() - 20});});
+		}
+		$(window).resize(function() {
+			if ($(window).width() > 992) {
+				$('.menu-list-dropdown').addClass("nsmenu-block");
+				$(function(){$('#column-left').css({'margin-top': $('.menu-list-dropdown').outerHeight() - 20});});
+			} else {
+				$('.menu-list-dropdown').removeClass("nsmenu-block");
+				$('#column-left').removeAttr('style');
+			}
+		});
+		</script>
+	{% endif %}
+  {{ column_left }}
+    {% if (column_left and column_right) %}
+    {% set class = 'col-sm-4 col-md-6' %}
+    {% elseif (column_left or column_right) %}
+    {% set class = 'col-sm-8 col-md-9' %}
+    {% else %}
+    {% set class = 'col-sm-12' %}
+    {% endif %}
+    <div id="content" class="{{ class }}">
+  {{ content_top }}
+      <h1>{{ heading_title }}</h1>
+      <div class="p-content">{{ description }}</div>{{ content_bottom }}</div>
+    {{ column_right }}</div>
+</div>
+</div>
+{{ footer }}

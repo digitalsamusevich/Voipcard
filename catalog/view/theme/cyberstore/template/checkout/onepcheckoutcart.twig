@@ -1,0 +1,106 @@
+{% if (products or voucher) %}
+<div class="table-responsive">
+<table class="table cs-table">
+	<thead>
+		<tr>
+			<td class="text-left">{{ column_image }}</td>
+			<td class="text-left">{{ column_name }}</td>
+			<td class="text-left">{{ column_model }}</td>
+			<td class="text-center">{{ column_quantity }}</td>
+			<td class="text-right">{{ column_price }}</td>
+			<td class="text-right">{{ column_total }}</td>
+			<td class="delete_td text-center"></td>
+		</tr>
+	</thead>
+	<tbody>
+		{% for product in products %}
+		<tr>
+			<td class="image text-center"><img src="{{ product['thumb'] }}" class="img-responsive" title="{{ product['name'] }}" /></td>
+			<td class="text-left"><a href="{{ product['href'] }}">{{ product['name'] }}</a>
+				{% for option in product['option'] %}
+				<br />
+				&nbsp;<small> - {{ option['name'] }}: {% if (option['option_value'] is defined and option['option_value'] is not empty) %} {{ option['option_value'] }}{% elseif (option['value'] is defined) %} {{ option['value'] }}{% endif %}</small>
+			{% endfor %}</td>
+			<td class="text-left">{{ product['model'] }}</td>
+			<td class="text-center">
+				<div class="cs-cart-quantity">
+				<span class="input-btn">
+					<button class="btn btn-quantity-minus" type="button" onclick="updateQuantityCheckout('{{ product.key }}','{{ product.quantity-1 }}');"><i class="fa fa-angle-left"></i></button>
+				</span>
+				<input type="text" id="input_pr_quantity_{{ product.key }}" class="form-control" value="{{ product.quantity }}" onchange="updateQuantityCheckout('{{ product.key }}', $(this).val());">
+				<span class="input-btn">
+					<button class="btn btn-quantity-plus" type="button" onclick="updateQuantityCheckout('{{ product.key }}','{{ product.quantity+1 }}');"><i class="fa fa-angle-right"></i></button>
+				</span>
+				</div>
+			</td>
+			<td class="text-right">{{ product['price'] }}</td>
+			<td class="text-right">{{ product['total'] }}</td>
+			<td class="delete_td text-center"><button type="button" onclick="cart.remove('{{ product['key'] }}');" title="{{ button_remove }}" class="btn btn-remove"><i class="fa fa-trash-o"></i></button></td>
+		</tr>
+		{% endfor %}
+		{% for voucher in vouchers %}
+			<tr>
+				<td class="text-left">{{ voucher['description'] }}</td>
+				<td class="text-left hidden-xs"></td>
+				<td class="text-right hidden-xs">1</td>
+				<td class="text-right hidden-xs">{{ voucher['amount'] }}</td>
+				<td class="text-right">{{ voucher['amount'] }}</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
+</div>
+<table class="coupon_table">
+{% if (coupon) %}
+<tr>
+	<td>
+		<div class="coupon input-group">
+			<input type="text" name="coupon" value="" placeholder="{{ entry_coupon }}" id="input-coupon" class="form-control" />
+			<span class="input-group-btn">
+				<button id="button-coupon" data-loading-text="{{ text_loading }}" class="btn btn-primary">{{ button_apply }}</button>
+			</span>
+		</div>
+	</td>
+</tr>
+{% endif %}
+{% if (reward) %}
+<tr>
+	<td>
+		<div class="coupon input-group">
+			<input type="text" name="reward" value="" placeholder="{{ entry_reward }}" id="input-reward" class="form-control" />
+			<span class="input-group-btn">
+				<button id="button-reward" data-loading-text="{{ text_loading }}" class="btn btn-primary">{{ button_apply }}</button>
+			</span>
+		</div>
+	</td>
+</tr>
+{% endif %}
+{% if (voucher) %}
+<tr>
+	<td>
+		<div class="coupon input-group">
+			<input type="text" name="voucher" value="" placeholder="{{ entry_voucher }}" id="input-voucher" class="form-control" />
+			<span class="input-group-btn">
+				<button id="button-voucher" data-loading-text="{{ text_loading }}" class="btn btn-primary">{{ button_apply }}</button>
+			</span>
+		</div>
+	</td>
+</tr>
+{% endif %}
+</table>
+<table class="table_total">
+	{% for total in totals %}
+			<tr>
+				<td colspan="5" class="text-right  hidden-xs">{{ total['title'] }}:</td>
+				<td colspan="1" class="text-right  visible-xs">{{ total['title'] }}:</td>
+				<td class="text-right">{{ total['text'] }}</td>
+			</tr>
+		{% endfor %}
+</table>
+{% else %}
+<script>
+	$(document).ready(function() {
+		window.location.reload();
+	});
+</script>
+{% endif %}

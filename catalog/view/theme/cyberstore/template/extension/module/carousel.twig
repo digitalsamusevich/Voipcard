@@ -1,0 +1,22 @@
+<div class="content-carousel-{{ module }} carousel-mod">
+<div id="carousel{{ module }}" class="owl-carousel">
+  {% for banner in banners %} 
+  <div class="item text-center">
+    {% if (banner['link']) %} 
+    <a href="{{ banner['link'] }}"><img src="{{ banner['image'] }}" alt="{{ banner['title'] }}" class="img-responsive img-center" /></a>
+    {% else %} 
+    <img src="{{ banner['image'] }}" alt="{{ banner['title'] }}" class="img-responsive img-center" />
+    {% endif %} 
+  </div>
+  {% endfor %} 
+</div>
+</div>
+<script><!--
+$('#carousel{{ module }}').owlCarousel({
+	items: 6,
+	autoPlay: 7000,
+	navigation: true,
+	navigationText: ['<div class="btn btn-carousel-module next-prod"><i class="fa fa-angle-left arrow"></i></div>', '<div class="btn btn-carousel-module prev-prod"><i class="fa fa-angle-right arrow"></i></div>'],
+	pagination: false
+});
+--></script>

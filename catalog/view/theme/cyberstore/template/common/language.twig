@@ -1,0 +1,18 @@
+{% if languages|length > 1 %}
+<div class="variant_lang_2">
+  <form action="{{ action }}" method="post" enctype="multipart/form-data" id="language">
+  <span class="mob-title-lang">{{ text_language }}</span>
+  <div class="list_lang">
+    {% for language in languages %}
+      {% if language.code == code %}
+        <span class="item_lang active">{{ language.name }}</span>
+      {% else %}
+        <span class="item_lang"><a href="{{ language.code }}" onclick="$('#language input[name=\'code\']').attr('value', '{{ language.code }}'); $(this).parent().parent().submit();">{{ language.name }}</a></span>
+      {% endif %}
+    {% endfor %}
+  </div>
+  <input type="hidden" name="code" value="" />
+  <input type="hidden" name="redirect" value="{{ redirect }}" />
+  </form>
+</div>
+{% endif %}

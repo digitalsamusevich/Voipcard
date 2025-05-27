@@ -1,0 +1,18 @@
+<div id="sticker_container" style="display: none;"></div>
+<script>
+$(window).load(function() {
+$(function() {
+	$.ajax({
+		url: 'index.php?route=extension/module/cyber_pro_sticker/load_content',
+		type: 'post',
+		dataType: 'html',
+		success:function(data){
+			setTimeout(function () {
+					$('#sticker_container').replaceWith(data);
+					ProStickerLoad('{{ product_id }}');
+			}, 2000);
+		}
+	});
+});
+});
+</script>

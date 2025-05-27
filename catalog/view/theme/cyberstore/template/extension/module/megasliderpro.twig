@@ -1,0 +1,68 @@
+<div class="megasliderpro">
+	<div id="mslider{{ module }}" class="carousel-container">
+
+		{% for key,result in megasliders %}
+			<div class="item-ms{% if (key > 0) %} hidden{% endif %}">
+			{% if (result['link'] is not empty) %}
+				<a href="{{ result['link'] }}"><img width="{{ width }}" height="{{ height }}" {% if (key > 0) %}decoding="async" loading="lazy"{% endif %} class="bg-image-slider img-responsive" src="{{ result['image'] }}" alt=""/></a>
+			{% else %}
+				<img width="{{ width }}" height="{{ height }}" {% if (key > 0) %}decoding="async" loading="lazy"{% endif %} class="bg-image-slider img-responsive" src="{{ result['image'] }}" alt=""/>
+			{% endif %}
+				<div class="slick-caption">
+					{% if (result['link'] is not empty) %}<a href="{{ result['link'] }}">{% endif %}
+					<div class="slide-type{{ result['type'] }} container dflex">
+						{% if (result['small_image']) %}
+							<div class="row-slider-small-img">
+							<div class="msp-small_image">
+								<img src="{{ result['small_image'] }}" alt="" title="small" />
+							</div>
+							</div>
+						{% endif %}
+						<div class="row-slider-info">
+							{% if (result['title']) %}
+							<div class="msp-title effect_title{{ key }}{{ module }}">
+								<div class="text-title" {% if (result['bg_title'] != '' or result['color_title']) %}style="{% if (result['bg_title'] is not empty) %}background:{{ result['bg_title'] }};{% endif %} {% if (result['color_title'] is not empty) %}color:{{ result['color_title'] }}"{% endif %}{% endif %}>{{ result['title'] }}</div>
+							</div>
+							{% endif %}
+							{% if (result['sub_title']) %}
+							<div class="sub-title effect_sub_title{{ key }}{{ module }}">
+								<div class="text-sub-title" {% if (result['bg_sub_title'] != '' or result['color_sub_title']) %}style="{% if (result['bg_title'] is not empty) %}background:{{ result['bg_sub_title'] }};{% endif %}{% if (result['color_sub_title'] is not empty) %}color:{{ result['color_sub_title'] }}"{% endif %}{% endif %}>{{ result['sub_title'] }}</div>
+							</div>
+							{% endif %}
+							{% if (result['description'] is not empty) %}
+							<div class="msp-des effect_description_title{{ key }}{{ module }}">
+								{{ result['description'] }}
+							</div>
+							{% endif %}
+							{% if (result['price'] is not empty) %}
+							<div class="ms-price">
+								<span class="ms-price-cont" {% if (result['price_bg'] != '') %}style="background:{{ result['price_bg'] }}"{% endif %}>
+									<span class="ms-price-text"><span class="ms-price-from">{{ text_price_from }}</span>{{ result['price'] }}</span>
+								</span>
+							</div>
+							{% endif %}
+						</div>
+					</div>
+					{% if (result['link'] is not empty) %}</a>{% endif %}
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+{% set config = slide_setting[0] %}
+<script>
+addStyleHeader('{{ html_css }}');
+$(document).ready(function () {
+	$('#mslider{{ module }}').owlCarousel({
+		items: 1,
+		singleItem: true,
+		navigation: {% if (config['nextback'] is defined and config['nextback'] == 1) %}true{% else %}false{% endif %},
+		autoPlay: {% if (config['delay']) %}'{{ config['delay'] }}'{% else %}'5000'{% endif %},
+		navigationText: ['<span class="slideshow-btn-prev"><svg xmlns="http://www.w3.org/2000/svg" width="5" height="10" fill="none" viewBox="0 0 5 10"><path fill="#000" fill-rule="evenodd" d="M3.993 8.905a.5.5 0 01-.698-.112L1.213 5.91a1.5 1.5 0 01-.01-1.743l2.089-2.956a.5.5 0 11.816.576L2.02 4.744a.5.5 0 00.003.581l2.082 2.882a.5.5 0 01-.112.698z" clip-rule="evenodd"/></svg></span>', '<span class="slideshow-btn-next"><svg xmlns="http://www.w3.org/2000/svg" width="5" height="10" fill="none" viewBox="0 0 5 10"><path stroke="#000" stroke-linecap="round" d="M1.3 1.5l2.082 2.882a1 1 0 01.006 1.162L1.3 8.5"></path></svg></span>'],
+		pagination:  {% if (config['contrl'] is defined and config['contrl'] == 1) %}true{% else %}false{% endif %},
+		transitionStyle: {% if (config['effect'] == 'fade') %}'fade'{% else %}false{% endif %},
+		stopOnHover: {% if (config['hover'] is defined and config['hover'] == 1) %}true{% else %}false{% endif %}
+	});
+	$('#mslider{{ module }} .item-ms').removeClass('hidden');
+});
+</script>
+</div>

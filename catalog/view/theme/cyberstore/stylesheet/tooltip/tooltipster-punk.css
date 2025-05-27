@@ -1,0 +1,18 @@
+.tooltipster-punk {
+	border-radius: 5px; 
+	border-bottom: 3px solid #23A4EF;
+	background: #2a2a2a;
+	color: #fff;
+}
+.tooltipster-punk .tooltipster-content {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	line-height: 16px;
+	padding: 8px 10px;
+}
+
+.name-tooltip {
+	font-weight:bold;
+	text-align:center;
+	font-size: 22px;
+}

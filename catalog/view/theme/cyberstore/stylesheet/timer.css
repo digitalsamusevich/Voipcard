@@ -1,0 +1,118 @@
+.action-timer {
+	bottom: -14px;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-pack: center;
+	    -ms-flex-pack: center;
+	        justify-content: center;
+	left: 0;
+	margin: 0;
+	padding: 0px;
+	position: absolute;
+	right: 0;
+	z-index: 9;
+	-webkit-transition: all 0.15s  ease 0s;
+	-o-transition: all 0.15s  ease 0s;
+	transition: all 0.15s  ease 0s;
+}
+.product-thumb:hover .action-timer {
+	opacity:0;
+	transition: all 0.15s  ease 0s;
+	z-index:-1;
+}
+
+.countdownHolder {
+    font-size: 12px;
+    text-align: center;
+	 color:#000;
+	 opacity:1;
+    background: #fff;
+    border-radius: 8px;
+    height: 38px;
+    box-shadow: 4px 4px 23px rgba(0, 0, 0, 0.067);
+}
+.countdownHolder .num-time {
+    display: inline-block;
+}
+.countDays:after,
+.countHours:after,
+.countMinutes:after{
+    content: "";
+    top: 7px;
+    bottom: 7px;
+    border-right: 1px dashed #D8D8D8;
+    right: 0px;
+    position: absolute;
+}
+.countDays,
+.countHours,
+.countMinutes,
+.countSec {
+	display: block;
+	float: left;
+	position: relative;
+	width: 34px;
+	height: 100%;
+	padding:4px 2px;
+}
+.time_productany {
+  display: block;
+  font-size: 7px;
+  color:#000000;
+  opacity: 0.5;
+  line-height: 1;
+  margin-top: 0px;
+}
+
+@media (min-width: 480px) {
+	.countDays,
+	.countHours,
+	.countMinutes,
+	.countSec {
+		width: 48px;
+	}
+	.countdownHolder {
+		height: 44px;
+		font-size: 14px;
+	}
+	.time_productany {
+		font-size: 9px;
+		margin-top: 2px;
+	}
+}
+#product .countDays,
+#product .countHours,
+#product .countMinutes,
+#product .countSec {
+	width: 25%;
+}
+
+/*PRODUCT COUNTDOWN*/
+.special-countdown .countdownHolder{
+  font-size: 32px;
+	height:82px;
+	border-left:0px;
+	border-right:0px;
+
+}
+.special-countdown .countDays,
+.special-countdown .countHours ,
+.special-countdown .countMinutes,
+.special-countdown .countSec{
+	height:100%;
+	padding:20px;
+}
+.special-countdown .digit.static {
+  display: inline-block;
+  height: 100%;
+}
+.special-countdown .position {
+  display: inline-block;
+  height: 25px;
+  line-height: 25px;
+}
+.special-countdown .time_productany {
+  font-size: 12px;
+  margin-top: 8px;
+}

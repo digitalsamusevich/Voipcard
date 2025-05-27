@@ -1,0 +1,70 @@
+<nav id="menu-mobile-ns" class="{% if (type_mobile_menu is defined and (type_mobile_menu == '1')) %}navmenu-fixed-left{% else %}menu-collapse-down{% endif %}">
+		<div {% if (type_mobile_menu is defined and (type_mobile_menu == '0')) %}class="collapse navbar-collapse navbar-type2-collapse"{% endif %}>
+			{% if (type_mobile_menu is defined and (type_mobile_menu == '1')) %}
+			<div class="mobm-top">
+				<svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+				<path fill-rule="evenodd" clip-rule="evenodd" d="M8 2C8 0.89543 7.10457 0 6 0H2C0.89543 0 0 0.89543 0 2V6C0 7.10457 0.89543 8 2 8H6C7.10457 8 8 7.10457 8 6V2ZM2 1.5H6L6.08988 1.50806C6.32312 1.55039 6.5 1.75454 6.5 2V6L6.49194 6.08988C6.44961 6.32312 6.24546 6.5 6 6.5H2L1.91012 6.49194C1.67688 6.44961 1.5 6.24546 1.5 6V2L1.50806 1.91012C1.55039 1.67688 1.75454 1.5 2 1.5Z" fill="black"/>
+				<path fill-rule="evenodd" clip-rule="evenodd" d="M17 2C17 0.89543 16.1046 0 15 0H11C9.89543 0 9 0.89543 9 2V6C9 7.10457 9.89543 8 11 8H15C16.1046 8 17 7.10457 17 6V2ZM11 1.5H15L15.0899 1.50806C15.3231 1.55039 15.5 1.75454 15.5 2V6L15.4919 6.08988C15.4496 6.32312 15.2455 6.5 15 6.5H11L10.9101 6.49194C10.6769 6.44961 10.5 6.24546 10.5 6V2L10.5081 1.91012C10.5504 1.67688 10.7545 1.5 11 1.5Z" fill="black"/>
+				<path fill-rule="evenodd" clip-rule="evenodd" d="M17 11C17 9.89543 16.1046 9 15 9H11C9.89543 9 9 9.89543 9 11V15C9 16.1046 9.89543 17 11 17H15C16.1046 17 17 16.1046 17 15V11ZM11 10.5H15L15.0899 10.5081C15.3231 10.5504 15.5 10.7545 15.5 11V15L15.4919 15.0899C15.4496 15.3231 15.2455 15.5 15 15.5H11L10.9101 15.4919C10.6769 15.4496 10.5 15.2455 10.5 15V11L10.5081 10.9101C10.5504 10.6769 10.7545 10.5 11 10.5Z" fill="black"/>
+				<path fill-rule="evenodd" clip-rule="evenodd" d="M8 11C8 9.89543 7.10457 9 6 9H2C0.89543 9 0 9.89543 0 11V15C0 16.1046 0.89543 17 2 17H6C7.10457 17 8 16.1046 8 15V11ZM2 10.5H6L6.08988 10.5081C6.32312 10.5504 6.5 10.7545 6.5 11V15L6.49194 15.0899C6.44961 15.3231 6.24546 15.5 6 15.5H2L1.91012 15.4919C1.67688 15.4496 1.5 15.2455 1.5 15V11L1.50806 10.9101C1.55039 10.6769 1.75454 10.5 2 10.5Z" fill="black"/>
+				</svg>
+		        <div class="mobm-title-catalog">{{ text_category }}</div>
+		        <a class="mobm-close-menu" href="javascript:void(0)" onclick="close_mob_menu();">×</a>
+		    </div>
+		    {% endif %}
+		    <div class="mob-catalog">
+		  		<ul class="nav navbar-nav">
+					{% for item in items %}
+						<li {% if (item['children'] is not empty and (item['type'] != 'html')) %}class="hitem"{% endif %}><a href="{{ item['href'] }}" rel="nofollow">
+							{% if (item['thumb']) %}
+								<img alt="{{ item['name'] }}" class="nsmenu-thumb {% if (item['thumb_hover']) %}pitem-icon{% endif %}" src="{{ item['thumb']}}"/>
+							{% endif %}
+							{% if (item['thumb_hover']) %}
+								<img alt="{{ item['name'] }}" class="nsmenu-thumb hitem-icon" src="{{ item['thumb_hover']}}"/>
+							{% endif %}
+							<div class="item-name{% if (item['thumb']) %} himg{% endif %}">{{ item['name'] }}</div>
+							{% if (item['children']) %}<span class="show-sc-mobile" data-toggle="collapse"><span class="plus"><svg xmlns="http://www.w3.org/2000/svg" width="5" height="10" fill="none" viewBox="0 0 5 10"><path stroke="#000" stroke-linecap="round" d="M1.3 1.5l2.082 2.882a1 1 0 01.006 1.162L1.3 8.5"/></svg></span></span>{% endif %}
+							{% if (item['sticker_parent'] is not empty) %}
+								<span style="color:#{{ item['spctext'] }}; background-color:#{{ item['spbg'] }}" class="cat-label cat-label-label">{{ item['sticker_parent'] }}</span>
+							{% endif %}
+							</a>
+							{% if (item['type'] == "html") %}
+								<div class="collapse mob-submenu-list">
+									<div class="mob-html-block">
+										{{ item.html[lang_id] }}
+									</div>
+							   </div>
+							{% endif %}
+							{% if (item['children'] is not empty and (item['type'] != 'html')) %}
+								<div class="collapse mob-submenu-list">
+									<ul class="list-unstyled">
+										{% for child in item['children'] %}
+											<li>
+												<a href="{{ child['href'] }}" rel="nofollow">{{ child['name'] }}
+													{% if (child['children'] is not empty) %}<span class="show-sc-mobile" data-toggle="collapse"><span class="plus"><svg xmlns="http://www.w3.org/2000/svg" width="5" height="10" fill="none" viewBox="0 0 5 10"><path stroke="#000" stroke-linecap="round" d="M1.3 1.5l2.082 2.882a1 1 0 01.006 1.162L1.3 8.5"/></svg></span></span>{% endif %}
+												</a>
+													{% if (child['children'] is not empty) %}
+														<div class="collapse mob-submenu-list-3lev">
+															<ul class="list-unstyled">
+																{% for subchild in child['children'] %}
+																	{% if (item['type'] == "freelink") %}
+																		<li><a href="{{ subchild['link'] }}">{{ subchild['title'] }}</a></li>
+																	{% else %}
+																		<li><a href="{{ subchild['href'] }}">{{ subchild['name'] }}</a></li>
+																	{% endif %}
+																{% endfor %}
+															</ul>
+														</div>
+													{% endif %}
+											</li>
+										{% endfor %}
+									</ul>
+								</div>
+							{% endif %}
+
+						</li>
+					{% endfor %}
+				  </ul>
+		 </div>
+		</div>
+	</nav>

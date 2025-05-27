@@ -1,0 +1,497 @@
+{% if (config_fixed_panel_top) %}
+{% if (type_header == 1) %}
+<script>
+$(document).ready(function() {
+	var width_fmns = viewport().width;
+	var header_h = $('header').outerHeight();
+	if (width_fmns >= 992) {
+	$(window).scroll(function(){
+		if($(this).scrollTop() > header_h + 55) {
+			$('.menu-header-box').css('top',$('header').outerHeight());
+			$('header .dropdown-menu.autosearch').css('display','none');
+			$('body').addClass('fixed-top-header');
+			$('body').css('padding-top',header_h);
+			$('body').addClass('active-fix');
+		}else{
+			$('body').removeClass('fixed-top-header');
+			$('body').removeClass('active-fix');
+			$('body').removeClass('open-fix-mm');
+			$('.m-fix-btn').removeClass('rotate-icon');
+			$('body').css('padding-top',0);
+			$('.menu-header-box').css('top',0);
+			cs__menu_init('#horizontal-menu');
+		}
+	});
+	}
+	$(".m-fix-btn").on('click', function() {
+		$(this).toggleClass('rotate-icon');
+		$('body').toggleClass('open-fix-mm');
+	});
+	$(".m-fix-btn").on('click', function() {
+		cs__menu_init('#horizontal-menu');
+		$('#top-fixed #horizontal-menu .menu-full-width .dropdown-menu').each(function() {
+			var menu = $('#horizontal-menu .container').offset();
+			var dropdown = $(this).parent().offset();
+			var i = (dropdown.left + $(this).outerWidth()) - (menu.left + $('#horizontal-menu .container').outerWidth());
+
+			if (i > 0) {
+				$(this).css('margin-left', '-' + (i + 10) + 'px');
+			}
+			var width = $('#horizontal-menu .container').outerWidth();
+			$(this).css('width', '' + (width - 23) + 'px');
+		});
+	});
+});
+</script>
+{% endif %}
+{% endif %}
+{% if (items) %}
+<div class="{% if (type_header == 1) %}col-lg-12{% elseif (type_header == 2) %}h_menu_pr col-xs-12 col-sm-12 flex-g-1{% endif %} {% if (main_menu_fix_mobile is defined and (main_menu_fix_mobile == 1)) %}hidden-xs hidden-sm{% endif %}">
+  <div class="horizontal-menu-box">
+		<nav id="horizontal-menu" class="navbar hmenu_type">
+			<div class="navbar-header">
+			  <button type="button" class="btn btn-navbar navbar-toggle-m" {% if (type_mobile_menu is defined and (type_mobile_menu == '1')) %} data-toggle="offcanvas" data-target="#menu-mobile-ns.navmenu.offcanvas" data-canvas="body"{% else %}data-toggle="collapse" data-target=".navbar-ex1-collapse"{% endif %}>
+				<svg class="menu-icon" width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path fill-rule="evenodd" clip-rule="evenodd" d="M8.97059 2.11765C8.97059 0.948103 8.02249 0 6.85294 0H2.61765C1.4481 0 0.5 0.948103 0.5 2.11765V6.35294C0.5 7.52249 1.4481 8.47059 2.61765 8.47059H6.85294C8.02249 8.47059 8.97059 7.52249 8.97059 6.35294V2.11765ZM2.61765 1.58824H6.85294L6.9481 1.59676C7.19507 1.64159 7.38235 1.85775 7.38235 2.11765V6.35294L7.37382 6.4481C7.329 6.69507 7.11284 6.88235 6.85294 6.88235H2.61765L2.52248 6.87382C2.27551 6.829 2.08824 6.61284 2.08824 6.35294V2.11765L2.09676 2.02248C2.14159 1.77551 2.35775 1.58824 2.61765 1.58824Z" fill="white"/>
+					<path fill-rule="evenodd" clip-rule="evenodd" d="M18.4999 2.11765C18.4999 0.948103 17.5518 0 16.3822 0H12.1469C10.9774 0 10.0293 0.948103 10.0293 2.11765V6.35294C10.0293 7.52249 10.9774 8.47059 12.1469 8.47059H16.3822C17.5518 8.47059 18.4999 7.52249 18.4999 6.35294V2.11765ZM12.1471 1.58824H16.3824L16.4775 1.59676C16.7245 1.64159 16.9118 1.85775 16.9118 2.11765V6.35294L16.9032 6.4481C16.8584 6.69507 16.6423 6.88235 16.3824 6.88235H12.1471L12.0519 6.87382C11.8049 6.829 11.6176 6.61284 11.6176 6.35294V2.11765L11.6262 2.02248C11.671 1.77551 11.8872 1.58824 12.1471 1.58824Z" fill="white"/>
+					<path fill-rule="evenodd" clip-rule="evenodd" d="M18.4999 11.6469C18.4999 10.4774 17.5518 9.5293 16.3822 9.5293H12.1469C10.9774 9.5293 10.0293 10.4774 10.0293 11.6469V15.8822C10.0293 17.0518 10.9774 17.9999 12.1469 17.9999H16.3822C17.5518 17.9999 18.4999 17.0518 18.4999 15.8822V11.6469ZM12.1471 11.1176H16.3824L16.4775 11.1262C16.7245 11.171 16.9118 11.3872 16.9118 11.6471V15.8824L16.9032 15.9775C16.8584 16.2245 16.6423 16.4118 16.3824 16.4118H12.1471L12.0519 16.4032C11.8049 16.3584 11.6176 16.1423 11.6176 15.8824V11.6471L11.6262 11.5519C11.671 11.3049 11.8872 11.1176 12.1471 11.1176Z" fill="white"/>
+					<path fill-rule="evenodd" clip-rule="evenodd" d="M8.97059 11.6469C8.97059 10.4774 8.02249 9.5293 6.85294 9.5293H2.61765C1.4481 9.5293 0.5 10.4774 0.5 11.6469V15.8822C0.5 17.0518 1.4481 17.9999 2.61765 17.9999H6.85294C8.02249 17.9999 8.97059 17.0518 8.97059 15.8822V11.6469ZM2.61765 11.1176H6.85294L6.9481 11.1262C7.19507 11.171 7.38235 11.3872 7.38235 11.6471V15.8824L7.37382 15.9775C7.329 16.2245 7.11284 16.4118 6.85294 16.4118H2.61765L2.52248 16.4032C2.27551 16.3584 2.08824 16.1423 2.08824 15.8824V11.6471L2.09676 11.5519C2.14159 11.3049 2.35775 11.1176 2.61765 11.1176Z" fill="white"/>
+				</svg>
+			  </button>
+			</div>
+		<div class="collapse nav-coll-m navbar-ex1-collapse">
+		  <ul class="nav navbar-nav" style="visibility: hidden;overflow: hidden;">
+			{% for item in items %}
+				{% if (item['additional_menu'] != "additional") %}
+				{% if (item['children']) %}
+				<li class="dropdown">
+					<a href="{{ item['href'] }}" {% if (item['new_blank'] == 1) %}{{ 'target="_blank" data-target="link"' }}{% else %} {{ 'class="dropdown-toggle dropdown-img" data-toggle="dropdown"' }}{% endif %}>
+						{% if (item['thumb']) %}
+							<img alt="{{ item['name'] }}" class="nsmenu-thumb {% if (item['thumb_hover']) %}pitem-icon{% endif %}" src="{{ item['thumb']}}"/>
+						{% endif %}
+						{% if (item['thumb_hover']) %}
+							<img alt="{{ item['name'] }}" class="nsmenu-thumb hitem-icon" src="{{ item['thumb_hover']}}"/>
+						{% endif %}
+						{% if (item['sticker_parent'] is not empty) %}
+							<span style="color:#{{ item['spctext'] }}; background-color:#{{ item['spbg'] }}" class="cat-label cat-label-label">{{ item['sticker_parent'] }}</span>
+						{% endif %}
+						{{ item['name'] }}
+						<svg class="arrow" xmlns="http://www.w3.org/2000/svg" width="9" height="4" fill="none" viewBox="0 0 9 4"><path stroke="#fff" stroke-linecap="round" d="M8 .8L5.118 2.882a1 1 0 01-1.162.006L1 .8"></path></svg>
+					</a>
+					{% if (item['type'] == "freelink") %}
+					{% if (item['subtype'] == "simple") %}
+					  <div class="dropdown-menu nsmenu-type-category-simple">
+							<ul class="list-unstyled nsmenu-haschild">
+								{% for child in item['children'] %}
+								<li class="{% if child.children %} nsmenu-issubchild{% endif %}">
+									<a href="{{ child['href'] }}">{% if (child['children'] is not empty) %}<svg class="arrow" xmlns="http://www.w3.org/2000/svg" width="5" height="10" fill="none" viewBox="0 0 5 10"><path stroke="#000" stroke-linecap="round" d="M1.3 1.5l2.082 2.882a1 1 0 01.006 1.162L1.3 8.5"/></svg>{% endif %}{{ child['name'] }}</a>
+									{% if child.children %}
+										<ul class="list-unstyled nsmenu-ischild nsmenu-ischild-simple">
+											{% for subchild in child['children'] %}
+												<li><a href="{{ subchild['link'] }}">{{ subchild['title'] }}</a></li>
+											{% endfor %}
+										</ul>
+									{% endif %}
+								</li>
+								{% endfor %}
+							</ul>
+					   </div>
+					{% endif %}
+					{% endif %}
+					{% if (item['type'] == "freelink") %}
+					{% if ((item['subtype'] == "full_image") or (item['subtype'] == "full")) %}
+						 <div class="dropdown-menu nsmenu-type-category-full-image nsmenu-bigblock">
+								<div class="col-sm-{% if (item['add_html']) %}8{% else %}12{% endif %} nsmenu-haschild">
+								{% for children in item.children|batch(item.ac_number) %}
+									<div class="row-flex">
+										{% for child in children %}
+										<div class="nsmenu-parent-block{% if (child['children'] is not empty) %} nsmenu-issubchild{% endif %} col-md-{{ item['number_column_sc'] }} col-sm-12 col-xs-12">
+											<div class="mbflex">
+												{% if (item['subtype'] == "full_image") %}
+												<a class="nsmenu-parent-img" href="{{ child['href'] }}"><img class="lazyload" src="{{ lazy_img }}" data-src="{{ child['thumb'] }}" alt="{{ child['name'] }}" title="{{ child['name'] }}"/></a>
+												{% endif %}
+												<a class="nsmenu-parent-title" href="{{ child['href'] }}">{{ child['name'] }}</a>
+											</div>
+											{% if (child['children'] is not empty) %}
+												<ul class="list-unstyled nsmenu-ischild">
+													{% for subchild in child['children'] %}
+													<li><a href="{{ subchild['link'] }}">{{ subchild['title'] }}</a></li>
+													{% endfor %}
+												</ul>
+											{% endif %}
+										</div>
+										{% endfor %}
+									</div>
+									{% endfor %}
+								</div>
+								{% if (item['add_html']) %}
+								<div class="col-sm-4 menu-add-html">
+									{{ item.add_html }}
+								</div>
+								{% endif %}
+						</div>
+					{% endif %}
+					{% if ((item['subtype'] == "full_masonry") or (item['subtype'] == "full_image_masonry")) %}
+						<div class="dropdown-menu nsmenu-type-category-full-image nsmenu-bigblock">
+								<div class="col-sm-{% if (item['add_html']) %}8{% else %}12{% endif %} nsmenu-haschild">
+									<div class="row-masonry">
+										{% for child in item.children %}
+										<div class="nsmenu-parent-block{% if (child['children'] is not empty) %} nsmenu-issubchild{% endif %} col-md-{{ item['number_column_sc'] }} col-sm-12 col-xs-12">
+											<div class="mbflex">
+												{% if (item['subtype'] == "full_image") %}
+												<a class="nsmenu-parent-img" href="{{ child['href'] }}"><img class="lazyload" src="{{ lazy_img }}" data-src="{{ child['thumb'] }}" alt="{{ child['name'] }}" title="{{ child['name'] }}"/></a>
+												{% endif %}
+												<a class="nsmenu-parent-title" href="{{ child['href'] }}">{{ child['name'] }}</a>
+											</div>
+											{% if (child['children'] is not empty) %}
+												<ul class="list-unstyled nsmenu-ischild">
+													{% for subchild in child['children'] %}
+													<li><a href="{{ subchild['link'] }}">{{ subchild['title'] }}</a></li>
+													{% endfor %}
+												</ul>
+											{% endif %}
+										</div>
+										{% endfor %}
+									</div>
+								</div>
+								{% if (item['add_html']) %}
+								<div class="col-sm-4 menu-add-html">
+									{{ item.add_html }}
+								</div>
+								{% endif %}
+						</div>
+					{% endif %}
+					{% endif %}
+
+					{% if (item['type'] == "category") %}
+					{% if (item['subtype'] == "simple") %}
+					  <div class="dropdown-menu nsmenu-type-category-simple">
+							<ul class="list-unstyled nsmenu-haschild">
+								{% for child in item['children'] %}
+								<li {% if (child['children'] is not empty) %}class="nsmenu-issubchild"{% endif %}>
+									<a href="{{ child['href'] }}">{% if (child['children'] is not empty) %}<svg class="arrow" xmlns="http://www.w3.org/2000/svg" width="5" height="10" fill="none" viewBox="0 0 5 10"><path stroke="#000" stroke-linecap="round" d="M1.3 1.5l2.082 2.882a1 1 0 01.006 1.162L1.3 8.5"/></svg>{% endif %}
+									{{ child['name'] }}</a>
+									{% if (child['children'] is not empty) %}
+									<ul class="list-unstyled nsmenu-ischild nsmenu-ischild-simple">
+									 {% for subchild in child['children'] %}
+									<li><a href="{{ subchild['href'] }}">{{ subchild['name'] }}</a></li>
+									{% endfor %}
+									</ul>
+									{% endif %}
+								</li>
+								{% endfor %}
+							</ul>
+						</div>
+						{% endif %}
+						{% endif %}
+
+							{% if (item['type'] == "category") %}
+							{% if ((item['subtype'] == "full_image") or (item['subtype'] == "full")) %}
+							  <div class="dropdown-menu nsmenu-type-category-full-image nsmenu-bigblock">
+									<div class="col-sm-{% if (item['add_html']) %}8{% else %}12{% endif %} nsmenu-haschild">
+											{% for children in item.children|batch(item.ac_number) %}
+											<div class="row-flex">
+												{% for child in children %}
+												<div class="nsmenu-parent-block{% if (child['children'] is not empty) %} nsmenu-issubchild{% endif %} col-md-{{ item['number_column_sc'] }} col-sm-12 col-xs-12">
+													<div class="mbflex">
+													{% if (item['subtype'] == "full_image" and deviceType == 'computer') %}
+													<a class="nsmenu-parent-img" href="{{ child['href'] }}"><img class="lazyload" src="{{ lazy_img }}" data-src="{{ child['thumb'] }}" alt="{{ child['name'] }}" title="{{ child['name'] }}"/></a>
+													{% endif %}
+													<a class="nsmenu-parent-title" href="{{ child['href'] }}">{{ child['name'] }}</a>
+													</div>
+													{% if (child['children'] is not empty) %}
+														<ul class="list-unstyled nsmenu-ischild">
+															{% for subchild in child['children'] %}
+															<li><a href="{{ subchild['href'] }}">{{ subchild['name'] }}</a></li>
+															{% endfor %}
+														</ul>
+													{% endif %}
+													{% if (child['showmore']) %}
+														<div class="showmore-c"><a href="{{ child['href'] }}">{{ text_all_category }}</a></div>
+													{% endif %}
+												</div>
+												{% endfor %}
+											</div>
+											{% endfor %}
+										</div>
+										{% if (item['add_html']) %}
+										<div class="col-sm-4 menu-add-html">
+											{{ item.add_html }}
+										</div>
+										{% endif %}
+								</div>
+								{% endif %}
+								{% if ((item['subtype'] == "full_masonry") or (item['subtype'] == "full_image_masonry")) %}
+									<div class="dropdown-menu nsmenu-type-category-full-image nsmenu-bigblock">
+									<div class="col-sm-{% if (item['add_html']) %}8{% else %}12{% endif %} nsmenu-haschild">
+											<div class="row-masonry">
+												{% for child in item.children %}
+												<div class="nsmenu-parent-block{% if (child['children'] is not empty) %} nsmenu-issubchild{% endif %} col-md-{{ item['number_column_sc'] }} col-sm-12 col-xs-12">
+													<div class="mbflex">
+													{% if (item['subtype'] == "full_image" and deviceType == 'computer') %}
+													<a class="nsmenu-parent-img" href="{{ child['href'] }}"><img class="lazyload" src="{{ lazy_img }}" data-src="{{ child['thumb'] }}" alt="{{ child['name'] }}" title="{{ child['name'] }}"/></a>
+													{% endif %}
+													<a class="nsmenu-parent-title" href="{{ child['href'] }}">{{ child['name'] }}</a>
+													</div>
+													{% if (child['children'] is not empty) %}
+														<ul class="list-unstyled nsmenu-ischild">
+															{% for subchild in child['children'] %}
+															<li><a href="{{ subchild['href'] }}">{{ subchild['name'] }}</a></li>
+															{% endfor %}
+														</ul>
+													{% endif %}
+													{% if (child['showmore']) %}
+														<div class="showmore-c"><a href="{{ child['href'] }}">{{ text_all_category }}</a></div>
+													{% endif %}
+												</div>
+												{% endfor %}
+											</div>
+										</div>
+										{% if (item['add_html']) %}
+										<div class="col-sm-4 menu-add-html">
+											{{ item.add_html }}
+										</div>
+										{% endif %}
+								</div>
+								{% endif %}
+								{% endif %}
+
+								{% if (item['type'] == "html") %}
+								  <div class="dropdown-menu nsmenu-type-html nsmenu-bigblock">
+										<div>{{ item.html }}</div>
+								   </div>
+								{% endif %}
+
+								{% if (item['type'] == "manufacturer") %}
+									<div class="dropdown-menu nsmenu-type-manufacturer nsmenu-bigblock">
+										{% if (item['type_manuf'] == "type_alphabet") %}
+											<div class="col-sm-{% if (item['add_html']) %}8{% else %}12{% endif %} nsmenu-haschild">
+												{% set num_columns = item.add_html ? 4 : 6 %}
+															{% if item.result_manufacturer_a %}
+																{% for manufacturer_a in item.result_manufacturer_a|batch(num_columns) %}
+													<div class="row">
+													{% for man_alphabet in manufacturer_a %}
+																	{% if man_alphabet.manufacturer %}
+																	 {% for manufacturers in man_alphabet.manufacturer|batch(num_columns) %}
+																<div class="nsmenu-parent-block col-md-{% if (item['add_html']) %}3{% else %}2{% endif %} col-sm-12">
+																<span class="name-manuf-a">{{ man_alphabet['name'] }}</span>
+																	{% for manufacturer in manufacturers %}
+																		<div class="manuf-res"><a data-toggle="tooltip" title="<img src='{{ manufacturer['thumb'] }}' alt='{{ manufacturer['name'] }}' title='{{ manufacturer['name'] }}' />" href="{{ manufacturer['href'] }}">{{ manufacturer['name'] }}</a></div>
+																	{% endfor %}
+																</div>
+															{% endfor %}
+
+														{% endif %}
+													{% endfor %}
+													</div>
+													{% endfor %}
+												{% endif %}
+											</div>
+											{% if (item['add_html']) %}
+											<div class="col-sm-4 menu-add-html">
+												{{ item.add_html }}
+											</div>
+											{% endif %}
+										{% endif %}
+										{% if (item['type_manuf'] == "type_image") %}
+											<div class="col-sm-{% if (item['add_html']) %}8{% else %}12{% endif %} nsmenu-haschild">
+											 {% set num_columns = item.add_html ? 4 : 6 %}
+															{% for children in item.children|batch(num_columns) %}
+												<div class="row">
+													{% for child in children %}
+													<div class="nsmenu-parent-block col-md-{% if (item['add_html']) %}3{% else %}2{% endif %} col-sm-12">
+														<a class="nsmenu-parent-img" href="{{ child['href'] }}"><img class="lazyload" src="{{ lazy_img }}" data-src="{{ child['thumb'] }}" alt="{{ child['name'] }}" title="{{ child['name'] }}" /></a>
+														<a class="nsmenu-parent-title" href="{{ child['href'] }}">{{ child['name'] }}</a>
+													</div>
+													{% endfor %}
+												</div>
+												{% endfor %}
+											</div>
+											{% if (item['add_html']) %}
+											<div class="col-sm-4 menu-add-html">
+												{{ item.add_html }}
+											</div>
+											{% endif %}
+										{% endif %}
+									</div>
+								{% endif %}
+
+								{% if (item['type'] == "information") %}
+									<div class="dropdown-menu nsmenu-type-information {% if (item['add_html']) %}nsmenu-bigblock{% endif %}">
+										{% if (item['add_html']) %}
+											<div class="menu-add-html">
+												{{ item.add_html }}
+											</div>
+										{% endif %}
+										<ul class="list-unstyled nsmenu-haschild {% if (item['add_html']) %}nsmenu-blockwithimage{% endif %}">
+											{% for child in item['children'] %}
+												<li class=""><a href="{{ child['href'] }}">{{ child['name'] }}</a></li>
+											{% endfor %}
+										</ul>
+									</div>
+								{% endif %}
+
+								{% if (item['type'] == "product") %}
+									<div class="dropdown-menu nsmenu-type-product nsmenu-bigblock">
+										<div class="col-xs-12 col-sm-{% if (item['add_html']) %}8{% else %}12{% endif %} nsmenu-haschild">
+										 {% set num_columns = item.add_html ? 4 : 6 %}
+											{% for children in item.children|batch(num_columns) %}
+											<div class="row-flex">
+												{% for child in children %}
+												<div class="nsmenu-parent-block dflex flex-column h-auto col-md-{% if (item['add_html']) %}4{% else %}2{% endif %} col-sm-12 col-xs-12">
+													<a class="nsmenu-parent-img" href="{{ child['href'] }}"><img class="lazyload" src="{{ lazy_img }}" data-src="{{ child['thumb'] }}" alt="{{ child['name'] }}" title="{{ child['name'] }}" /></a>
+													<a class="nsmenu-parent-title" href="{{ child['href'] }}">{{ child['name'] }}</a>
+													<div class="price">
+														{% if (not child['special']) %}
+															{{ child['price'] }}
+														{% else %}
+															<span class="price-old">{{ child['price'] }}</span>
+															<span class="price-new">{{ child['special'] }}</span>
+														{% endif %}
+													</div>
+												</div>
+												{% endfor %}
+											</div>
+											{% endfor %}
+										</div>
+										{% if (item['add_html']) %}
+										<div class="hidden-xs col-sm-4 menu-add-html">
+											{{ item.add_html }}
+										</div>
+										{% endif %}
+									</div>
+								{% endif %}
+					</li>
+				{% else %}
+					<li><a {% if (item['new_blank'] == 1) %}{{ 'target="_blank" data-target="link"' }}{% else %} {{ 'class="dropdown-img"' }}{% endif %} href="{{ item['href'] }}">
+						{% if (item['thumb']) %}
+							<img alt="{{ item['name'] }}" class="nsmenu-thumb {% if (item['thumb_hover']) %}pitem-icon{% endif %}" src="{{ item['thumb']}}"/>
+						{% endif %}
+						{% if (item['thumb_hover']) %}
+							<img alt="{{ item['name'] }}" class="nsmenu-thumb hitem-icon" src="{{ item['thumb_hover']}}"/>
+						{% endif %}
+						{% if (item['sticker_parent'] is not empty) %}
+							<span style="color:#{{ item['spctext'] }}; background-color:#{{ item['spbg'] }}" class="cat-label cat-label-label">{{ item['sticker_parent'] }}</span>
+						{% endif %}
+						{{ item['name'] }}</a></li>
+				{% endif %}
+				{% endif %}
+			{% endfor %}
+		  </ul>
+		</div>
+		<div class="dop-menu-show_more">
+			<span class="prev-m"><i class="fa fa-angle-left"></i></span>
+			<span class="total-sections"></span>
+			<span class="next-m"><i class="fa fa-angle-right"></i></span>
+		</div>
+			</nav>
+			 {% if (main_menu_mask is defined and (main_menu_mask == 1)) %}
+			  <div id="maskMenuHor"></div>
+			{% endif %}
+	</div>
+ </div>
+{% endif %}
+{% if (type_header == 1) %}
+{% if (main_menu_fix_mobile == 0) %}
+<script>
+$(document).ready(function() {
+	$(function() {
+		if (viewport().width <= 991) {
+			$('.box-search #searchtop').insertAfter('#horizontal-menu .navbar-header button:eq(0)');
+		}
+		$(window).resize(function() {
+			if (viewport().width <= 991) {
+				$('.box-search #searchtop').insertAfter('#horizontal-menu .navbar-header button:eq(0)');
+			} else {
+				$('.box-search').prepend( $('#horizontal-menu .navbar-header #searchtop') );
+			}
+		});
+	});
+});
+</script>
+{% endif %}
+{% endif %}
+{% if (main_menu_fix_mobile is defined and (main_menu_fix_mobile == 1)) %}
+<div id="top-fixed-mobile" class="visible-xs visible-sm">
+	<div class="container">
+		<div class="box-flex-fix">
+			<div class="mob-m-i menu_fix_mob">
+				{% if (type_mobile_menu is defined and (type_mobile_menu == '1')) %}
+				<button type="button" class="btn btn-menu-mobile" onclick="open_mob_menu_left()">
+					<svg xmlns="http://www.w3.org/2000/svg" width="19" height="20" fill="none" viewBox="0 0 19 20">
+						<path fill="#fff" fill-rule="evenodd" d="M8.97 3.118C8.97 1.948 8.023 1 6.854 1H2.618C1.448 1 .5 1.948.5 3.118v4.235c0 1.17.948 2.118 2.118 2.118h4.235c1.17 0 2.118-.949 2.118-2.118V3.118zm-6.352-.53h4.235l.095.009a.53.53 0 01.434.52v4.236l-.008.095a.53.53 0 01-.521.434H2.618l-.096-.008a.53.53 0 01-.434-.521V3.118l.009-.096a.53.53 0 01.52-.434zM18.5 3.118C18.5 1.948 17.552 1 16.382 1h-4.235c-1.17 0-2.118.948-2.118 2.118v4.235c0 1.17.948 2.118 2.118 2.118h4.235c1.17 0 2.118-.949 2.118-2.118V3.118zm-6.353-.53h4.235l.095.009a.53.53 0 01.435.52v4.236l-.009.095a.53.53 0 01-.52.434h-4.236l-.095-.008a.53.53 0 01-.434-.521V3.118l.008-.096a.53.53 0 01.521-.434zM18.5 12.647c0-1.17-.948-2.118-2.118-2.118h-4.235c-1.17 0-2.118.948-2.118 2.118v4.235c0 1.17.948 2.118 2.118 2.118h4.235c1.17 0 2.118-.948 2.118-2.118v-4.235zm-6.353-.53h4.235l.095.01a.53.53 0 01.435.52v4.235l-.009.095a.53.53 0 01-.52.435h-4.236l-.095-.009a.53.53 0 01-.434-.52v-4.236l.008-.095a.53.53 0 01.521-.434zM8.97 12.647c0-1.17-.948-2.118-2.117-2.118H2.618c-1.17 0-2.118.948-2.118 2.118v4.235C.5 18.052 1.448 19 2.618 19h4.235c1.17 0 2.118-.948 2.118-2.118v-4.235zm-6.352-.53h4.235l.095.01a.53.53 0 01.434.52v4.235l-.008.095a.53.53 0 01-.521.435H2.618l-.096-.009a.53.53 0 01-.434-.52v-4.236l.009-.095a.53.53 0 01.52-.434z" clip-rule="evenodd"/>
+					</svg>
+				</button>
+				{% else %}
+				<button type="button" class="btn btn-menu-mobile collapse-mt2">
+					<svg xmlns="http://www.w3.org/2000/svg" width="19" height="20" fill="none" viewBox="0 0 19 20">
+						<path fill="#fff" fill-rule="evenodd" d="M8.97 3.118C8.97 1.948 8.023 1 6.854 1H2.618C1.448 1 .5 1.948.5 3.118v4.235c0 1.17.948 2.118 2.118 2.118h4.235c1.17 0 2.118-.949 2.118-2.118V3.118zm-6.352-.53h4.235l.095.009a.53.53 0 01.434.52v4.236l-.008.095a.53.53 0 01-.521.434H2.618l-.096-.008a.53.53 0 01-.434-.521V3.118l.009-.096a.53.53 0 01.52-.434zM18.5 3.118C18.5 1.948 17.552 1 16.382 1h-4.235c-1.17 0-2.118.948-2.118 2.118v4.235c0 1.17.948 2.118 2.118 2.118h4.235c1.17 0 2.118-.949 2.118-2.118V3.118zm-6.353-.53h4.235l.095.009a.53.53 0 01.435.52v4.236l-.009.095a.53.53 0 01-.52.434h-4.236l-.095-.008a.53.53 0 01-.434-.521V3.118l.008-.096a.53.53 0 01.521-.434zM18.5 12.647c0-1.17-.948-2.118-2.118-2.118h-4.235c-1.17 0-2.118.948-2.118 2.118v4.235c0 1.17.948 2.118 2.118 2.118h4.235c1.17 0 2.118-.948 2.118-2.118v-4.235zm-6.353-.53h4.235l.095.01a.53.53 0 01.435.52v4.235l-.009.095a.53.53 0 01-.52.435h-4.236l-.095-.009a.53.53 0 01-.434-.52v-4.236l.008-.095a.53.53 0 01.521-.434zM8.97 12.647c0-1.17-.948-2.118-2.117-2.118H2.618c-1.17 0-2.118.948-2.118 2.118v4.235C.5 18.052 1.448 19 2.618 19h4.235c1.17 0 2.118-.948 2.118-2.118v-4.235zm-6.352-.53h4.235l.095.01a.53.53 0 01.434.52v4.235l-.008.095a.53.53 0 01-.521.435H2.618l-.096-.009a.53.53 0 01-.434-.52v-4.236l.009-.095a.53.53 0 01.52-.434z" clip-rule="evenodd"/>
+					</svg>
+				</button>
+				{% endif %}
+				<button class="btn btn-menu-info" type="button" id="info-btn-mob">
+					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="18" fill="none" viewBox="0 0 16 18">
+						<path fill="#fff" fill-rule="evenodd" d="M12 4.5a4 4 0 10-8 0 4 4 0 008 0zm-6.5 0a2.5 2.5 0 115 0 2.5 2.5 0 01-5 0zM15.5 13.498a3.218 3.218 0 00-3.87-3.15l-.312.064-.86.17-.51.096-.663.115-.377.06-.325.043-.273.03-.22.014h-.18l-.22-.014a7.43 7.43 0 01-.13-.013l-.299-.037-.35-.051-.404-.066-.964-.177-1.173-.235a3.218 3.218 0 00-3.87 3.15 4 4 0 004 4.001h7a4 4 0 004-4zm-3.566-1.682a1.718 1.718 0 012.03 1.334l.02.115c.01.077.016.155.016.233a2.5 2.5 0 01-2.5 2.5h-7l-.164-.005A2.5 2.5 0 012 13.498a1.718 1.718 0 012.066-1.682l.33.068.91.18.787.145.669.11.554.075.16.017.286.023.238.008.239-.008a6.09 6.09 0 00.136-.01l.309-.03.554-.075.433-.07.485-.084.827-.157.951-.192z" clip-rule="evenodd"/>
+					</svg>
+				</button>
+			</div>
+			<div class="box-fm-r">
+				<div class="mob-m-i search_fix_mob"><a id="search-btn-mob">
+					<span class="mob-icon-box">
+					<svg xmlns="http://www.w3.org/2000/svg" width="18" height="19" fill="none" viewBox="0 0 18 19">
+						<path fill="#fff" fill-rule="evenodd" d="M16.625 8.625a8 8 0 10-16 0 8 8 0 0016 0zm-14.5 0a6.5 6.5 0 1113 0 6.5 6.5 0 01-13 0z" clip-rule="evenodd"/>
+						<path fill="#fff" d="M12.958 13.895a.75.75 0 01.977-.064l.084.073 3.14 3.195a.75.75 0 01-.985 1.125l-.084-.073-3.141-3.195a.75.75 0 01.009-1.06z"/>
+					</svg>
+					</span>
+				</a></div>
+				<div class="mob-m-i compare-h-fix">
+					<span class="mob-icon-box">
+						<svg class="icon-compare-mob" xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" viewBox="0 0 18 18">
+							<path fill="#fff" d="M2.864 13.425c-.414 0-.75-.289-.75-.703 0-.38.282-.74.648-.79l.102-.007h13a.75.75 0 01.102 1.493l-.102.007h-13z"></path>
+							<path fill="#fff" d="M3.857 15.525a.75.75 0 01-.975.083l-.085-.072-1.561-1.528a1.75 1.75 0 01-.23-2.224l.093-.127 1.363-1.685a.75.75 0 011.23.852l-.064.091L2.266 12.6a.25.25 0 00-.02.287l.04.05 1.56 1.527a.75.75 0 01.011 1.06zM15.055 3.44a.75.75 0 01.101 1.493l-.101.007h-13a.75.75 0 01-.102-1.493l.102-.007h13z"></path>
+							<path fill="#fff" d="M14.062 1.363a.75.75 0 01.975-.083l.085.072 1.561 1.528a1.75 1.75 0 01.23 2.224l-.093.127-1.363 1.684a.75.75 0 01-1.23-.851l.064-.092 1.362-1.685a.25.25 0 00.02-.286l-.039-.05-1.561-1.527a.75.75 0 01-.011-1.06z"></path>
+						</svg>
+					</span>
+				</div>
+				<div class="mob-m-i wishlist-h-fix">
+					<span class="mob-icon-box">
+					<svg class="icon-wishlist-mob" xmlns="http://www.w3.org/2000/svg" width="16" height="18" fill="none" viewBox="0 0 16 18"><path fill="#fff" fill-rule="evenodd" d="M15 2.955a2 2 0 00-2-2H3a2 2 0 00-2 2v12.182a2 2 0 003.43 1.398l2.855-2.921.111-.099a1 1 0 011.32.099l2.854 2.92A2 2 0 0015 15.138V2.955zm-12-.5h10l.09.008a.5.5 0 01.41.492v12.182l-.008.09a.5.5 0 01-.85.26l-2.854-2.922-.13-.123a2.5 2.5 0 00-3.405.082l-2.895 2.963-.069.058a.5.5 0 01-.789-.408V2.955l.008-.09A.5.5 0 013 2.455z" clip-rule="evenodd"></path></svg>
+					</span>
+				</div>
+				<div class="mob-m-i cart_fix_mob">
+					<span class="mob-icon-box cart-i">
+						<svg class="shop-bag" width="21" height="19" viewBox="0 0 21 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path fill-rule="evenodd" clip-rule="evenodd" d="M0.0996094 1.0001C0.0996094 0.503041 0.502553 0.100098 0.999609 0.100098H2.3909C3.19834 0.100098 3.91761 0.610433 4.18428 1.3726M4.18428 1.3726L7.21456 10.0331C7.21456 10.0331 7.21455 10.0331 7.21456 10.0331C7.2286 10.0732 7.26646 10.1001 7.30896 10.1001H17.5827C17.6303 10.1001 17.6712 10.0667 17.6807 10.0201L18.8727 4.18431C18.8727 4.1843 18.8727 4.18432 18.8727 4.18431C18.8853 4.12232 18.838 4.06427 18.7747 4.06427H8.17454C7.67748 4.06427 7.27454 3.66132 7.27454 3.16427C7.27454 2.66721 7.67748 2.26427 8.17454 2.26427H18.7747C19.9768 2.26427 20.8768 3.36663 20.6363 4.54447L19.4443 10.3803C19.2636 11.2649 18.4855 11.9001 17.5827 11.9001H7.30896C6.50153 11.9001 5.78227 11.3898 5.51558 10.6277L2.48528 1.96707C2.47125 1.92697 2.43339 1.9001 2.3909 1.9001H0.999609C0.502553 1.9001 0.0996094 1.49715 0.0996094 1.0001" fill="white"/>
+						<path d="M7 19C8.10457 19 9 18.1046 9 17C9 15.8954 8.10457 15 7 15C5.89543 15 5 15.8954 5 17C5 18.1046 5.89543 19 7 19Z" fill="white"/>
+						<path d="M17 19C18.1046 19 19 18.1046 19 17C19 15.8954 18.1046 15 17 15C15.8954 15 15 15.8954 15 17C15 18.1046 15.8954 19 17 19Z" fill="white"/>
+						</svg>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="mob-block-fix" id="mob-info-block">
+	<div class="mob-block-title">
+	<svg width="15" height="17" viewBox="0 0 15 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M11.5 4C11.5 1.79086 9.70914 0 7.5 0C5.29086 0 3.5 1.79086 3.5 4C3.5 6.20914 5.29086 8 7.5 8C9.70914 8 11.5 6.20914 11.5 4ZM5 4C5 2.61929 6.11929 1.5 7.5 1.5C8.88071 1.5 10 2.61929 10 4C10 5.38071 8.88071 6.5 7.5 6.5C6.11929 6.5 5 5.38071 5 4Z" fill="black"/>
+	<path fill-rule="evenodd" clip-rule="evenodd" d="M15 13.0001C15 12.7811 14.9776 12.5627 14.9333 12.3483C14.5733 10.608 12.8707 9.4891 11.1305 9.84909C11.024 9.87113 10.9196 9.89255 10.8175 9.91335L9.95708 10.0841L9.44895 10.1796L8.78494 10.2952L8.40774 10.354L8.08292 10.3981L7.81047 10.4274L7.5904 10.4421H7.4096L7.18953 10.4274C7.14849 10.4238 7.10526 10.4195 7.05985 10.4146L6.76122 10.3779L6.4102 10.3265L6.00682 10.2604L5.04292 10.0841L3.86951 9.84909C3.65509 9.80471 3.4367 9.78236 3.21773 9.78236C1.44063 9.78236 0 11.223 0 13.0001C0 15.2092 1.79086 17.0001 4 17.0001H11C13.2091 17.0001 15 15.2092 15 13.0001ZM11.4343 11.318C12.3633 11.1258 13.2722 11.7231 13.4644 12.6522L13.4841 12.7673C13.4947 12.8444 13.5 12.9222 13.5 13.0001C13.5 14.3808 12.3807 15.5001 11 15.5001H4L3.83562 15.4948C2.53154 15.4101 1.5 14.3256 1.5 13.0001C1.5 12.0514 2.26906 11.2824 3.21773 11.2824C3.33461 11.2824 3.45114 11.2943 3.5655 11.318C3.67831 11.3413 3.78873 11.364 3.89679 11.386L4.80641 11.5664L5.59316 11.7113L6.26158 11.8212L6.8162 11.8961C6.87167 11.9025 6.92512 11.9082 6.97657 11.9134L7.26156 11.9363L7.5 11.944L7.73844 11.9363C7.78202 11.9338 7.82754 11.9306 7.87503 11.9268L8.1838 11.8961L8.73841 11.8212L9.17108 11.7519L9.65567 11.6669L10.4828 11.5102L11.4343 11.318Z" fill="black"/>
+	</svg>
+	<span class="mob-text-title">{{ text_info_mob }}</span>
+	<button type="button" class="mob-block-close">×</button>
+	</div>
+	<div id="mob-info-block-inner">
+		<div class="box-account-mob"></div>
+		<div class="box-other-mob"></div>
+		<div class="box-description-mob">{{ desc_info_mob }}</div>
+	</div>
+</div>
+<div class="mob-block-fix" id="mob-search-block">
+	<div id="mob-search-block-inner"></div>
+</div>
+{% endif %}
+
+{% if (type_mobile_menu is defined and (type_mobile_menu == 1) or (main_menu_fix_mobile is defined and (main_menu_fix_mobile == 1))) %}
+<div class="mobm-menu-blur hidden-md hidden-lg"></div>
+<div class="mob-catalog-left hidden"></div>
+{% endif %}

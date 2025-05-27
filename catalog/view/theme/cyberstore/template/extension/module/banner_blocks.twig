@@ -1,0 +1,16 @@
+{% set gen_carousel_module = random(1000) %}
+<div class="row dflex flex-wrap banner-blocks-container banner-block-{{ gen_carousel_module }}">
+	{% for block in blocks %}
+	<div class="mb-10 mt-10 col-xs-12 col-sm-6 col-md-{{ banner_column }}">
+		<div class="banner-item {% if ((block['popup'] == '1') and (block['link'][language_id] != '') or (block['popup'] == '0') and (block['link'][language_id] != '')) %}is_a_link{% endif %}" {% if ((block['popup'] == '1') and (block['link'][language_id] != '')) %} onclick="banner_link_open('{{ block['link'][language_id]}}')"{% elseif ((block['popup'] == '0') and (block['link'][language_id] != '')) %} onclick="location='{{ block['link'][language_id] }}'"{% endif %}>
+				<div class="banner-image">
+					<img loading="lazy" decoding="async" width="{{ width }}" height="{{ height }}" src="{{ block['image'] }}" alt="{{ block['title'][language_id] }}"/>
+				</div>
+				<div class="banner-info">
+					<div class="banner-title">{{ block['title'][language_id] }}</div>
+					<div class="banner-description">{{ block['description'][language_id] }}</div>
+				</div>
+		</div>
+	</div>
+	{% endfor %}
+</div>

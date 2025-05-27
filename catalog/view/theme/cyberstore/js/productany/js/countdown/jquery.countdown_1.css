@@ -1,0 +1,94 @@
+.action-timer {
+	bottom: -14px;
+	display: block;
+	left: 0;
+	margin: 0;
+	padding: 0 12px;
+	position: absolute;
+	right: 0;
+	z-index: 9;
+	transition: all 0.15s  ease 0s;
+}
+.product-thumb:hover .action-timer {
+	opacity:0;
+	transition: all 0.15s  ease 0s;
+	z-index:-1;
+}
+.row_items .countdownHolder{
+	font-size: 12px;
+	height: 25px;
+}
+.row_items .time_productany{
+	display:none;
+}
+.countdownHolder{
+    font-size: 14px;
+    text-align: center;
+	color:#000;
+	opacity:1;
+    background: #fff;
+    border-radius: 8px;
+    height: 36px;
+    box-shadow: 4px 4px 23px rgba(0, 0, 0, 0.067);
+}
+.countdownHolder .num-time {
+    display: inline-block;
+}
+.countDays:after,
+.countHours:after,
+.countMinutes:after{
+    content: "";
+    top: 7px;
+    bottom: 7px;
+    width: ;
+    border-right: 1px dashed #D8D8D8;
+    right: 0px;
+    position: absolute;
+}
+.countDays,
+.countHours,
+.countMinutes,
+.countSec {
+	display: block;
+	float: left;
+	position: relative;
+	width: 25%;
+	height: 100%;
+	padding:2px;
+}
+.time_productany {
+  display: block;
+  font-size: 9px;
+  color:#000000;
+  opacity: 0.5;
+  line-height: 1
+}
+
+/*PRODUCT COUNTDOWN*/
+.special-countdown .countdownHolder{
+  font-size: 32px;
+	height:82px;
+	border-left:0px;
+	border-right:0px;
+
+}
+.special-countdown .countDays,
+.special-countdown .countHours ,
+.special-countdown .countMinutes,
+.special-countdown .countSec{
+	height:100%;
+	padding:20px;
+}
+.special-countdown .digit.static {
+  display: inline-block;
+  height: 100%;
+}
+.special-countdown .position {
+  display: inline-block;
+  height: 25px;
+  line-height: 25px;
+}
+.special-countdown .time_productany {
+  font-size: 12px;
+  margin-top: 8px;
+}

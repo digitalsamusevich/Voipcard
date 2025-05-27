@@ -1,0 +1,322 @@
+.countdownHolder{
+	font-family: Arial;
+    font-size: 18px;
+    margin: 0 auto;
+    text-align: center;
+	height: 50px;
+}
+
+.position{
+	display: inline-block;
+	height: 25px;
+	overflow: hidden;
+	position: relative;
+	width: 1.05em;
+}
+.action-timer {
+    display: block;
+	margin-bottom:5px;
+}
+.action_text {
+	text-align:center;
+}
+.digit{
+	position:absolute;
+	display:block;
+	width:1em;
+	background-color:#d9d9d9;
+	border-radius:0.2em;
+	text-align:center;
+	color:#333;
+	letter-spacing:-1px;
+}
+
+.digit.static{
+	box-shadow:1px 1px 1px rgba(4, 4, 4, 0.35);
+	background-image: linear-gradient(bottom, #eee 50%, #d9d9d9 50%);
+	background-image: -o-linear-gradient(bottom, #eee 50%, #d9d9d9 50%);
+	background-image: -moz-linear-gradient(bottom, #eee 50%, #d9d9d9 50%);
+	background-image: -webkit-linear-gradient(bottom, #eee 50%, #d9d9d9 50%);
+	background-image: -ms-linear-gradient(bottom, #eee 50%, #d9d9d9 50%);
+	
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0.5, #eee),
+		color-stop(0.5, #d9d9d9)
+	);
+}
+
+/**
+ * Вы можете использовать данные классы для скрытия
+ * частей счетчика, которые не нужны.
+ */
+.countDiv.countDiv3,
+.countDiv.countDiv4 {
+	display: none;
+}
+.countDays{ /* display:none !important;*/ position: relative; }
+.countDiv0{ /* display:none !important;*/ }
+.countHours{position: relative;}
+.countDiv1{}
+.countMinutes{position: relative;}
+.countSec{position: relative;}
+.countDiv2{}
+
+
+.countDiv{
+	display:inline-block;
+	width:16px;
+	height:1.6em;
+	position: relative;
+}
+.countDiv:before,
+.countDiv:after{
+	position:absolute;
+	width:5px;
+	height:5px;
+	background-color:#444;
+	border-radius:50%;
+	left:50%;
+	margin-left:-3px;
+	top:0.5em;
+	content:'';
+}
+.time_productany {
+	font-family: Arial;
+    font-size: 11px;
+    position: absolute;
+    text-transform: lowercase;
+    top: 80%;
+}
+.countDays .time_productany {
+	left: 8px;
+}
+.countHours .time_productany {
+	left: 5px;
+}
+.countMinutes .time_productany {
+	left: 5px;
+}
+.countSec .time_productany {
+	left: 12px;
+}
+.countDiv:after{
+	top:0.9em;
+}
+@media only screen and (min-width: 1156px) and (max-width: 1250px) {
+    .countdownHolder {
+		font-size: 16px;
+	}
+	.action-tovar {
+    margin-bottom: 7px;
+	}
+	.tovar_day > div {
+		padding: 10px 3% 11px;
+	}
+}
+@media only screen and (min-width: 490px) and (max-width: 560px) {
+	.countdownHolder {
+		font-size: 16px;
+	}
+	.action-tovar {
+    margin-bottom: 7px;
+	}
+	.action-count span {
+    top: 0;
+	font-size: 13px;
+	}
+	.tovar_day > div {
+		padding: 10px 3% 11px;
+	}
+	#content .day .box-heading {
+		text-align: left;
+	}
+}
+@media only screen and (max-width: 490px) {
+	.tovar_day {
+		float: none;
+		margin: 0 auto;
+		width: 80%;
+		margin-bottom: 20px;
+	}
+	.day {
+		margin: 0 auto 20px;
+		clear: left;
+		width: 80%;
+	}
+	#content {
+		
+	}
+	.box.daybox {
+		width: 100%;
+	}
+	.box {
+		margin: 0 auto 20px;
+		width: 80%;
+	}
+	
+}
+
+
+
+
+
+/*PRODUCT COUNTDOWN*/
+.special-countdown .countdownHolder{
+	font-family: Arial;
+    font-size: 30px;
+    margin: 0 auto;
+    text-align: center;
+	height: 60px;
+}
+
+.special-countdown .position{
+	display: inline-block;
+	height: 45px;
+	line-height:40px;
+	overflow: hidden;
+	position: relative;
+	width: 1.05em;
+	margin-right:2px;
+}
+
+.special-countdown .digit{
+	position:absolute;
+	display:block;
+	width:1em;
+	background-color:#d9d9d9;
+	border-radius:0.2em;
+	text-align:center;
+	color:#333;
+	letter-spacing:-1px;
+}
+
+.special-countdown .digit.static{
+	box-shadow:1px 1px 1px rgba(4, 4, 4, 0.35);
+	background-image: linear-gradient(bottom, #eee 50%, #d9d9d9 50%);
+	background-image: -o-linear-gradient(bottom, #eee 50%, #d9d9d9 50%);
+	background-image: -moz-linear-gradient(bottom, #eee 50%, #d9d9d9 50%);
+	background-image: -webkit-linear-gradient(bottom, #eee 50%, #d9d9d9 50%);
+	background-image: -ms-linear-gradient(bottom, #eee 50%, #d9d9d9 50%);
+	
+	background-image: -webkit-gradient(
+		linear,
+		left bottom,
+		left top,
+		color-stop(0.5, #eee),
+		color-stop(0.5, #d9d9d9)
+	);
+}
+
+/**
+ * Вы можете использовать данные классы для скрытия
+ * частей счетчика, которые не нужны.
+ */
+.special-countdown .countDiv.countDiv3,
+.special-countdown .countDiv.countDiv4 {
+	display: none;
+}
+.special-countdown .countDays{ position: relative; display: inline-block;}
+.special-countdown .countDiv0{ /* display:none !important;*/ }
+.special-countdown .countHours{position: relative;display: inline-block;}
+.special-countdown .countDiv1{}
+.special-countdown .countMinutes{position: relative;display: inline-block;}
+.special-countdown .countSec{position: relative;display: inline-block;}
+.special-countdown .countDiv2{}
+
+
+.special-countdown .countDiv{
+	display:inline-block;
+	width:16px;
+	height:1.6em;
+	position: relative;
+}
+.special-countdown .countDiv:before,
+.special-countdown .countDiv:after{
+	position:absolute;
+	width:5px;
+	height:5px;
+	background-color:#444;
+	border-radius:50%;
+	left:50%;
+	margin-left:-3px;
+	top:0.5em;
+	content:'';
+}
+.time_productany {
+	font-family: Arial;
+    font-size: 11px;
+    position: absolute;
+    text-transform: lowercase;
+    top: 95%;
+}
+.special-countdown .countDays .time_productany {
+	left: 19px;
+}
+.special-countdown .countHours .time_productany {
+	left: 20px;
+}
+.special-countdown .countMinutes .time_productany {
+	left: 15px;
+}
+.special-countdown .countSec .time_productany {
+	left: 23px;
+}
+.special-countdown .countDiv:after{
+	top:0.9em;
+}
+@media only screen and (min-width: 1156px) and (max-width: 1250px) {
+    .countdownHolder {
+		font-size: 16px;
+	}
+	.action-tovar {
+    margin-bottom: 7px;
+	}
+	.tovar_day > div {
+		padding: 10px 3% 11px;
+	}
+}
+@media only screen and (min-width: 490px) and (max-width: 560px) {
+	.countdownHolder {
+		font-size: 16px;
+	}
+	.action-tovar {
+    margin-bottom: 7px;
+	}
+	.action-count span {
+    top: 0;
+	font-size: 13px;
+	}
+	.tovar_day > div {
+		padding: 10px 3% 11px;
+	}
+	#content .day .box-heading {
+		text-align: left;
+	}
+}
+@media only screen and (max-width: 490px) {
+	.tovar_day {
+		float: none;
+		margin: 0 auto;
+		width: 80%;
+		margin-bottom: 20px;
+	}
+	.day {
+		margin: 0 auto 20px;
+		clear: left;
+		width: 80%;
+	}
+	#content {
+		
+	}
+	.box.daybox {
+		width: 100%;
+	}
+	.box {
+		margin: 0 auto 20px;
+		width: 80%;
+	}
+	
+}

@@ -1,0 +1,292 @@
+{{ header }}
+<div class="container">
+<div class="col-sm-12 content-box-cs">
+<div class="breadcrumbs-box">
+  <ul class="breadcrumb">
+		{% for i,breadcrumb in breadcrumbs %}
+			{% if (i+1 < breadcrumbs|length) %}
+				<li><a href="{{ breadcrumb.href }}"><span>{{ breadcrumb.text }}</span></a></li>
+			{% else %}
+				<li><span>{{ breadcrumb.text }}</span></li>
+			{% endif %}
+		{% endfor %}
+  </ul>
+</div>
+  <div class="row">
+  {{ column_left }}
+	{% if (column_left and column_right) %}
+	{% set class = 'col-sm-8 col-md-6' %}
+	{% set cols_class = 'col-lg-6 col-md-6 col-sm-12 col-xs-12' %}
+	{% elseif (column_left or column_right) %}
+	{% set class = 'col-sm-8 col-md-9' %}
+	{% set cols_class = 'col-lg-4 col-md-4 col-sm-6 col-xs-12' %}
+	{% else %}
+	{% set class = 'col-sm-12' %}
+	{% set cols_class = 'col-lg-3 col-md-3 col-sm-6 col-xs-12' %}
+	{% endif %}
+	<div id="content" class="{{ class }}">
+		{{ content_top }}
+		<div class="row rating-info-box mb-10">
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+				<div class="block-reviews f-box dflex">
+					<div class="average-reviews">
+						<div class="average-rating-number"><span>{{ rating_store }}</span></div>
+						<div class="total-reviews">
+							<span class="num-total-rs">{{ text_sum_reviews }}{{ total_rs }}</span>
+						</div>
+						<div class="average-rating-stars">
+							<div class="stars-average-grey">
+								<div class="stars-average-gold" style="width:{{ rating_store*100/5}}%;"></div>
+							</div>
+						</div>
+
+					</div>
+					<div class="star-rating-desc">
+						<div class="line-info">
+							<span class="star-before-line">
+								<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" fill="none" viewBox="0 0 19 18">
+									<path fill="#E5DB77" fill-rule="evenodd" d="M9.966 14.995a1 1 0 00-.931 0l-3.913 2.057a1 1 0 01-1.45-1.054l.835-4.875L.965 7.67a1 1 0 01.554-1.706l4.895-.711L8.604.817a1 1 0 011.793 0l2.19 4.436 4.894.711a1 1 0 01.554 1.706l-3.542 3.453.837 4.875a1 1 0 01-1.451 1.054l-3.913-2.057z" clip-rule="evenodd"/>
+								</svg>
+							</span>
+							<div class="percent_rating_line">
+								<div class="percent_rating" style="width: {{ percent_rating['star5'] }}%"></div>
+							</div>
+							<span class="percent_rating_text">{{ percent_rating['star5'] }}%</span>
+						</div>
+
+						<div class="line-info">
+							<span class="star-before-line">
+								<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" fill="none" viewBox="0 0 19 18">
+									<path fill="#E5DB77" fill-rule="evenodd" d="M9.966 14.995a1 1 0 00-.931 0l-3.913 2.057a1 1 0 01-1.45-1.054l.835-4.875L.965 7.67a1 1 0 01.554-1.706l4.895-.711L8.604.817a1 1 0 011.793 0l2.19 4.436 4.894.711a1 1 0 01.554 1.706l-3.542 3.453.837 4.875a1 1 0 01-1.451 1.054l-3.913-2.057z" clip-rule="evenodd"/>
+								</svg>
+							</span>
+							<div class="percent_rating_line">
+								<div class="percent_rating" style="width: {{ percent_rating['star4'] }}%"></div>
+							</div>
+							<span class="percent_rating_text">{{ percent_rating['star4'] }}%</span>
+						</div>
+
+						<div class="line-info">
+							<span class="star-before-line">
+								<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" fill="none" viewBox="0 0 19 18">
+									<path fill="#E5DB77" fill-rule="evenodd" d="M9.966 14.995a1 1 0 00-.931 0l-3.913 2.057a1 1 0 01-1.45-1.054l.835-4.875L.965 7.67a1 1 0 01.554-1.706l4.895-.711L8.604.817a1 1 0 011.793 0l2.19 4.436 4.894.711a1 1 0 01.554 1.706l-3.542 3.453.837 4.875a1 1 0 01-1.451 1.054l-3.913-2.057z" clip-rule="evenodd"/>
+								</svg>
+							</span>
+							<div class="percent_rating_line">
+								<div class="percent_rating" style="width: {{ percent_rating['star3'] }}%"></div>
+							</div>
+							<span class="percent_rating_text">{{ percent_rating['star3'] }}%</span>
+						</div>
+
+						<div class="line-info">
+							<span class="star-before-line">
+								<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" fill="none" viewBox="0 0 19 18">
+									<path fill="#E5DB77" fill-rule="evenodd" d="M9.966 14.995a1 1 0 00-.931 0l-3.913 2.057a1 1 0 01-1.45-1.054l.835-4.875L.965 7.67a1 1 0 01.554-1.706l4.895-.711L8.604.817a1 1 0 011.793 0l2.19 4.436 4.894.711a1 1 0 01.554 1.706l-3.542 3.453.837 4.875a1 1 0 01-1.451 1.054l-3.913-2.057z" clip-rule="evenodd"/>
+								</svg>
+							</span>
+							<div class="percent_rating_line">
+								<div class="percent_rating" style="width: {{ percent_rating['star2'] }}%"></div>
+							</div>
+							<span class="percent_rating_text">{{ percent_rating['star2'] }}%</span>
+						</div>
+
+						<div class="line-info">
+							<span class="star-before-line">
+								<svg xmlns="http://www.w3.org/2000/svg" width="19" height="18" fill="none" viewBox="0 0 19 18">
+									<path fill="#E5DB77" fill-rule="evenodd" d="M9.966 14.995a1 1 0 00-.931 0l-3.913 2.057a1 1 0 01-1.45-1.054l.835-4.875L.965 7.67a1 1 0 01.554-1.706l4.895-.711L8.604.817a1 1 0 011.793 0l2.19 4.436 4.894.711a1 1 0 01.554 1.706l-3.542 3.453.837 4.875a1 1 0 01-1.451 1.054l-3.913-2.057z" clip-rule="evenodd"/>
+								</svg>
+							</span>
+							<div class="percent_rating_line">
+								<div class="percent_rating" style="width: {{ percent_rating['star1'] }}%"></div>
+							</div>
+							<span class="percent_rating_text">{{ percent_rating['star1'] }}%</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
+				<div class="block-reviews s-box">
+					<div class="rsinfo">
+						{% for result_info in reviews_theme_rating %}
+							<div class="rsinfo-item">
+								<span class="rs-theme-text">{{ result_info['theme_text'] }}</span>
+								<div class="rs-theme-stars"><div class="avg-rating-stars"><div class="avg-realrating" style="width:{{ result_info['avg_rating']*100/5}}%;"></div></div></div>
+							</div>
+						{% endfor %}
+					</div>
+					<div class="btn-block-rs">
+						{% if (review_guest) %}
+						<button type="button" onclick="popupFormReviewStore()" class="btn btn-write-rs">{{ btn_write_review }}</button>
+						{% else %}
+							{{ text_review_guest }}
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+		{% if (reviews_store) %}
+		<div class="view-box">
+			<div class="row">
+				<div class="col-xs-12 col-sm-12 localstorage dflex align-items-center justify-content-between">
+					<div class="ls-limit-sorts dflex">
+						<div class="btn-group mr-10">
+							<button type="button" class="btn btn-sorts dropdown-toggle" data-toggle="dropdown">
+								{% for sort_active in sorts %}{% if (sort_active['value'] == sort) %}{{ sort_active['text'] }}{% endif %}{% endfor %}
+								<svg xmlns="http://www.w3.org/2000/svg" width="9" height="4" fill="none" viewBox="0 0 9 4"><path stroke="#000" stroke-linecap="round" d="M8 .8L5.118 2.882a1 1 0 01-1.162.006L1 .8"></path></svg>
+							</button>
+							<ul class="dropdown-menu dropdown-menu-left cs-dropdown">
+								{% for sorts in sorts %}
+									{% if (sorts['value'] == sort ~ '-' ~ order) %}
+										<li class="active"><button class="btn-sort-link" onclick="location.href='{{ sorts['href'] }}'">{{ sorts['text'] }}</button></li>
+									{% else %}
+										<li><button class="btn-sort-link" onclick="location.href='{{ sorts['href'] }}'">{{ sorts['text'] }}</button></li>
+									{% endif %}
+								{% endfor %}
+							</ul>
+						</div>
+						<div class="btn-group">
+						  <ul class="dropdown-menu dropdown-menu-left cs-dropdown">
+						  	{% set mmr_limit_active = '' %}
+							{% for limits in limits %}
+							{% if (limits['value'] == limit) %}
+							<li class="active"><a href="{{ limits['href'] }}" rel="nofollow">{{ limits['text'] }}</a></li>
+							{% set mmr_limit_active = limits['text'] %}
+							{% else %}
+							<li><a href="{{ limits['href'] }}" rel="nofollow">{{ limits['text'] }}</a></li>
+							{% endif %}
+							{% endfor %}
+						  </ul>
+						  <button type="button" class="btn btn-limits dropdown-toggle" data-toggle="dropdown">
+							{{ mmr_limit_active is defined ? mmr_limit_active : limits.text }}
+							<svg xmlns="http://www.w3.org/2000/svg" width="9" height="4" fill="none" viewBox="0 0 9 4"><path stroke="#000" stroke-linecap="round" d="M8 .8L5.118 2.882a1 1 0 01-1.162.006L1 .8"></path></svg>
+						  </button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row mt-20">
+			<div class="col-sm-12">
+			<div class="all-review-box">
+				{% for review_store in reviews_store %}
+					<div id="review_store_box_{{ review_store['reviews_store_id']}}">
+		            	<div class="item-rs">
+		            		<div class="rs-review-info d-flex jcsb">
+			                    <div class="rs-review-author">
+			                    	<span class="rs-review-icon">
+			                    	<svg xmlns="http://www.w3.org/2000/svg" width="13" height="14" fill="none" viewBox="0 0 13 14">
+											<path fill="#000" fill-rule="evenodd" d="M6.5 5.5a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm0 1.5a3 3 0 100-6 3 3 0 000 6zM5.33 9.45a48.02 48.02 0 01-1.486-.277c-.777-.156-1.469.433-1.469 1.165 0 .642.52 1.162 1.162 1.162h5.926c.642 0 1.162-.52 1.162-1.162 0-.732-.692-1.321-1.469-1.165a48.02 48.02 0 01-1.486.277c-.396.066-.849.133-1.17.133-.321 0-.774-.067-1.17-.133zM4.139 7.702C2.463 7.366.875 8.629.875 10.338A2.662 2.662 0 003.537 13h5.926a2.662 2.662 0 002.662-2.662c0-1.709-1.588-2.972-3.264-2.636-1.038.208-2.008.381-2.361.381-.353 0-1.323-.173-2.361-.381z" clip-rule="evenodd"/>
+										</svg>
+			                    	</span>
+			                    	<span class="author-name">{{ review_store['author'] }}</span>
+			                	</div>
+			                    <div class="rs-review-dateadded">{{ review_store['date_added'] }}</div>
+			                </div>
+			                <div class="rs-review-stars">
+			                      <div class="avg-rating-stars"><div class="avg-realrating" style="width:{{ review_store['avg_customer_rating']*100/5}}%;"></div></div>
+			                </div>
+			                <div class="desc_like-box">
+			                	<div class="rs-desc-reviews">{{ review_store['description'] }}</div>
+			                	 {% if (reviews_store_setting['show_like_dislike'] is defined and (reviews_store_setting['show_like_dislike'] == 1)) %}
+									<div class="like-dislike-box">
+										<button type="button" onclick="likeDislike('{{ review_store['reviews_store_id']}}','like')" id="like_reviews_store{{ review_store['reviews_store_id']}}" class="btn-like like">
+											<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="none" viewBox="0 0 26 26">
+												<path fill="#00BC52" fill-rule="evenodd" d="M7.442 11H3a1 1 0 00-1 1v11a1 1 0 001 1h4.442a1 1 0 001-1V12a1 1 0 00-1-1zM3 10a2 2 0 00-2 2v11a2 2 0 002 2h4.442a2 2 0 002-2V12a2 2 0 00-2-2H3z" clip-rule="evenodd"/>
+												<path fill="#00BC52" fill-rule="evenodd" d="M4.5 22.055a.5.5 0 100-1 .5.5 0 000 1zm0 1a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM18.007 1.749c-.452-.106-.93.09-1.187.493-.656 1.026-1.773 2.703-2.989 4.222-.962 1.203-2.084 2.427-2.96 3.347a73.031 73.031 0 01-1.371 1.4v12.118l12.55.13c.029 0 .14-.023.322-.205.171-.17.348-.424.502-.723.153-.297.274-.617.345-.907.074-.302.081-.52.057-.634-.142-.665-.085-1.195.08-1.645.14-.382.355-.692.522-.933l.06-.087c.186-.271.284-.447.309-.639.023-.176-.008-.444-.273-.892-.617-1.043-.763-1.646-.563-2.25.042-.13.097-.247.146-.35l.036-.073c.037-.078.072-.149.107-.23.086-.198.169-.44.207-.795.035-.32-.088-.768-.348-1.156-.264-.395-.582-.603-.835-.624l-5.314-.434a.592.592 0 01-.523-.745l1.91-7.067a1.07 1.07 0 00-.79-1.321zm-9.356 8.894l.007-.006.02-.02.083-.082.311-.31c.266-.267.64-.649 1.074-1.103.869-.912 1.968-2.113 2.904-3.283 1.184-1.478 2.279-3.122 2.927-4.136a2.114 2.114 0 012.259-.928 2.07 2.07 0 011.526 2.556L17.98 9.925l4.826.395c.684.056 1.238.546 1.584 1.064.351.526.579 1.206.511 1.82-.051.471-.165.811-.283 1.085a7.047 7.047 0 01-.16.339 1.994 1.994 0 00-.098.23c-.056.17-.112.436.475 1.427.336.569.465 1.063.403 1.531-.059.452-.289.803-.475 1.075l-.062.09c-.172.25-.313.453-.406.708-.097.264-.146.6-.041 1.092.07.331.025.722-.064 1.082a5.218 5.218 0 01-.428 1.127 3.945 3.945 0 01-.684.973c-.256.254-.612.5-1.04.496L8.5 24.319V10.79l.151-.148z" clip-rule="evenodd"/>
+											</svg>
+											<span class="likes">{{ review_store['like'] }}</span>
+										</button>
+										<button type="button" onclick="likeDislike('{{ review_store['reviews_store_id']}}','dislike')" id="dislike_reviews_store{{ review_store['reviews_store_id']}}" class="btn-dislike dislike">
+											<svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" fill="none" viewBox="0 0 26 26">
+												<path fill="#A7A7A7" fill-rule="evenodd" d="M18.558 15H23a1 1 0 001-1V3a1 1 0 00-1-1h-4.442a1 1 0 00-1 1v11a1 1 0 001 1zM23 16a2 2 0 002-2V3a2 2 0 00-2-2h-4.442a2 2 0 00-2 2v11a2 2 0 002 2H23z" clip-rule="evenodd"/>
+												<path fill="#A7A7A7" fill-rule="evenodd" d="M21.5 3.945a.5.5 0 100 1 .5.5 0 000-1zm0-1a1.5 1.5 0 100 3 1.5 1.5 0 000-3zM7.993 24.251c.452.106.93-.09 1.187-.493.656-1.026 1.773-2.703 2.989-4.222.962-1.203 2.084-2.427 2.96-3.347a73.251 73.251 0 011.371-1.4V2.671l-12.55-.13c-.029 0-.14.024-.322.205a2.96 2.96 0 00-.502.723 4.226 4.226 0 00-.345.907c-.074.302-.082.52-.057.634.142.666.085 1.195-.08 1.645-.14.382-.355.693-.522.933l-.06.087c-.186.271-.284.447-.309.639-.023.176.008.444.273.892.617 1.043.763 1.646.563 2.25a2.918 2.918 0 01-.182.423 5.767 5.767 0 00-.107.23c-.086.198-.169.44-.207.795-.035.32.088.768.348 1.156.264.395.582.603.835.624l5.314.434c.368.03.62.387.523.745l-1.91 7.067a1.07 1.07 0 00.79 1.321zm9.356-8.895l-.007.007-.02.02-.083.082-.311.31c-.266.267-.64.649-1.074 1.103-.869.912-1.968 2.113-2.904 3.283-1.184 1.478-2.279 3.122-2.927 4.136a2.114 2.114 0 01-2.259.928 2.07 2.07 0 01-1.526-2.556l1.782-6.594-4.826-.395c-.685-.056-1.238-.546-1.584-1.064-.351-.526-.579-1.206-.511-1.82.051-.471.164-.811.283-1.085a7.132 7.132 0 01.16-.339 1.97 1.97 0 00.098-.23c.056-.17.112-.436-.475-1.427C.83 9.146.7 8.652.762 8.184c.059-.452.289-.803.475-1.074l.062-.091c.172-.25.313-.454.406-.708.097-.264.146-.6.041-1.092-.07-.331-.025-.722.063-1.081.092-.372.242-.767.428-1.128.186-.359.419-.707.686-.973.255-.254.611-.5 1.038-.496l13.539.14V15.21l-.151.148z" clip-rule="evenodd"/>
+											</svg>
+											<span class="dislikes">{{ review_store['dislike'] }}</span>
+										</button>
+									</div>
+								{% endif %}
+			                </div>
+		            	</div>
+						{% if (review_store['admin_response']) %}
+							<div class="admin-response">{{ review_store['admin_response'] }}</div>
+						{% endif %}
+					</div>
+				{% endfor %}
+			</div>
+			</div>
+			</div>
+				<div class="row top-10">
+				<div class="col-sm-12 text-center">{{ pagination }}</div>
+				<div class="col-sm-12 text-right">{{ results }}</div>
+			  </div>
+			{% endif %}
+			{% if (not reviews_store) %}
+			<p>{{ text_empty }}</p>
+			<div class="buttons">
+			  <div class="pull-right"><a href="{{ continue }}" class="btn btn-primary">{{ button_continue }}</a></div>
+			</div>
+			{% endif %}
+		{{ content_bottom }}</div>
+	{{ column_right }}</div>
+</div>
+{% if (reviews_store_setting['show_like_dislike'] is defined and (reviews_store_setting['show_like_dislike'] == 1)) %}
+<script>
+	function likeDislike(reviews_store_id,typebtn) {
+			var like = 0, dislike = 0;
+			var isActiveLike = localStorage.getItem('like_'+reviews_store_id) == 'enabled';
+			var hasActiveLike = localStorage.getItem('like_'+reviews_store_id) == 'enabled';
+			var hasActiveDislike = localStorage.getItem('dislike_'+reviews_store_id) == 'enabled';
+			var isActiveDislike = localStorage.getItem('dislike_'+reviews_store_id) == 'enabled';
+
+			if (typebtn === 'like') {
+				if (isActiveLike) {
+					localStorage.setItem('like_'+reviews_store_id, 'disabled');
+					like = -1;
+				} else {
+					if (hasActiveLike) {
+						localStorage.removeItem('like_'+reviews_store_id);
+						dislike = -1;
+					}
+					if (hasActiveDislike) {
+						localStorage.removeItem('dislike_'+reviews_store_id);
+						dislike = -1;
+					}
+					localStorage.setItem('like_'+reviews_store_id, 'enabled');
+					like = 1;
+					value = 1;
+				}
+			} else {
+				if (isActiveDislike) {
+					localStorage.setItem('dislike_'+reviews_store_id, 'disabled');
+					dislike = -1;
+				} else {
+					if(hasActiveLike){
+						localStorage.removeItem('like_'+reviews_store_id);
+						like = -1;
+					}
+					if(hasActiveDislike){
+						localStorage.removeItem('dislike_'+reviews_store_id);
+						like = -1;
+					}
+					localStorage.setItem('dislike_'+reviews_store_id, 'enabled');
+					dislike = 1;
+					value = -1;
+				}
+			}
+
+			$.ajax({
+				url: 'index.php?route=product/cyber_reviews_store/likeDislike',
+				type: 'post',
+				data: 'reviews_store_id='+ reviews_store_id + '&typebtn='+typebtn+'&like='+like+'&dislike='+dislike,
+				dataType: 'json',
+				success: function(json) {
+					 $('#like_reviews_store'+reviews_store_id).find('.likes').text(json.like);
+					 $('#dislike_reviews_store'+reviews_store_id).find('.dislikes').text(json.dislike);
+				}
+			});
+
+	};
+</script>
+{% endif %}
+</div>
+{{ footer }}

@@ -1,0 +1,331 @@
+.product-price .pro_sticker,
+.product-price .box-sticker {
+  display: none !important;
+}
+.sticker_main_right_block {
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+.sticker_main_right_block > div.pro_sticker {
+  margin-right: 10px;
+  transform: translateY(0px);
+}
+div.pro_sticker img {
+padding-top: 0px !important;
+}
+
+@media (max-width: 768px) {
+.pro_sticker img {
+  max-width: 50%;
+}
+#image-box .pro_sticker img {max-width: 100%;}
+.sticker_main_right_block .pro_sticker img {max-width: 100%;}
+}
+div.pro_sticker .popover {
+  color:#222;
+  min-width: 120px;
+}
+.pro_sticker.topleft{
+  left:0px;
+  text-align: left;
+  margin-left: 0px !important;
+  z-index: 12;
+}
+.pro_sticker.topright{
+  right:0px;
+  text-align: right;
+}
+.pro_sticker.bottomright{
+  right:0px;
+  text-align: right;
+  bottom: 10px;
+  top:auto;
+  z-index: 13;
+}
+.pro_sticker.bottomleft{
+  left:0px;
+  text-align: right;
+  bottom: 10px;
+  top:auto;
+  z-index: 13;
+}
+.pro_sticker.bottomcenter{
+  right:0px;
+  left:0px;
+  text-align: center;
+  bottom: 10px;
+  top:auto;
+  z-index: 11;
+}
+.pro_sticker.centercenter{
+  right:0px;
+  left:0px;
+  text-align: center;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 11;
+}
+.pro_sticker.centerright{
+  text-align: right;
+  right:0px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.pro_sticker.centerleft{
+  text-align: right;
+  left:0px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.pro_sticker.topcenter {
+  margin-top: 0px;
+  margin-left: 0px !important;
+  display: block;
+  left: 0px;
+  right: 0px;
+  z-index: 11;
+}
+
+.topleft {text-align:left;}
+.bsl.box-sticker{font-size: 14px;}
+.box-sticker .sticker_label {
+  font-size: 11px;
+  border-radius:13px;
+  font-weight: 400;
+  line-height: 18px;
+  padding: 4px 15px;
+  display: inline-block;
+}
+@media (max-width: 768px) {
+  .box-sticker .sticker_label {
+    padding: 2px 10px;
+  }
+}
+.box-sticker {position: absolute;}
+.box-sticker.bottomcenter {
+  bottom:5px;
+  left:0px;
+  right:0px;
+}
+.box-sticker.bottomcenter ~ .box-sticker.bottomcenter{
+  bottom:29px;
+}
+.box-sticker.bottomcenter ~ .box-sticker.bottomcenter ~ .box-sticker.bottomcenter{
+  bottom:53px;
+}
+.bsl.box-sticker.bottomcenter ~ .box-sticker.bottomcenter ~ .box-sticker.bottomcenter{
+  bottom:53px;
+}
+.box-sticker.bottomcenter ~ .box-sticker.bottomcenter ~ .box-sticker.bottomcenter ~ .box-sticker.bottomcenter{
+  bottom:76px;
+}
+.box-sticker.bottomcenter ~ .box-sticker.bottomcenter ~ .box-sticker.bottomcenter ~ .box-sticker.bottomcenter ~ .box-sticker.bottomcenter{
+  bottom:100px;
+}
+
+.box-sticker.topcenter {
+  top:5px;
+  left:0px;
+  right:0px;
+}
+.box-sticker.topcenter ~ .box-sticker.topcenter{
+  top:29px;
+}
+.bsl.box-sticker.topcenter ~ .box-sticker.topcenter ~ .box-sticker.topcenter{
+  top:52px;
+}
+.box-sticker.topcenter ~ .box-sticker.topcenter ~ .box-sticker.topcenter{
+  top:52px;
+}
+.box-sticker.topcenter ~ .box-sticker.topcenter ~ .box-sticker.topcenter ~ .box-sticker.topcenter{
+  top:75px;
+}
+.box-sticker.topcenter ~ .box-sticker.topcenter ~ .box-sticker.topcenter ~ .box-sticker.topcenter ~ .box-sticker.topcenter{
+  top:99px;
+}
+.box-sticker.centercenter {
+  left:0px;
+  right:0px;
+  top:50%;
+}
+.box-sticker.centercenter ~ .box-sticker.centercenter{
+  margin-top:-22px;
+}
+.bsl.box-sticker.centercenter ~ .box-sticker.centercenter ~ .box-sticker.centercenter{
+  margin-top:22px;
+}
+.box-sticker.centercenter ~ .box-sticker.centercenter ~ .box-sticker.centercenter ~ .box-sticker.centercenter{
+  margin-top:44px;
+}
+
+.box-sticker.topleft {
+  top:0px;
+  left:0px;
+}
+.box-sticker.topleft ~ .box-sticker.topleft{
+  top:29px;
+}
+.bsl.box-sticker.topleft ~ .box-sticker.topleft{
+  top:29px;
+}
+.box-sticker.topleft ~ .box-sticker.topleft ~ .box-sticker.topleft{
+  top:53px;
+}
+.bsl.box-sticker.topleft ~ .box-sticker.topleft ~ .box-sticker.topleft{
+  top:53px;
+}
+.box-sticker.topleft ~ .box-sticker.topleft ~ .box-sticker.topleft ~ .box-sticker.topleft{
+  top:77px;
+}
+.bsl.box-sticker.topleft ~ .box-sticker.topleft ~ .box-sticker.topleft ~ .box-sticker.topleft{
+  top:77px;
+}
+.box-sticker.topleft ~ .box-sticker.topleft ~ .box-sticker.topleft ~ .box-sticker.topleft ~ .box-sticker.topleft{
+  top:102px;
+}
+.bsl.box-sticker.topleft ~ .box-sticker.topleft ~ .box-sticker.topleft ~ .box-sticker.topleft ~ .box-sticker.topleft{
+  top:102px;
+}
+
+.box-sticker.bottomright {
+  bottom:5px;
+  right:0px;
+}
+.box-sticker.bottomright ~ .box-sticker.bottomright{
+  bottom:29px;
+}
+.bsl.box-sticker.bottomright ~ .box-sticker.bottomright{
+  bottom:29px;
+}
+.box-sticker.bottomright ~ .box-sticker.bottomright ~ .box-sticker.bottomright{
+  bottom:53px;
+}
+.bsl.box-sticker.bottomright ~ .box-sticker.bottomright ~ .box-sticker.bottomright{
+  bottom:53px;
+}
+.box-sticker.bottomright ~ .box-sticker.bottomright ~ .box-sticker.bottomright ~ .box-sticker.bottomright{
+  bottom:77px;
+}
+.bsl.box-sticker.bottomright ~ .box-sticker.bottomright ~ .box-sticker.bottomright ~ .box-sticker.bottomright{
+  bottom:77px;
+}
+.box-sticker.bottomright ~ .box-sticker.bottomright ~ .box-sticker.bottomright ~ .box-sticker.bottomright ~ .box-sticker.bottomright{
+  bottom:101px;
+}
+.bsl.box-sticker.bottomright ~ .box-sticker.bottomright ~ .box-sticker.bottomright ~ .box-sticker.bottomright ~ .box-sticker.bottomright{
+  bottom:101px;
+}
+
+.box-sticker.bottomleft {
+  bottom:5px;
+  left:0px;
+}
+.box-sticker.bottomleft ~ .box-sticker.bottomleft{
+  bottom:29px;
+}
+.bsl.box-sticker.bottomleft ~ .box-sticker.bottomleft{
+  bottom:29px;
+}
+.box-sticker.bottomleft ~ .box-sticker.bottomleft ~ .box-sticker.bottomleft{
+  bottom:53px;
+}
+.bsl.box-sticker.bottomleft ~ .box-sticker.bottomleft ~ .box-sticker.bottomleft{
+  bottom:53px;
+}
+.box-sticker.bottomleft ~ .box-sticker.bottomleft ~ .box-sticker.bottomleft ~ .box-sticker.bottomleft{
+  bottom:77px;
+}
+.bsl.box-sticker.bottomleft ~ .box-sticker.bottomleft ~ .box-sticker.bottomleft ~ .box-sticker.bottomleft{
+  bottom:77px;
+}
+.box-sticker.bottomleft ~ .box-sticker.bottomleft ~ .box-sticker.bottomleft ~ .box-sticker.bottomleft ~ .box-sticker.bottomleft{
+  bottom:101px;
+}
+.bsl.box-sticker.bottomleft ~ .box-sticker.bottomleft ~ .box-sticker.bottomleft ~ .box-sticker.bottomleft ~ .box-sticker.bottomleft{
+  bottom:101px;
+}
+.box-sticker.topright {
+  top:0px;
+  right:0px;
+}
+.box-sticker.topright ~ .box-sticker.topright{
+  top:29px;
+}
+.bsl.box-sticker.topright ~ .box-sticker.topright{
+  top:29px;
+}
+.box-sticker.topright ~ .box-sticker.topright ~ .box-sticker.topright{
+  top:53px;
+}
+.bsl.box-sticker.topright ~ .box-sticker.topright ~ .box-sticker.topright{
+  top:53px;
+}
+.box-sticker.topright ~ .box-sticker.topright ~ .box-sticker.topright ~ .box-sticker.topright{
+  top:75px;
+}
+.bsl.box-sticker.topright ~ .box-sticker.topright ~ .box-sticker.topright ~ .box-sticker.topright{
+  top:77px;
+}
+.box-sticker.topright ~ .box-sticker.topright ~ .box-sticker.topright ~ .box-sticker.topright ~ .box-sticker.topright{
+  top:82px;
+}
+.bsl.box-sticker.topright ~ .box-sticker.topright ~ .box-sticker.topright ~ .box-sticker.topright ~ .box-sticker.topright{
+  top:102px;
+}
+
+.box-sticker.centerleft {
+  top:50%;
+  left:0px;
+}
+.box-sticker.centerleft ~ .box-sticker.centerleft{
+  top:calc(50% + 23px);
+}
+.bsl.box-sticker.centerleft ~ .box-sticker.centerleft{
+  top:calc(50% + 23px);
+}
+.box-sticker.centerleft ~ .box-sticker.centerleft ~ .box-sticker.centerleft{
+  top:calc(50% + 47px);
+}
+.bsl.box-sticker.centerleft ~ .box-sticker.centerleft ~ .box-sticker.centerleft{
+  top:calc(50% + 47px);
+}
+.box-sticker.centerleft ~ .box-sticker.centerleft ~ .box-sticker.centerleft ~ .box-sticker.centerleft{
+  top:calc(50% + 71px);
+}
+.bsl.box-sticker.centerleft ~ .box-sticker.centerleft ~ .box-sticker.centerleft ~ .box-sticker.centerleft{
+  top:calc(50% + 71px);
+}
+.box-sticker.centerleft ~ .box-sticker.centerleft ~ .box-sticker.centerleft ~ .box-sticker.centerleft ~ .box-sticker.centerleft{
+  top:calc(50% + 95px);
+}
+.bsl.box-sticker.centerleft ~ .box-sticker.centerleft ~ .box-sticker.centerleft ~ .box-sticker.centerleft ~ .box-sticker.centerleft{
+  top:calc(50% + 95px);
+}
+.box-sticker.centerright {
+  top:50%;
+  right:0px;
+}
+.box-sticker.centerright ~ .box-sticker.centerright{
+  top:calc(50% + 23px);
+}
+.bsl.box-sticker.centerright ~ .box-sticker.centerright{
+  top:calc(50% + 23px);
+}
+.box-sticker.centerright ~ .box-sticker.centerright ~ .box-sticker.centerright{
+  top:calc(50% + 42px);
+}
+.bsl.box-sticker.centerright ~ .box-sticker.centerright ~ .box-sticker.centerright{
+  top:calc(50% + 47px);
+}
+.box-sticker.centerright ~ .box-sticker.centerright ~ .box-sticker.centerright ~ .box-sticker.centerright{
+  top:calc(50% + 71px);
+}
+.bsl.box-sticker.centerright ~ .box-sticker.centerright ~ .box-sticker.centerright ~ .box-sticker.centerright{
+  top:calc(50% + 71px);
+}
+.box-sticker.centerright ~ .box-sticker.centerright ~ .box-sticker.centerright ~ .box-sticker.centerright ~ .box-sticker.centerright{
+  top:calc(50% + 95px);
+}
+.bsl.box-sticker.centerright ~ .box-sticker.centerright ~ .box-sticker.centerright ~ .box-sticker.centerright ~ .box-sticker.centerright{
+  top:calc(50% + 95px);
+}

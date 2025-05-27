@@ -1,0 +1,27 @@
+<div id="banner{{ module }}" class="banner-ns owl-carousel carousel-container image-hover-effect">
+  {% for banner in banners %} 
+  <div class="item">
+    {% if (banner['link']) %} 
+    <a href="{{ banner['link'] }}"><img src="{{ banner['image'] }}" alt="{{ banner['title'] }}" class="img-responsive" /></a>
+    {% else %} 
+    <img src="{{ banner['image'] }}" alt="{{ banner['title'] }}" class="img-responsive" />
+    {% endif %} 
+  </div>
+  {% endfor %} 
+</div>
+<script><!--
+var count_img = $("#banner{{ module }} div.item").length;
+if(count_img > 1) {
+$('#banner{{ module }}').owlCarousel({
+	items: 6,
+	autoPlay: 3500,
+	singleItem: true,
+	navigation: false,
+	pagination: true,
+	stopOnHover: true,
+	transitionStyle: 'fade'
+});
+} else {
+	$("#banner{{ module }}").removeClass('owl-carousel');
+}
+--></script>

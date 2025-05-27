@@ -1,0 +1,77 @@
+<div class="container-module">
+	{% if (title is not empty) %}
+		<div class="title-module rc-mod"><span>{{ title }}</span></div>
+	{% endif %}
+	<div class="product-slider">
+	<div class="container-modules articles-mod mod_al{{ module }} owl-carousel">
+		{% for article in articles %}
+			<div class="item product-thumb">
+				{% if (img_status) %}
+				<div class="mod-art-image"><a href="{{ article.href }}"><img loading="lazy" decoding="async" width="{{ width }}" height="{{ height }}" {% if (lazyload_module) %}data-srcset="{{ article.image }}" srcset="{{ lazy_image }}" src="{{ article.image }}" {% else %}src="{{ article.image }}" {% endif %} alt="{{ article.name }}" class="img-responsive {% if (lazyload_module) %}lazyload{% endif %}"/></a></div>
+				{% endif %}
+				<div class="caption">
+					<div class="mod-art-name"><a href="{{ article.href }}">{{ article.name }}</a></div>
+					<div class="rating">
+						<span class="rating-box">
+							{% set i = 1 %}{% for i in i..5 %}
+								{% if (article['rating'] < i) %}
+								<span class="product-rating-star">
+									<svg width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path fill-rule="evenodd" clip-rule="evenodd" d="M5.5 8.75L3.47287 9.81573C2.73924 10.2014 1.88181 9.57846 2.02192 8.76155L2.40907 6.50431L0.769082 4.90572C0.175565 4.32718 0.503075 3.31921 1.3233 3.20002L3.5897 2.87069L4.60326 0.816985C4.97008 0.0737394 6.02992 0.0737402 6.39674 0.816986L7.4103 2.87069L9.67671 3.20002C10.4969 3.31921 10.8244 4.32718 10.2309 4.90572L8.59093 6.50431L8.97808 8.76155C9.11819 9.57846 8.26076 10.2014 7.52713 9.81573L5.5 8.75Z" fill="#EFEFEF"/>
+									</svg>
+								</span>
+								{% else %}
+								<span class="product-rating-star">
+									<svg width="11" height="10" viewBox="0 0 11 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path fill-rule="evenodd" clip-rule="evenodd" d="M5.5 8.75L3.47287 9.81573C2.73924 10.2014 1.88181 9.57846 2.02192 8.76155L2.40907 6.50431L0.769082 4.90572C0.175565 4.32718 0.503075 3.31921 1.3233 3.20002L3.5897 2.87069L4.60326 0.816985C4.97008 0.0737394 6.02992 0.0737402 6.39674 0.816986L7.4103 2.87069L9.67671 3.20002C10.4969 3.31921 10.8244 4.32718 10.2309 4.90572L8.59093 6.50431L8.97808 8.76155C9.11819 9.57846 8.26076 10.2014 7.52713 9.81573L5.5 8.75Z" fill="#E5DB77"/>
+									</svg>
+								</span>
+								{% endif %}
+							{% endfor %}
+						{% if (all_rating_reviews_status and article_review_status) %}
+						  <span class="quantity-reviews"><a data-placement="right"  data-toggle="tooltip" title="{{ text_reviews_title }}" href="{{ article['href'] }}#article-review-box">{{ article['reviews'] }}</a></span>
+						{% endif %}
+						</span>
+					</div>
+					<div class="mod-art-description">{{ article.description }}</div>
+					<div class="mod-art-date-viewed dflex">
+						<div class="mod-art-date-added">
+							<span class="icon-date-added">
+								<svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" clip-rule="evenodd" d="M8.5 16C12.6421 16 16 12.6421 16 8.5C16 4.35786 12.6421 1 8.5 1C4.35786 1 1 4.35786 1 8.5C1 12.6421 4.35786 16 8.5 16ZM8.5 17C13.1944 17 17 13.1944 17 8.5C17 3.80558 13.1944 0 8.5 0C3.80558 0 0 3.80558 0 8.5C0 13.1944 3.80558 17 8.5 17Z" fill="black"/>
+									<path fill-rule="evenodd" clip-rule="evenodd" d="M8.5 3.36896C8.77614 3.36896 9 3.59282 9 3.86896V8.2603L12.013 10.6807C12.2283 10.8537 12.2626 11.1684 12.0896 11.3837C11.9167 11.5989 11.602 11.6333 11.3867 11.4603L8 8.73968V3.86896C8 3.59282 8.22386 3.36896 8.5 3.36896Z" fill="black"/>
+								</svg>
+							</span>
+							<span class="text-date-added">{{ article.date_added }}</span>
+						</div>
+						<div class="mod-art-viewed">
+							<span class="icon-viewed">
+								<svg width="17" height="11" viewBox="0 0 17 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" clip-rule="evenodd" d="M13.9672 8.54952C15.3309 7.66708 16 6.56629 16 5.5C16 4.43371 15.3309 3.33292 13.9672 2.45048C12.6134 1.5745 10.6832 1 8.5 1C6.31679 1 4.38664 1.5745 3.03284 2.45048C1.66907 3.33292 1 4.43371 1 5.5C1 6.56629 1.66907 7.66708 3.03284 8.54952C4.38664 9.4255 6.31679 10 8.5 10C10.6832 10 12.6134 9.4255 13.9672 8.54952ZM8.5 11C13.1944 11 17 8.53757 17 5.5C17 2.46243 13.1944 0 8.5 0C3.80558 0 0 2.46243 0 5.5C0 8.53757 3.80558 11 8.5 11Z" fill="black"/>
+									<path fill-rule="evenodd" clip-rule="evenodd" d="M8.5 7C9.32843 7 10 6.32843 10 5.5C10 4.67157 9.32843 4 8.5 4C7.67157 4 7 4.67157 7 5.5C7 6.32843 7.67157 7 8.5 7ZM8.5 8C9.88071 8 11 6.88071 11 5.5C11 4.11929 9.88071 3 8.5 3C7.11929 3 6 4.11929 6 5.5C6 6.88071 7.11929 8 8.5 8Z" fill="black"/>
+								</svg>
+							</span>
+							<span class="text-viewed">{{ article.viewed }}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	</div>
+	</div>
+<script>
+$('.mod_al{{ module }}').owlCarousel({
+	responsiveBaseWidth: ".mod_al{{ module }}",
+	itemsCustom: [[0, 1], [500, 2], [750, 3], [950,4]],
+	itemsMobile: false,
+	slideSpeed: 200,
+	paginationSpeed: 300,
+	navigation: true,
+	stopOnHover: true,
+	mouseDrag: false,
+	pagination: false,
+	autoPlay: false,
+	navigationText: ['<div class="btn btn-carousel-module next-prod"><i class="fa fa-angle-left arrow"></i></div>', '<div class="btn btn-carousel-module prev-prod"><i class="fa fa-angle-right arrow"></i></div>'],
+});
+</script>
+</div>

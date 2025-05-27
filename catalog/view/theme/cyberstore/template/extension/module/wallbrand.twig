@@ -1,0 +1,42 @@
+{% if (manufacturers is not empty) %} 
+{% if (status_slider == 1) %}
+<div class="container-fcat carousel-mod">
+	<div class="box-title">
+		{% if (heading_title[lang_id]['title_name'] is not empty) %} 
+		<div class="title-text">{{ heading_title[lang_id]['title_name'] }}</div>
+		{% endif %} 
+	</div>
+<div id="brand-m-slider{{ module }}" class="owl-carousel carousel-fcat">
+  {% for manufacturer in manufacturers %} 
+	<div class="item text-center box-fcat">
+		<div class="fcat-img">
+			<a href="{{ manufacturer['href'] }}"><img src="{{ manufacturer['thumb'] }}" alt="{{ manufacturer['name'] }}"></a>
+		</div>
+		<div class="fcat-name"><a href="{{ manufacturer['href'] }}">{{ manufacturer['name'] }}</a></div>
+	</div>
+  {% endfor %} 
+</div>
+<script><!--
+$('#brand-m-slider{{ module }}').owlCarousel({
+	items: 6,	
+	navigation: true,
+	navigationText: ['<div class="btn btn-carousel-module next-prod"><i class="fa fa-angle-left arrow"></i></div>', '<div class="btn btn-carousel-module prev-prod"><i class="fa fa-angle-right arrow"></i></div>'],
+	pagination: false
+});
+--></script>
+</div>
+{% else %} 
+<div class="wall-category-box">
+   {% for manufacturer in manufacturers %} 
+		<div class="box-item col-xs-12 col-sm-6 col-md-3 col-lg-3">
+			<div class="item-category">
+				<a href="{{ manufacturer['href'] }}" >
+					<div class="wall-cat-image"><img src="{{ manufacturer['thumb'] }}" alt="{{ manufacturer['name'] }}"></div>
+					<div class="wall-cat-name"><div class="display-table"><div class="display-table-cell">{{ manufacturer['name'] }}</div></div></div>
+				</a>
+			</div>
+		</div>
+  {% endfor %} 
+ </div>
+{% endif %} 
+{% endif %}

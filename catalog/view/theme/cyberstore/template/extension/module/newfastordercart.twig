@@ -1,0 +1,278 @@
+<div id="popup-quickorder" class="shop-cart">
+	<div class="popup-heading">{{ title_shopping_cart }}</div>
+	<div class="popup-center">
+		<form id="fastorder_data" enctype="multipart/form-data" method="post">
+			<div style="margin-top:10px;">
+				<div id="quick_checkout_cart">
+				{% if (products) %}
+					<div class="col-sm-12 text-center hidden">
+						<div class="well well-sm products">
+							{% for product in products %}
+								<div class="product">
+									<div class="row">
+										<div class="col-xs-12 col-sm-5">
+											<div class="image">
+												{% if (product['thumb']) %}
+												<a href="{{ product['href'] }}"><img src="{{ product['thumb'] }}" alt="{{ product['name'] }}" title="{{ product['name'] }}" class="img-thumbnail" /></a>
+												{% endif %}
+											</div>
+											<div class="pr-name quick-cell">
+												<div class="quick-cell-content">
+													<a href="{{ product['href'] }}">{{ product['name'] }}</a>
+													{% if (product['option']) %}
+													<br />
+														{% for option in product['option'] %}
+															- <small>{{ option['name'] }}: {{ option['value'] }}</small><br />
+														{% endfor %}
+													{% endif %}
+												{% if (product['recurring']) %}
+													<small>{{ text_recurring }} {{ product['recurring'] }}</small>
+												{% endif %}
+												</div>
+											</div>
+										</div>
+										<div class="col-xs-12 col-sm-7">
+											<div class="col-xs-5 quantity_quickorder quick-cell">
+												<div class="quick-cell-content pquantity">
+													<div class="input-group popup-quantity">
+														<span class="input-group-btn">
+															<button class="btn btn-update-popup" type="button" onclick="updateQuantity('{{ product['cart_id'] }}','{{ product['quantity']-1 }}');" >-</button>
+														</span>
+														<input type="text" class="form-control input-sm" value="{{ product['quantity'] }}" onchange="updateQuantity('{{ product['cart_id'] }}', $(this).val());">
+														<span class="input-group-btn">
+															<button class="btn btn-update-popup" type="button" onclick="updateQuantity('{{ product['cart_id'] }}','{{ product['quantity']+1 }}');">+</button>
+														</span>
+													</div>
+												</div>
+											</div>
+											<div class="col-xs-5 quick-cell pprice">
+												<div class="quick-cell-content">
+													{{ product['total'] }}
+												</div>
+											</div>
+											<div class="col-xs-2 quick-cell text-center delete-pr">
+												<div class="quick-cell-content">
+													<a href="javascript:void(0);" onclick="deleteProduct('{{ product['cart_id'] }}');return false;" title="{{ button_remove }}" class=""><i class="fa fa-trash-o fa-lg"></i></a>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+					<table class="table products table-striped">
+					{% for product in products %}
+						<tr>
+					  		<td class="text-left">
+					  			{% if (product['thumb']) %}
+									<a href="{{ product['href'] }}"><img src="{{ product['thumb'] }}" alt="{{ product['name'] }}" title="{{ product['name'] }}" class="img-responsive" /></a>
+								{% endif %}
+							</td>
+					  		<td class="text-left">
+					  			<a href="{{ product['href'] }}">{{ product['name'] }}</a>
+								{% if (product['option']) %}
+									{% for option in product['option'] %}
+									<br />
+									- <small>{{ option['name'] }} {{ option['value'] }}</small>
+									{% endfor %}
+								{% endif %}
+								{% if (product['recurring']) %}
+								<br />
+								- <small>{{ text_recurring }} {{ product['recurring'] }}</small>
+								{% endif %}
+							</td>
+					   		<td class="text-right">
+					   			<div class="quantity_quickorder dflex">
+									<button class="btn-minus-quantity" type="button" onclick="updateQuantity('{{ product['cart_id'] }}','{{ product['quantity']-1 }}');" ><i class='fa fa-angle-left'></i></button>
+									<input type="text" class="qty_quickorder" value="{{ product['quantity'] }}" onchange="updateQuantity('{{ product['cart_id'] }}', $(this).val());">
+									<button class="btn-plus-quantity" type="button" onclick="updateQuantity('{{ product['cart_id'] }}','{{ product['quantity']+1 }}');"><i class='fa fa-angle-right'></i></button>
+								</div>
+					   		</td>
+					  		<td class="text-right">{{ product['total'] }}</td>
+					  		<td class="text-center">
+								<a class="btn-link-delete" href="javascript:void(0);" onclick="deleteProduct('{{ product['cart_id'] }}');return false;" title="{{ button_remove }}" class=""><i class="fa fa-trash-o fa-lg"></i></a>
+					  		</td>
+						</tr>
+					{% endfor %}
+				  </table>
+
+
+					<div class="col-xs-12 col-sm-12 col-md-12 form-group">
+						<div class="totals text-right">
+							<a class="popupTotal collapsed" data-toggle="collapse" href="#total-quick-ckeckout">{{ text_total_qucik_ckeckout }}&nbsp;&nbsp;<i class="fa fa-angle-down"></i></a>
+							<div id="total-quick-ckeckout" class="collapse">
+								<table class="table">
+									{% for total in totals %}
+									<tr>
+										<td class="text-right total-title">{{ total['title'] }}</td>
+										<td class="text-right total-text">{{ total['text'] }}</td>
+									</tr>
+									{% endfor %}
+									<input type="hidden" value="{{ total_order }}" name="total_order" />
+									<input type="hidden" id="quickorder_url" value="" name="url_site"  />
+								</table>
+							</div>
+						</div>
+					</div>
+				{% else %}
+				<div class="text-center" style="padding: 30px 0">{{ text_empty }}</div>
+				{% endif %}
+				</div>
+			</div>
+		{% if (products) %}
+			{% if (on_off_fields_firstname == '1') %}
+				<div class="col-sm-6 col-xs-12 form-group {{ config_fields_firstname_requared == '1' ? 'sections_block_rquaired' : 'sections_block' }}">
+					<div class="input-group margin-bottom-sm">
+						 <input id="contact-name" class="form-control contact-name" type="text" placeholder="{{ config_placeholder_fields_firstname[lang_id]['config_placeholder_fields_firstname'] }}" value="" name="name_fastorder">
+						<span class="input-group-addon"><img src="catalog/view/theme/cyberstore/image/form-icon/name-icon.svg" alt=""></span>
+					</div>
+				</div>
+			{% endif %}
+
+			{% if (on_off_fields_phone == '1') %}
+				<div class="col-sm-6 col-xs-12 form-group {{ config_fields_phone_requared == '1' ? 'sections_block_rquaired' : 'sections_block' }}">
+					<div class="input-group margin-bottom-sm">
+						 <input id="contact-phone" class="form-control contact-phone" type="text" placeholder="{{ config_placeholder_fields_phone[lang_id]['config_placeholder_fields_phone'] }}" value="" name="phone">
+						<span class="input-group-addon"><img src="catalog/view/theme/cyberstore/image/form-icon/tel-icon.svg" alt=""></span>
+					</div>
+				</div>
+			{% endif %}
+			{% if (on_off_fields_email) %}
+				<div class="col-sm-6 col-xs-12 form-group {{ config_fields_email_requared == '1' ? 'sections_block_rquaired' : 'sections_block' }}">
+				<div class="input-group margin-bottom-sm">
+					<input class="form-control contact-email" id="contact-email" type="text" placeholder="{{ config_placeholder_fields_email[lang_id]['config_placeholder_fields_email'] }}" value=""  name="email_buyer">
+					<span class="input-group-addon"><img src="catalog/view/theme/cyberstore/image/form-icon/email-icon.svg" alt=""></span>
+				</div>
+			  </div>
+			{% endif %}
+
+			{% if (on_off_fields_comment) %}
+				<div class="col-sm-6 col-xs-12 form-group {{ config_fields_comment_requared == '1' ? 'sections_block_rquaired' : 'sections_block' }}">
+				<div class="input-group margin-bottom-sm">
+					<input class="form-control contact-comment-buyer" name="comment_buyer" id="contact-comment" placeholder="{{ config_placeholder_fields_comment[lang_id]['config_placeholder_fields_comment'] }}"/>
+					<span class="input-group-addon"><img src="catalog/view/theme/cyberstore/image/form-icon/comment-icon.svg" alt=""></span>
+				</div>
+				</div>
+			{% endif %}
+		{% endif %}
+		{% if (text_agree) %}
+        <div class="col-xs-12 text-center">
+		  {{ text_agree }}
+            <input type="checkbox" name="agree" value="1" />
+			<div class="error_agree"></div>
+        </div>
+		{% endif %}
+		</form>
+		<div class="col-sm-12 form-group text-center">{{ config_text_before_button_send[lang_id] is defined ? config_text_before_button_send[lang_id]['config_text_before_button_send'] : '' }}</div>
+	</div>
+	<div class="popup-footer">
+		<style>
+			#quickorder_btn .btn-quickorder{
+				  background-color: #{{ background_button_send_fastorder }} !important;
+				  border-color: #{{ background_button_send_fastorder }} !important;
+			}
+			#quickorder_btn .btn-quickorder:hover, #quickorder_btn .btn-quickorder:focus{
+				background-color:#{{ background_button_send_fastorder_hover }} !important;
+			}
+		</style>
+		{% if (products) %}
+		<div class="shop-cart-btn-block dflex">
+			<button type="button" onclick="$('#modal-quickorder').modal('hide');" class="btn btn-continue-shopping">{{ text_continue }}</button>
+			<button type="button" onclick="quickorder_confirm_checkout();" class="btn btn-quickorder"><i class="{{ icon_send_fastorder }} fa-fw"></i> {{ button_send }}</button>
+		</div>
+		{% else %}
+			<div class="text-center">
+				<button type="button" onclick="$('#modal-quickorder').modal('hide');" class="btn btn-continue-shopping">{{ text_continue }}</button>
+			</div>
+		{% endif %}
+		{% if (config_any_text_at_the_bottom[lang_id]['config_any_text_at_the_bottom'] != '') %}
+			<div class="col-sm-12 form-group text-center" style="margin-top:10px;"><span style="color:#{{ any_text_at_the_bottom_color }}">{{ config_any_text_at_the_bottom[lang_id] is defined ? config_any_text_at_the_bottom[lang_id]['config_any_text_at_the_bottom'] : '' }}</span></div>
+		{% endif %}
+		</div>
+
+<script>
+function updateQuantity(key,quantity){
+$.ajax({
+	url: 'index.php?route=extension/module/cyber_newfastordercart/editCartQuick',
+	type: 'post',
+	data: 'key=' + key + '&quantity=' + (typeof(quantity) != 'undefined' ? quantity : 1),
+	dataType: 'json',
+	beforeSend: function() {
+		$('#fastorder_data').addClass('maskPopupQuickorder');
+		$('#fastorder_data').after('<span class="loading_quick_order">'+ loading_masked_img +'</span>');
+		},
+		success: function(json) {
+			setTimeout(function () {
+				$('.shopping-cart #cart').load('index.php?route=common/cart/info .shopping-cart #cart');
+			}, 100);
+
+			if (getURLVar('route') == 'checkout/cart' || getURLVar('route') == 'checkout/checkout') {
+				location = 'index.php?route=checkout/cart';
+			} else {
+				$.ajax({
+					url: 'index.php?route=extension/module/cyber_newfastordercart',
+					type: 'get',
+					dataType: 'html',
+					success: function(data){
+						$('#popup-quickorder #fastorder_data').html($(data).find('#fastorder_data').html());
+						$('#popup-quickorder .popup-footer').html($(data).find('.popup-footer').html());
+						$('.loading_quick_order').remove();
+						$('#fastorder_data').removeClass('maskPopupQuickorder');
+					}
+				});
+			}
+		},
+	    error: function(xhr, ajaxOptions, thrownError) {
+				alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+	    }
+});
+};
+function deleteProduct(key){
+$.ajax({
+	url: 'index.php?route=checkout/cart/remove',
+	type: 'post',
+	data: 'key=' + key,
+	dataType: 'json',
+	beforeSend: function() {
+		$('#fastorder_data').addClass('maskPopupQuickorder');
+		$('#fastorder_data').after('<span class="loading_quick_order">'+ loading_masked_img +'</span>');
+	},
+	success: function(json) {
+		setTimeout(function () {
+			$('.shopping-cart #cart').load('index.php?route=common/cart/info .shopping-cart #cart');
+		}, 100);
+
+		if (getURLVar('route') == 'checkout/cart' || getURLVar('route') == 'checkout/checkout') {
+			location = 'index.php?route=checkout/cart';
+		} else {
+			$.ajax({
+				url: 'index.php?route=extension/module/cyber_newfastordercart',
+				type: 'get',
+				dataType: 'html',
+				success: function(data){
+					$('#popup-quickorder #fastorder_data').html($(data).find('#fastorder_data').html());
+					$('#popup-quickorder .popup-footer').html($(data).find('.popup-footer').html());
+					$('.loading_quick_order').remove();
+					$('#fastorder_data').removeClass('maskPopupQuickorder');
+				}
+			});
+		}
+	},
+	error: function(xhr, ajaxOptions, thrownError) {
+	    alert(thrownError + "\r\n" + xhr.statusText + "\r\n" + xhr.responseText);
+	}
+});
+};
+</script>
+{% if (mask_phone_number != '') %}
+<script src="catalog/view/theme/cyberstore/js/maskedinput.js" type="text/javascript"></script>
+<script>
+    $(document).ready(function() {
+        $("#contact-phone").mask("{{ mask_phone_number }}");
+    });
+</script>
+{% endif %}
+<script src="catalog/view/theme/cyberstore/js/newfastorder.js" type="text/javascript"></script>
+</div>
+</div>

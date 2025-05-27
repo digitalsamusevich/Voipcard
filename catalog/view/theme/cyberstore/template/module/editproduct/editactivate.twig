@@ -1,0 +1,44 @@
+<div id="popup-editor-product">
+	<div class="title-editor">{{ entry_activation }}</div>
+
+		<form class="form-horizontal" enctype="multipart/form-data" id="activation_edit" method="post">
+			<div class="row">
+				<div class="col-sm-12">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							{{ add_activation_key }}
+						</div>
+						<div class="panel-body">
+							<input id="license_key" name="license_key" class="form-control" type="text"/>
+						</div>
+						<div class="panel-footer text-center">
+							<a class="btn-editor btn-save-editor" href="javascript:void(0);" onclick="activation_edit();" >{{ activated_btn }}</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+<script>
+function activation_edit() {
+	$.ajax({
+		url: 'index.php?route=module/editproduct/{{ page }}/validateActivation&token={{ token }}',
+		type: 'post',
+		dataType: 'json',
+		data: $('#activation_edit input#license_key'),
+		success: function(json) {
+			$('#popup-editor-product .alert').remove();
+			if (json['warning']) {
+				$('.title-editor').after('<div class="alert alert-danger"><i class="fa fa-check-circle"></i> ' + json['warning'] + '</div>');
+			}
+			if (json['success']) {
+				$('.title-editor').after('<div class="alert alert-success"><i class="fa fa-check-circle"></i> ' + json['success'] + '</div>');
+				setTimeout(function(){
+					$('#popup-editor-product .alert').remove();
+					location.reload();
+				}, 1000)
+			}
+		}
+	});
+}
+</script>
+</div>

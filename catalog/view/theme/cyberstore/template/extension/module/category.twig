@@ -1,0 +1,39 @@
+<div class="container-accordion-menu">
+	<div class="box-heading"><i class="fa fa-bars"></i>{{ heading_title }}</div>
+	<ul class="navcategory">
+		{% for category in categories %} 
+		{% if (category['children']) %}	
+			<li class="{% if (category['category_id'] == category_id) %}parent-category active{% else %}parent-category{% endif %}">
+				<a class="parent-link" href="{{ category['href'] }}">{{ category['name'] }} 
+				<span class="dropdown_icon1"><i class="fa fa-angle-down arrow"></i></span>
+				</a>
+					<div class="dropdown-menu-category">							
+						<div class="col-menu-12">
+							{% for child in category['children'] %}	
+								<div class="child-box-cell {% if (child['children']) %} child_children{% endif %}">
+									{% if (child['children']) %} 
+										<a class="sub-category-link" href="{{ child['href'] }}"><span class="dropdown_icon1"><i class="fa fa-angle-down arrow"></i></span>{{ child['name'] }}</a>
+									{% else %} 
+										<a class="sub-category-link" href="{{ child['href'] }}">{{ child['name'] }}</a>
+									{% endif %} 
+										{% if (child['children']) %} 
+											<div class="child2-box">
+												{% for child in child['children'] %} 
+												<div class="child_children_link">
+													<a href="{{ child['href'] }}"><i class="fa fa fa-level-up fa-rotate-90"></i> {{ child['name'] }}</a>
+												</div>	
+												{% endfor %} 
+											</div>
+										{% endif %} 
+									</div>
+								{% endfor %} 
+								</div>	
+						</div>
+			</li>	
+			{% else %} 
+				<li class="parent-category no-child"><a class="parent-link" href="{{ category['href'] }}">{{ category['name'] }}</a></li>
+			{% endif %} 
+		{% endfor %} 
+	</ul>	
+</div>
+
